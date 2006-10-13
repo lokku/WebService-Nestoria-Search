@@ -1,0 +1,27 @@
+WebService::Nestoria::Search
+
+This module lets you access the Nestoria search API through Perl.
+
+INSTALLATION
+
+To install with Module::Build, you can use the following commands:
+
+    perl Build.PL
+    ./Build
+    ./Build test
+    ./Build install
+
+If you don't have Module::Build you can run the following commands:
+
+    perl Makefile.PL
+    make
+    make test
+    make install
+
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2006 Lokku Ltd.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
