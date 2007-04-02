@@ -1,0 +1,13 @@
+--- 0.04 ---
+
+Updated to work with Nestoria API version 1.04:
+    * Added 'share' as new listing type
+    * Listings now return 'keywords', a comma separated list of attributes
+    * Listings now return a 'datasource_name', eg. 'HotProperty'
+    * Module now requests that JSON be sent without pretty formatting
+
+--- 0.01 ---
+
+Initial module designed to request data from the Nestoria API version 1.00.
+
+Visit http://www.nestoria.co.uk/help/api-tech for more details.

@@ -36,6 +36,7 @@ as follows:
     get_longitude
     get_listing_type
     get_property_type
+    get_datasource_name
     get_lister_name
     get_lister_url
     get_price
@@ -47,6 +48,7 @@ as follows:
     get_thumb_url
     get_thumb_height
     get_thumb_width
+    get_keywords
 
 =cut
 
@@ -68,6 +70,11 @@ sub get_listing_type {
 sub get_property_type {
     my $self = shift;
     return $self->{data}{listing}{property_type};
+}
+
+sub get_datasource_name {
+    my $self = shift;
+    return $self->{data}{listing}{datasource_name};
 }
 
 sub get_lister_name {
@@ -123,6 +130,11 @@ sub get_thumb_height {
 sub get_thumb_width {
     my $self = shift;
     return $self->{data}{listing}{thumb_width};
+}
+
+sub get_keywords {
+    my $self = shift;
+    return $self->{data}{listing}{keywords};
 }
 
 =head2 get_hashref

@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Nestoria::Search;
 
-our $VERSION = 0.01;
+our $VERSION = 0.04;
 
 use Carp;
 use WebService::Nestoria::Search::Request;
@@ -42,8 +42,9 @@ my %Config = (
     ## keys indicate the universe of allowable arguments
     Defaults => {
         action              => 'search_listings',
-        version             => '1.00',
+        version             => '1.04',
         encoding            => 'json',
+        pretty              => '0',     # pretty JSON results not needed
         number_of_results   => undef,   # defaults to 20 their end
         place_name          => undef,
         south_west          => undef,
@@ -159,7 +160,7 @@ my $validate_min = sub {
 my $validate_version = sub {
     my $val = shift || return 0;
 
-    return $val eq '1.00';
+    return $val eq '1.04';
 };
 
 my $validate_action = sub {
@@ -174,22 +175,29 @@ my $validate_encoding = sub {
     return grep { $val eq $_ } qw(json xml);
 };
 
+my $validate_pretty = sub {
+    my $val = shift;
+
+    return defined $val && ($val == 0 || $val == 1);
+};
+
 ## Mapping from arg name to validation sub
 my %ValidateRoutine = (
-    place_name      => $validate_place_name,
-    south_west      => $validate_lat_long,
-    north_east      => $validate_lat_long,
-    centre_point    => $validate_lat_long,
-    number_of_results     => $validate_number_of_results,
-    listing_type    => $validate_listing_type,
-    property_type   => $validate_property_type,
-    price_max       => $validate_max,
-    price_min       => $validate_min,
-    bedroom_max     => $validate_max,
-    bedroom_min     => $validate_min,
-    version         => $validate_version,
-    action          => $validate_action,
-    encoding        => $validate_encoding,
+    place_name          => $validate_place_name,
+    south_west          => $validate_lat_long,
+    north_east          => $validate_lat_long,
+    centre_point        => $validate_lat_long,
+    number_of_results   => $validate_number_of_results,
+    listing_type        => $validate_listing_type,
+    property_type       => $validate_property_type,
+    price_max           => $validate_max,
+    price_min           => $validate_min,
+    bedroom_max         => $validate_max,
+    bedroom_min         => $validate_min,
+    version             => $validate_version,
+    action              => $validate_action,
+    encoding            => $validate_encoding,
+    pretty              => $validate_pretty,
 ); 
 
 sub _validate {
