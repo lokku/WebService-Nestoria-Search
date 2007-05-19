@@ -1,24 +1,32 @@
 use strict;
 use warnings;
 use Test::More;
+use URI;
 
-plan tests => 25;
+plan tests => 31;
+
+## Load Modules (1-4)
 
 use_ok 'WebService::Nestoria::Search';
 use_ok 'WebService::Nestoria::Search::Request';
 use_ok 'WebService::Nestoria::Search::Response';
 use_ok 'WebService::Nestoria::Search::Result';
 
-## Create WebService::Nestoria::Search object
+## Create WebService::Nestoria::Search object (6)
 my $ns = new WebService::Nestoria::Search(Country => 'uk');
-
-## Object should be a hashref
 ok ( ref $ns, 'object created successfully' );
 
-## Check URL
+## Check URL (7)
 
-is ($ns->request->url,
-    'http://api.nestoria.co.uk/api?pretty=0&version=1.04&action=search_listings&encoding=json',
+my $uri = new URI('http://api.nestoria.co.uk/api?pretty=0&version=1.07&action=search_listings&encoding=json');
+my %correct_params = $uri->query_form;
+
+$uri = new URI ($ns->request->url);
+my %params = $uri->query_form;
+
+is_deeply (
+    \%correct_params,
+    \%params, 
     'url correctly set');
 
 ## skip after here if not connected to the internet
@@ -27,11 +35,15 @@ SKIP : {
     skip ('no connection to the internet', 2)
         unless ( $ns->test_connection() );
 
+    ## Check number_of_results (8-9)
+
     my $count;
     $count = scalar $ns->query(place_name => 'soho')->count;
     ok ( $count <= 20, 'got results' );
     $count = scalar $ns->query(place_name => 'soho', number_of_results => '1')->count;
     ok ( $count <= 1, 'number_of_results works' );
+
+    ## Check get_* functions (10-25)
 
     my @listings = $ns->results(
         place_name   => 'richmond',
@@ -58,5 +70,63 @@ SKIP : {
     ok($listing->get_thumb_height(), 'got thumbnail height');
     ok($listing->get_thumb_width(), 'got thumbnail width');
     ok($listing->get_keywords(), 'got keywords');
+
+    ## Check sorting (26-27)
+
+    my @price_sort = $ns->results('place_name' => 'soho', 'sort' => 'price_lowhigh');
+    my @price_check = sort { $a->get_price <=> $b->get_price } @price_sort;
+
+    is_deeply (
+        \@price_sort,
+        \@price_check,
+        'results sorted by price correctly'
+    );
+
+    my @bedroom_sort = $ns->results('place_name' => 'soho', 'sort' => 'bedroom_highlow');
+    my @bed_check = sort { $b->get_bedroom_number <=> $a->get_bedroom_number } @bedroom_sort;
+    
+    is_deeply (
+        \@bedroom_sort,
+        \@bed_check,
+        'results sorted by number of bedrooms correctly'
+    );
+
+    ## Check keywords (28-29)
+
+    my @garden_houses = $ns->results('place_name' => 'sw7', 'keywords' => 'garden');
+
+    my $gardens = 0;
+    foreach my $house (@garden_houses) {
+        if ($house->get_keywords =~ m/garden/i) {
+            $gardens++;
+        }
+    }
+    is (
+        $gardens,
+        scalar @garden_houses,
+        'used keywords list to find houses with gardens'
+    );
+
+    my @non_mews_houses = $ns->results('place_name' => 'sw7', 'keywords_exclude' => 'mews');
+
+    my $mews = scalar @non_mews_houses;
+    foreach my $house (@non_mews_houses) {
+        if ($house->get_keywords =~ m/mews/i) {
+            $mews--;
+        }
+    }
+    is (
+        $mews,
+        scalar @non_mews_houses,
+        'used keywords_exclude list to find words not in a mews'
+    );
+
+    ## Test Spain (30-31)
+
+    $ns = new WebService::Nestoria::Search(Country => 'es');
+    ok ($ns->test_connection, 'got echo from spanish API' );
+
+    my @listings = $ns->results('place_name' => 'tenerife');
+    ok (scalar @listings, 'got listings for tenerife');
 
 }

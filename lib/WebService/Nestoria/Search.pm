@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Nestoria::Search;
 
-our $VERSION = 0.04;
+our $VERSION = 0.07;
 
 use Carp;
 use WebService::Nestoria::Search::Request;
@@ -15,8 +15,9 @@ WebService::Nestoria::Search - Perl interface to the Nestoria Search public API.
 =head1 SYNOPSIS
 
 WebService::Nestoria::Search provides a Perl interface to the public API of 
-Nestoria (http://www.nestoria.co.uk), a vertical search engine 
-for property listings in the UK.
+Nestoria a vertical search engine for property listings. Nestoria currently 
+has listings for the UK and Spain, which can be accessed via the world-wide 
+web at www.nestoria.co.uk and www.nestoria.es
 
 use WebService::Nestoria::Search;
 
@@ -25,10 +26,16 @@ my @listings = WebService::Nestoria::Search->results(
     listing_type        => 'let',
     property_type       => 'flat',
     price_max           => '500',
-    number_of_results   => '10'
+    number_of_results   => '10',
+    sort                => 'price_lowhigh',
+    keywords            => 'garden,hot_tub,mews',
+    keywords_exclude    => 'cottage,wood_floor'
     );
 
 @listings is an array of WebService::Nestoria::Search::Result objects.
+
+For more information about parameters and possible keywords visit
+http://www.nestoria.co.uk/help/api-tech
 
 =cut
 
@@ -41,25 +48,31 @@ my %Config = (
 
     ## keys indicate the universe of allowable arguments
     Defaults => {
-        action              => 'search_listings',
-        version             => '1.04',
-        encoding            => 'json',
-        pretty              => '0',     # pretty JSON results not needed
-        number_of_results   => undef,   # defaults to 20 their end
-        place_name          => undef,
-        south_west          => undef,
-        north_east          => undef,
-        centre_point        => undef,
-        listing_type        => undef,   # defaults to 'buy' their end
-        property_type       => undef,   # defaults to 'all' their end
-        price_max           => undef,   # defaults to 'max' their end
-        price_min           => undef,   # defaults to 'min' their end
-        bedroom_max         => undef,   # defaults to 'max' their end
-        bedroom_min         => undef,   # defaults to 'min' their end
+        'action'              => 'search_listings',
+        'version'             => '1.07',
+        'encoding'            => 'json',
+        'pretty'              => '0',     # pretty JSON results not needed
+        'number_of_results'   => undef,   # defaults to 20 their end
+        'place_name'          => undef,
+        'south_west'          => undef,
+        'north_east'          => undef,
+        'centre_point'        => undef,
+        'listing_type'        => undef,   # defaults to 'buy'
+        'property_type'       => undef,   # defaults to 'all'
+        'price_max'           => undef,   # defaults to 'max'
+        'price_min'           => undef,   # defaults to 'min'
+        'bedroom_max'         => undef,   # defaults to 'max'
+        'bedroom_min'         => undef,   # defaults to 'min'
+        'size_max'            => undef,   # only for Spain
+        'size_min'            => undef,   # only for Spain
+        'sort'                => undef,   # defaults to 'nestoria_rank'
+        'keywords'            => undef,   # defualts to an empty list
+        'keywords_exclude'    => undef,   # defaults to an empty list
     },
     
     Urls => {
         uk                  => 'http://api.nestoria.co.uk/api',
+        es                  => 'http://api.nestoria.es/api',
     },
 );
 
@@ -87,12 +100,10 @@ sub _carp_on_error {
 ## subs for validating arguments
 ##
 
-my $validate_place_name = sub {
-    my $val = shift || return 0;
-
-    ## allow any place_name
+my $validate_allow_all = sub {
+    ## allow any defined input
     
-    return 1;
+    return defined shift;
 };
 
 my $validate_lat_long = sub {
@@ -157,10 +168,17 @@ my $validate_min = sub {
     return $val eq 'min' || $val =~ /^\d+$/;
 };
 
+my $validate_sort = sub {
+    my $val = shift || return 0;
+
+    return grep { $val eq $_ } qw(bedroom_lowhigh bedroom_highlow
+                                  price_lowhigh price_highlow);
+}; 
+
 my $validate_version = sub {
     my $val = shift || return 0;
 
-    return $val eq '1.04';
+    return $val eq '1.07';
 };
 
 my $validate_action = sub {
@@ -183,21 +201,26 @@ my $validate_pretty = sub {
 
 ## Mapping from arg name to validation sub
 my %ValidateRoutine = (
-    place_name          => $validate_place_name,
-    south_west          => $validate_lat_long,
-    north_east          => $validate_lat_long,
-    centre_point        => $validate_lat_long,
-    number_of_results   => $validate_number_of_results,
-    listing_type        => $validate_listing_type,
-    property_type       => $validate_property_type,
-    price_max           => $validate_max,
-    price_min           => $validate_min,
-    bedroom_max         => $validate_max,
-    bedroom_min         => $validate_min,
-    version             => $validate_version,
-    action              => $validate_action,
-    encoding            => $validate_encoding,
-    pretty              => $validate_pretty,
+    'place_name'          => $validate_allow_all,
+    'south_west'          => $validate_lat_long,
+    'north_east'          => $validate_lat_long,
+    'centre_point'        => $validate_lat_long,
+    'number_of_results'   => $validate_number_of_results,
+    'listing_type'        => $validate_listing_type,
+    'property_type'       => $validate_property_type,
+    'price_max'           => $validate_max,
+    'price_min'           => $validate_min,
+    'bedroom_max'         => $validate_max,
+    'bedroom_min'         => $validate_min,
+    'size_max'            => $validate_max,
+    'size_min'            => $validate_min,
+    'sort'                => $validate_sort,
+    'keywords'            => $validate_allow_all,
+    'keywords_exclude'    => $validate_allow_all,
+    'version'             => $validate_version,
+    'action'              => $validate_action,
+    'encoding'            => $validate_encoding,
+    'pretty'              => $validate_pretty,
 ); 
 
 sub _validate {

@@ -1,7 +1,13 @@
+--- 0.07 ---
+    * Fixed a bug in the url test
+    * Added the sort parameter (API version 0.05)
+    * Added the keywords and keywords_exclude parameters (API version 0.06)
+    * Added support for size_min and size_max for nestoria.es (API version 0.07)
+    * Added Spanish keywords (API version 0.07)
+
 --- 0.04 ---
 
 Updated to work with Nestoria API version 1.04:
-    * Added 'share' as new listing type
     * Listings now return 'keywords', a comma separated list of attributes
     * Listings now return a 'datasource_name', eg. 'HotProperty'
     * Module now requests that JSON be sent without pretty formatting
