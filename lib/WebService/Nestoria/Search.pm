@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Nestoria::Search;
 
-our $VERSION = 0.07;
+our $VERSION = 0.08;
 
 use Carp;
 use WebService::Nestoria::Search::Request;
@@ -49,7 +49,7 @@ my %Config = (
     ## keys indicate the universe of allowable arguments
     Defaults => {
         'action'              => 'search_listings',
-        'version'             => '1.07',
+        'version'             => '1.08',
         'encoding'            => 'json',
         'pretty'              => '0',     # pretty JSON results not needed
         'number_of_results'   => undef,   # defaults to 20 their end
@@ -178,13 +178,13 @@ my $validate_sort = sub {
 my $validate_version = sub {
     my $val = shift || return 0;
 
-    return $val eq '1.07';
+    return $val eq 1.08;
 };
 
 my $validate_action = sub {
     my $val = shift || return 0;
 
-    return grep { $val eq $_ } qw(search_listings echo);
+    return grep { $val eq $_ } qw(search_listings echo keywords);
 };
 
 my $validate_encoding = sub {
@@ -408,6 +408,8 @@ Uses the API feature 'action=echo' to test the connection.
 
 Returns 1 if the connection is successful and 0 otherwise.
 
+    $rv = WebService::Nestoria::Search->test_connection();
+
 =cut
 
 sub test_connection {
@@ -424,6 +426,25 @@ sub test_connection {
     }
 }
 
+=head2 keywords
+
+Uses the API feature 'action=keywords' to return a list of valid keywords.
+
+    @keywords = WebService::Nestoria::Search->keywords();
+
+=cut
+
+sub keywords {
+    my $self = shift;
+
+    my %params = ( action => 'keywords' );
+
+    my $response = $self->query(%params);
+
+    my $data = $response->get_hashref;
+
+    return ( split(/,\s+/, $response->get_hashref->{'response'}{'keywords'}) );
+}
 
 =head1 AutoCarp
 
@@ -438,11 +459,11 @@ TODO: People should be able to 'AutoCarp => 0' on the use line
 
 =head1 Country
 
-Country is an optional parameter which is currently useless because the only
-correct value to give it is 'uk', to which it already defaults.
+Country is an optional parameter which defaults to 'uk'. It affects the URL
+which is used for fetching results.
 
-It affects the URL which is used for fetching results. For example 'uk' gives
-http://api.nestoria.co.uk/api, in the future 'fr' might give ..nestoria.fr..
+Currently the available countries are 'uk', for the United Kingdom, and 'es',
+for Spain.
 
 =head1 Copyright
 

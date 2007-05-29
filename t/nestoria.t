@@ -3,7 +3,9 @@ use warnings;
 use Test::More;
 use URI;
 
-plan tests => 31;
+plan tests => 33;
+
+my @listings;
 
 ## Load Modules (1-4)
 
@@ -18,7 +20,7 @@ ok ( ref $ns, 'object created successfully' );
 
 ## Check URL (7)
 
-my $uri = new URI('http://api.nestoria.co.uk/api?pretty=0&version=1.07&action=search_listings&encoding=json');
+my $uri = new URI('http://api.nestoria.co.uk/api?pretty=0&version=1.08&action=search_listings&encoding=json');
 my %correct_params = $uri->query_form;
 
 $uri = new URI ($ns->request->url);
@@ -45,7 +47,7 @@ SKIP : {
 
     ## Check get_* functions (10-25)
 
-    my @listings = $ns->results(
+    @listings = $ns->results(
         place_name   => 'richmond',
         listing_type  => 'buy',
         property_type => 'flat',
@@ -126,7 +128,19 @@ SKIP : {
     $ns = new WebService::Nestoria::Search(Country => 'es');
     ok ($ns->test_connection, 'got echo from spanish API' );
 
-    my @listings = $ns->results('place_name' => 'tenerife');
+    @listings = $ns->results('place_name' => 'tenerife');
     ok (scalar @listings, 'got listings for tenerife');
 
+    
+    ## Test Keywords (32-33)
+
+    my @keywords = ();
+
+    $ns = new WebService::Nestoria::Search(Country => 'uk');
+    @keywords = $ns->keywords;
+    ok ((grep { $_ eq 'cottage' } @keywords), 'retreived list of uk keywords');
+    
+    $ns = new WebService::Nestoria::Search(Country => 'es');
+    @keywords = $ns->keywords;
+    ok ((grep { $_ eq 'garaje' } @keywords), 'retreived list of es keywords');
 }
