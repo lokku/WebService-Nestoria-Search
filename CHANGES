@@ -1,3 +1,6 @@
+--- 0.09 ---
+    * Bug Fix: Can use 'buy', 'let', 'share' and 'rent' listing types
+
 --- 0.08 ---
     * Fixed a bug in the test file
     * Added the 'keywords' method (API version 1.08)

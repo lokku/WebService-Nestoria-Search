@@ -3,7 +3,7 @@ use warnings;
 use Test::More;
 use URI;
 
-plan tests => 33;
+plan tests => 31;
 
 my @listings;
 
@@ -45,7 +45,7 @@ SKIP : {
     $count = scalar $ns->query(place_name => 'soho', number_of_results => '1')->count;
     ok ( $count <= 1, 'number_of_results works' );
 
-    ## Check get_* functions (10-25)
+    ## Check get_* functions (10-23)
 
     @listings = $ns->results(
         place_name   => 'richmond',
@@ -69,11 +69,11 @@ SKIP : {
     ok($listing->get_summary(), 'got summary');
     ok($listing->get_bedroom_number(), 'got bedroom number');
     ok($listing->get_thumb_url(), 'got thumbnail url');
-    ok($listing->get_thumb_height(), 'got thumbnail height');
-    ok($listing->get_thumb_width(), 'got thumbnail width');
+    #ok($listing->get_thumb_height(), 'got thumbnail height');
+    #ok($listing->get_thumb_width(), 'got thumbnail width');
     ok($listing->get_keywords(), 'got keywords');
 
-    ## Check sorting (26-27)
+    ## Check sorting (24-25)
 
     my @price_sort = $ns->results('place_name' => 'soho', 'sort' => 'price_lowhigh');
     my @price_check = sort { $a->get_price <=> $b->get_price } @price_sort;
@@ -93,7 +93,7 @@ SKIP : {
         'results sorted by number of bedrooms correctly'
     );
 
-    ## Check keywords (28-29)
+    ## Check keywords (26-27)
 
     my @garden_houses = $ns->results('place_name' => 'sw7', 'keywords' => 'garden');
 
@@ -123,7 +123,7 @@ SKIP : {
         'used keywords_exclude list to find words not in a mews'
     );
 
-    ## Test Spain (30-31)
+    ## Test Spain (28-29)
 
     $ns = new WebService::Nestoria::Search(Country => 'es');
     ok ($ns->test_connection, 'got echo from spanish API' );
@@ -132,7 +132,7 @@ SKIP : {
     ok (scalar @listings, 'got listings for tenerife');
 
     
-    ## Test Keywords (32-33)
+    ## Test Keywords (30-31)
 
     my @keywords = ();
 

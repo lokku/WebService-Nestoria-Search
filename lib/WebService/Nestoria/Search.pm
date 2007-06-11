@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Nestoria::Search;
 
-our $VERSION = 0.08;
+our $VERSION = 0.09;
 
 use Carp;
 use WebService::Nestoria::Search::Request;
@@ -147,7 +147,7 @@ my $validate_number_of_results = sub {
 my $validate_listing_type = sub {
     my $val = shift || return 0;
 
-    return grep { $val eq $_ } qw(let buy);
+    return grep { $val eq $_ } qw(let buy rent share);
 };
 
 my $validate_property_type = sub {
