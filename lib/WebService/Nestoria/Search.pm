@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Nestoria::Search;
 
-our $VERSION = 0.09;
+our $VERSION = '0.10';
 
 use Carp;
 use WebService::Nestoria::Search::Request;
@@ -14,28 +14,85 @@ WebService::Nestoria::Search - Perl interface to the Nestoria Search public API.
 
 =head1 SYNOPSIS
 
-WebService::Nestoria::Search provides a Perl interface to the public API of 
-Nestoria a vertical search engine for property listings. Nestoria currently 
-has listings for the UK and Spain, which can be accessed via the world-wide 
-web at www.nestoria.co.uk and www.nestoria.es
+WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria a vertical search engine for property listings. Nestoria currently has listings for the UK and Spain, which can be accessed via the web at www.nestoria.co.uk and www.nestoria.es
 
-use WebService::Nestoria::Search;
+Functions and documentation are split over WebService::Nestoria::Search, WebService::Nestoria::Search::Request, WebService::Nestoria::Search::Responsee and WeebService::Nestoria::Search::Result. However you need only ever use WebService::Nestoria::Search, and the others will be used as necessary.
 
-my @listings = WebService::Nestoria::Search->results(
-    place_name          => 'soho',
-    listing_type        => 'let',
-    property_type       => 'flat',
-    price_max           => '500',
-    number_of_results   => '10',
-    sort                => 'price_lowhigh',
-    keywords            => 'garden,hot_tub,mews',
-    keywords_exclude    => 'cottage,wood_floor'
+A Request object stores the parameters of the request, a Response object stores the data retrieved from the API (in JSON and Perl hashref formats), and a Result represents an individual listing.
+
+=head2 Parameters
+
+The possible parameters and their defaults are as follows:
+
+    country             (defualt: 'uk')
+    warnings            (default: 1)
+    action              (default: 'search_listings')
+    version
+    encoding            (default: 'json')
+    pretty              (default: 0)
+    number_of_results
+    place_name
+    south_west
+    north_east
+    centre_point
+    listing_type
+    property_type
+    price_max
+    price_min
+    bedroom_max
+    bedroom_min
+    size_max
+    size_min
+    sort
+    keywords
+    keywords_exclude
+
+If parameters are passed to C<new> they are used as the defaults for all calls to the API. Otherwise they can be passed to the querying functions (eg. C<query>) as per-search parameters.
+
+=head2 Simple Example
+
+    use WebService::Nestoria::Search;
+
+    my $NS = new WebService::Nestoria::Search(
+        place_name          => 'soho',
+        listing_type        => 'let',
+        property_type       => 'flat',
+        price_max           => '500',
+        number_of_results   => '10',
     );
 
-@listings is an array of WebService::Nestoria::Search::Result objects.
+    my @results = WebService::Nestoria::Search->results(
+        keywords            => 'garden,hot_tub,mews',
+        keywords_exclude    => 'cottage,wood_floor'
+    );
 
-For more information about parameters and possible keywords visit
-http://www.nestoria.co.uk/help/api-tech
+    foreach my $result (@results) {
+        print $result->get_title, "\n";
+    }
+
+C<@listings> is an array of WebService::Nestoria::Search::Result objects.
+
+=head2 Using the Request object
+
+    my $request = $NS->request;
+
+    print "Will fetch: ", $request->url, "\n";
+
+    my $response = $request->fetch;
+
+=head2 Using the Response object
+
+    my $response = $NS->query;
+
+    if ($response->status_code == 200) {
+        print "Success! Got ", $response->count, " results\n";
+    }
+
+    print "Raw JSON\n", $response->get_json, "\n";
+
+    while (my $result = $response->next_result) {
+        print $result->get_thumb_url, "\n";
+    }
 
 =cut
 
@@ -43,13 +100,13 @@ http://www.nestoria.co.uk/help/api-tech
 ## Configuration details for searching the Nestoria listings database
 ##
 my %Config = (
-    AppId                   => "WebService::Nestoria::Search $VERSION",
-    MaxResults              =>  1000,
+    'AppId'                   => "WebService::Nestoria::Search $VERSION",
+    'MaxResults'              => '1000',
 
     ## keys indicate the universe of allowable arguments
-    Defaults => {
+    'Defaults' => {
         'action'              => 'search_listings',
-        'version'             => '1.08',
+        'version'             => undef,   # defaults to the latest version
         'encoding'            => 'json',
         'pretty'              => '0',     # pretty JSON results not needed
         'number_of_results'   => undef,   # defaults to 20 their end
@@ -70,9 +127,9 @@ my %Config = (
         'keywords_exclude'    => undef,   # defaults to an empty list
     },
     
-    Urls => {
-        uk                  => 'http://api.nestoria.co.uk/api',
-        es                  => 'http://api.nestoria.es/api',
+    'Urls' => {
+        'uk'                  => 'http://api.nestoria.co.uk/api',
+        'es'                  => 'http://api.nestoria.es/api',
     },
 );
 
@@ -80,16 +137,34 @@ my %Config = (
 our $RecentRequsetUrl;
 
 my %GlobalDefaults = (
-    Warnings                => 1,
-    Country                 => 'uk'
+    'warnings'                => '1',
+    'country'                 => 'uk'
 );
+
+
+##
+## import function allows 'Warnings' to be specified on the use line
+##
+
+sub import {
+    my $class = shift;
+    my %args = @_;
+
+    if (defined $args{'Warnings'}) {
+        $args{'warnings'} = $args{'Warnings'};
+    }
+
+    if (defined $args{'warnings'}) {
+        $GlobalDefaults{'warnings'} = $args{'warnings'};
+    }
+}
 
 ##
 ## _carp_on_error helper function 'borrowed' from Yahoo::Search
 ##
 sub _carp_on_error {
     $@ = shift;
-    if ( $GlobalDefaults{Warnings} ) {
+    if ( $GlobalDefaults{warnings} ) {
         carp $@;
     }
 
@@ -178,7 +253,7 @@ my $validate_sort = sub {
 my $validate_version = sub {
     my $val = shift || return 0;
 
-    return $val eq 1.08;
+    return $val =~ m/[\d.]+/;
 };
 
 my $validate_action = sub {
@@ -231,7 +306,7 @@ sub _validate {
         return "validation error";
     }
 
-    if ( $key eq 'Warnings' ) {
+    if ( $key eq 'warnings' ) {
         return;
     }
 
@@ -251,14 +326,12 @@ sub _validate {
 
 =head2 new
 
-Creates a WebService::Nestoria::Search object.
-On error sets C<$@> and returns C<undef>.
+Creates a WebService::Nestoria::Search object.  On error sets C<$@> and returns C<undef>.
 
-If given 'request' arguments (eg. place_name, listing_type) these
-become defaults for calls to Request.
+If given 'request' parameters (eg. place_name, listing_type) these become defaults for all calls to the API.
 
-    %args = ( Warnings => 0, listing_type => 'let' );
-    $NS = WebService::Nestoria::Search->new( %args );
+    my %args = (warnings => 0, listing_type => 'let', place_name => 'soho');
+    my $NS = WebService::Nestoria::Search->new(%args);
 
 =cut
 
@@ -272,17 +345,25 @@ sub new {
 
     $self->{Defaults} = { @_ };
 
-    if ( exists $self->{Defaults}{Warnings} ) {
-        $GlobalDefaults{Warnings} = $self->{Defaults}{Warnings};
-        delete $self->{Defaults}{Warnings};
+    foreach my $key (keys %{ $self->{Defaults} }) {
+        if ($key =~ m/[A-Z]/) {
+            my $newkey = lc $key;
+            $self->{Defaults}{$newkey} = $self->{Defaults}{$key};
+            delete $self->{Defaults}{$key};
+        }
     }
 
-    if ( exists $self->{Defaults}{Country} ) {
-        unless ( exists $Config{Urls}->{$self->{Defaults}{Country}} ) {
+    if ( exists $self->{Defaults}{warnings} ) {
+        $GlobalDefaults{warnings} = $self->{Defaults}{warnings};
+        delete $self->{Defaults}{warnings};
+    }
+
+    if ( exists $self->{Defaults}{country} ) {
+        unless ( exists $Config{Urls}->{$self->{Defaults}{country}} ) {
                 _carp_on_error("Invalid country");
         }
-        $GlobalDefaults{Country} = $self->{Defaults}{Country};
-        delete $self->{Defaults}{Country};
+        $GlobalDefaults{country} = $self->{Defaults}{country};
+        delete $self->{Defaults}{country};
     }
 
     my $defaults = $self->{Defaults};
@@ -302,10 +383,9 @@ sub new {
 
 =head2 request
 
-Creates a WebService::Nestoria::Search::Request object. 
-On error sets C<$@> and returns C<undef>
+Creates a WebService::Nestoria::Search::Request object. On error sets C<$@> and returns C<undef>
 
-    $request = WebService::Nestoria::Search->request( %args );
+    my $request = WebService::Nestoria::Search->request(%args);
 
 =cut
 
@@ -341,7 +421,7 @@ sub request {
     }
 
     my %params;
-    $params{ActionUrl} = $Config{Urls}->{$GlobalDefaults{Country}};
+    $params{ActionUrl} = $Config{Urls}->{$GlobalDefaults{country}};
     $params{AppId}     = $Config{AppId};
     $params{Params}    = \%args;
 
@@ -354,10 +434,14 @@ sub request {
 
 =head2 query
 
-Creates an implicit Request object and returns the resulting Response. On 
-error, sets C<$@> and returns C<undef>.
+Queries the API and returns a WebService::Nestoria::Search::Response object. On error, sets C<$@> and returns C<undef>.
 
-    $response = WebService::Nestoria::Search->query( %args );
+    my $response = $NS->query(%args);
+
+This is a shortcut for
+
+    my $request = $NS->fequest(%args);
+    my $response = $request->fetch;
 
 =cut
 
@@ -378,11 +462,15 @@ sub query {
 
 =head2 results
 
-Creates an implicit C<Request> object, then an implicit C<Response> object,
-and returns an array of C<Result> objects. On error, sets C<$@> and returns
-C<undef>.
+Returns an array of WebService::Nestoria::Search::Result objects. On error, sets C<$@> and returns C<undef>.
 
-    @results = WebService::Nestoria::Search->results( %args );
+    my @results = $NS->results(%args);
+
+This is a shortcut for
+
+    my $request = $NS->request(%args);
+    my $response = $request->fetch;
+    my @results = $response->results;
 
 =cut
 
@@ -408,7 +496,9 @@ Uses the API feature 'action=echo' to test the connection.
 
 Returns 1 if the connection is successful and 0 otherwise.
 
-    $rv = WebService::Nestoria::Search->test_connection();
+    unless ($NS->test_connection) {
+        die "Cannot establish connection with Nestoria API\n";
+    }
 
 =cut
 
@@ -430,7 +520,101 @@ sub test_connection {
 
 Uses the API feature 'action=keywords' to return a list of valid keywords.
 
-    @keywords = WebService::Nestoria::Search->keywords();
+    my @keywords = $NS->keywords;
+
+=head3 Spain
+
+    adosado
+    amueblado
+    apartamento
+    atico
+    balcon
+    buhardilla
+    bungalow
+    chimenea
+    doble_garaje
+    ex_vpo
+    garaje
+    garaje_particular
+    gimnasio
+    invernadero
+    jacuzzi
+    jardin
+    jardin_comunitario
+    loft
+    obra_nueva
+    piscina
+    piscina_comunitaria
+    piscina_individual
+    piso_compartido
+    pista_de_deportes
+    planta_baja
+    playa_cercana
+    plaza_de_aparcamiento
+    portero
+    sauna
+    semi_amueblado
+    sin_ambueblar
+    sin_ascensor
+    sotano
+    suelo_de_madera
+    terraza
+    villa
+
+=head3 UK
+
+    apartment
+    attic
+    auction
+    balcony
+    basement
+    bungalow
+    cellar
+    conservatory
+    conversion
+    cottage
+    detached
+    detached_garage
+    dishwasher
+    double_garage
+    excouncil
+    fireplace
+    flat
+    flatshare
+    freehold
+    furnished
+    garage
+    garden
+    grade_ii
+    gym
+    high_ceilings
+    hot_tub
+    leasehold
+    lift
+    loft
+    lower_ground_floor
+    maisonette
+    mews
+    new_build
+    off_street_parking
+    parking
+    patio
+    penthouse
+    porter
+    purpose_built
+    refurbished
+    sauna
+    sealed_bid
+    semi_detached
+    share_freehold
+    shared_garden
+    swimming_pool
+    terrace
+    unfurnished
+    victorian
+    wood_floor
+
+Taken from B<http://www.nestoria.co.uk/help/api-tech>.
 
 =cut
 
@@ -446,24 +630,27 @@ sub keywords {
     return ( split(/,\s+/, $response->get_hashref->{'response'}{'keywords'}) );
 }
 
-=head1 AutoCarp
+=head1 Warnings
 
-AutoCarp is true by default and means that errors are output to STDERR as 
-well as being returned via $@. This can be turned off by adding
+Warnings is true by default, and means that errors are output to STDERR as well as being returned via $@. This can be turned off either on the C<use> line
 
-    AutoCarp => 0
+    use WebService::Nestoria::Search Warnings => 0;
 
-to the parameters to WebService::Nestoria::Search::new()
+or when calling C<new>
 
-TODO: People should be able to 'AutoCarp => 0' on the use line
+    my $NS = new WebService::Nestoria::Search(Warnings => 0);
 
 =head1 Country
 
-Country is an optional parameter which defaults to 'uk'. It affects the URL
-which is used for fetching results.
+Country is an optional parameter which defaults to 'uk'. It affects the URL which is used for fetching results.
 
-Currently the available countries are 'uk', for the United Kingdom, and 'es',
-for Spain.
+Currently the available countries are 'uk', for the United Kingdom, and 'es', for Spain.
+
+=head1 Non-OO
+
+It is possible to run WebService::Nestoria::Search functions without creating an object. However, no functions are exported (by default or otherwise) so the full name must be used.
+
+    my @results = WebService::Nestoria::Search->results(%args);
 
 =head1 Copyright
 
@@ -475,8 +662,9 @@ Alex Balhatchet (kaoru@slackwise.net)
 
 =head1 Acknowledgements
 
-A lot of the ideas (and yes, very occasionally entire functions) for these
-modules were borrowed from Jeffrey Friedl's Yahoo::Search.
+A lot of the ideas (and yes, very occasionally entire functions) for these modules were borrowed from Jeffrey Friedl's Yahoo::Search.
+
+This module would not exist without the public API available from Nestoria (B<http://www.nestoria.co.uk/help/api>.)
 
 =cut
 

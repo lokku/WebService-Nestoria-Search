@@ -11,11 +11,9 @@ use URI;
 
 =head1 NAME
 
-WebService::Nestoria::Search::Request - Container object for a 
-WebService::Nestoria::Search request.
+WebService::Nestoria::Search::Request - Container object for a WebService::Nestoria::Search request.
 
-This package is used by WebService::Nestoria::Search and a C<Request> object 
-should never need to be explicitly created by the user.
+This package is used by WebService::Nestoria::Search and a C<Request> object should never need to be explicitly created by the user.
 
 =cut
 
@@ -30,8 +28,7 @@ sub new {
 
 =head2 uri
 
-Returns the URI::http object representing the URL that will be fetched by
-this Request object.
+Returns a URI object representing the URL that will be fetched by this Request object.
 
 =cut
 
@@ -59,11 +56,11 @@ sub url {
 
 =head2 fetch
 
-Contact the Nestoria servers and return a C<Result>
-(WebService::Nestoria::Search::Result) object.
+Contact the Nestoria servers and return a WebService::Nestoria::Search::Response object.
 
-Uses JSON::jsonToObj() to convert the JSON returned by the Nestoria API
-into a Perl hashref.
+If encoding is set to 'json', a WebService::Nestoria::Search::Result object is created for each listing. These can be accessed via the returned WebService::Nestoria::Search::Response object.
+
+If the encoding is not 'json', the object returned will contain no WebService::Nestoria::Search::Result objects, and only the C<get_raw> function can be used effectively.
 
 =cut
 
@@ -83,14 +80,20 @@ sub fetch {
         return;
     }
 
-    my $json = $response->content;
-    my $response_obj = jsonToObj($json);
+    my $raw = $response->content;
 
-    if ( ref $response_obj ) {
-        return new WebService::Nestoria::Search::Response ($response_obj, $json);
+    if ($self->{Params}{encoding} eq 'json') {
+        my $response_obj = jsonToObj($raw);
+
+        if ( ref $response_obj ) {
+            return new WebService::Nestoria::Search::Response ($response_obj, $raw);
+        }
+        else {
+            return;
+        }
     }
     else {
-        return;
+        return new WebService::Nestoria::Search::Response ({}, $raw);
     }
 }
 

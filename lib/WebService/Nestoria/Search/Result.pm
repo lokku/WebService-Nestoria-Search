@@ -5,14 +5,11 @@ package WebService::Nestoria::Search::Result;
 
 =head1 NAME
 
-WebService::Nestoria::Search::Result - Container object for a 
-WebService::Nestoria::Search result.
+WebService::Nestoria::Search::Result - Container object for a WebService::Nestoria::Search result.
 
-Contains all the information received about a single property listing and
-many functions for outputting the information.
+Contains all the information received about a single property listing and many functions for outputting the information.
 
-This package is used by WebService::Nestoria::Search and a C<Result> object 
-should never need to be explicitly created by the user.
+This package is used by WebService::Nestoria::Search and a Result object should never need to be explicitly created by the user.
 
 =cut
 
@@ -139,8 +136,32 @@ sub get_keywords {
 
 =head2 get_hashref
 
-Returns a hashref containing the details of the listing with keys exactly as
-the list above.
+Returns a hashref containing the details of the listing with keys exactly as the list above. For example:
+
+    use Data::Dumper;
+    print Dumper($result->hashref);
+
+    $VAR1= {
+        'price_currency' => 'GBP',
+        'bathroom_number' => '2',
+        'price_formatted' => '459,950 GBP',
+        'listing_type' => 'buy',
+        'keywords' => 'Garden, Loft, Cellar, Reception',
+        'summary' => 'In need of complete refurbishment is this four bedroom family home located...',
+        'latitude' => '51.4508',
+        'lister_url' => 'http://rd.nestoria.co.uk/rd?l=api-sr-title-1&url=...',
+        'property_type' => 'house',
+        'price_type' => 'fixed',
+        'longitude' => '-0.129012',
+        'thumb_width' => '60',
+        'lister_name' => 'KF&H',
+        'thumb_url' => 'http://limg.nestoria.co.uk/f/b/fb67e2b0d76350f7ebcf8fa6488b2ec4.jpg',
+        'title' => 'Thornbury Road, Brixton',
+        'price' => '459950',
+        'bedroom_number' => '4',
+        'thumb_height' => '60',
+        'datasource_name' => 'PropertyFinder'
+    };
 
 =cut
 

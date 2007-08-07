@@ -3,7 +3,7 @@ use warnings;
 use Test::More;
 use URI;
 
-plan tests => 31;
+plan tests => 34;
 
 my @listings;
 
@@ -20,7 +20,7 @@ ok ( ref $ns, 'object created successfully' );
 
 ## Check URL (7)
 
-my $uri = new URI('http://api.nestoria.co.uk/api?pretty=0&version=1.08&action=search_listings&encoding=json');
+my $uri = new URI('http://api.nestoria.co.uk/api?pretty=0&action=search_listings&encoding=json');
 my %correct_params = $uri->query_form;
 
 $uri = new URI ($ns->request->url);
@@ -29,7 +29,8 @@ my %params = $uri->query_form;
 is_deeply (
     \%correct_params,
     \%params, 
-    'url correctly set');
+    'url correctly set'
+);
 
 ## skip after here if not connected to the internet
 
@@ -123,24 +124,48 @@ SKIP : {
         'used keywords_exclude list to find words not in a mews'
     );
 
-    ## Test Spain (28-29)
+    ## Test Version Switching (28-29)
 
-    $ns = new WebService::Nestoria::Search(Country => 'es');
+    my $result;
+
+    $ns = new WebService::Nestoria::Search(version => 1.01);
+    ($result) = $ns->results(place_name => 'soho');
+    is (
+        $result->get_keywords,
+        undef,
+        'got no keywords for version 1.01 request'
+    );
+
+    $ns = new WebService::Nestoria::Search(version => 1.02);
+    ($result) = $ns->results(place_name => 'soho');
+    ok (
+        $result->get_keywords,
+        'got keywords for version 1.02 request'
+    );
+
+    ## Test Spain (30-31)
+
+    $ns = new WebService::Nestoria::Search(country => 'es');
     ok ($ns->test_connection, 'got echo from spanish API' );
 
     @listings = $ns->results('place_name' => 'tenerife');
     ok (scalar @listings, 'got listings for tenerife');
 
     
-    ## Test Keywords (30-31)
+    ## Test Keywords (32-33)
 
     my @keywords = ();
 
-    $ns = new WebService::Nestoria::Search(Country => 'uk');
+    $ns = new WebService::Nestoria::Search(country => 'uk');
     @keywords = $ns->keywords;
     ok ((grep { $_ eq 'cottage' } @keywords), 'retreived list of uk keywords');
     
-    $ns = new WebService::Nestoria::Search(Country => 'es');
+    $ns = new WebService::Nestoria::Search(country => 'es');
     @keywords = $ns->keywords;
     ok ((grep { $_ eq 'garaje' } @keywords), 'retreived list of es keywords');
+
+    ## Test Case Insensitive Parameters (34)
+
+    $ns = new WebService::Nestoria::Search(country => 'uk', PLACE_NAME => 'soho', AcTiOn => 'search_listings', NUMBER_of_RESULTS => '3');
+    is (scalar ($ns->results), 3, 'queried with parameters using weird cases');
 }

@@ -1,3 +1,10 @@
+--- 0.10 ---
+    * Improved POD (full synopsis, full list of keywords, better formatting)
+    * Can 'use WebSerivce::Nestoria::Search Warnings => 0;'
+    * All parameters now case insensitive (eg. country/Country, Place_Name/place_name)
+    * Bug Fix: Changing versions
+    * Bug Fix: Requesting XML
+
 --- 0.09 ---
     * Bug Fix: Can use 'buy', 'let', 'share' and 'rent' listing types
 
