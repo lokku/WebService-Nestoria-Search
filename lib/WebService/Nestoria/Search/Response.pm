@@ -9,7 +9,7 @@ use WebService::Nestoria::Search::Result;
 
 WebService::Nestoria::Search::Response - Container object for the result set of a query to the Nestoria Search API.
 
-This package is used by WebService::Nestoria::Search and a WebService::Nestoria::Search::Result object should never need to be explicitly created by the user.
+This package is used by WebService::Nestoria::Search and a WebService::Nestoria::Search::Response object should never need to be explicitly created by the user.
 
 =cut
 
@@ -95,6 +95,47 @@ Returns the number of listings found.
 sub count {
     my $self = shift;
     return scalar @{$self->{results}};
+}
+
+=head2 attribution
+
+Returns a reference to a hash that contains the 'attribution' data returend by the server. Allows users to link back to Nestoria.
+
+=cut
+
+sub attribution {
+    my $self = shift;
+    return $self->{data}{response}{attribution};
+}
+
+=head2 attribution_html
+
+Returns the attribution formatted in HTML for ease of use on websites.
+
+=cut
+
+sub attribution_html {
+    my $self = shift;
+    return sprintf '<a href="%s"><img height="%s" width="%s" src="%s">',
+           $self->{data}{response}{attribution}{link_to_img},
+           $self->{data}{response}{attribution}{img_height},
+           $self->{data}{response}{attribution}{img_width},
+           $self->{data}{response}{attribution}{img_url};
+}
+
+=head2 attribution_xhtml
+
+Returns the attribution formatted in XHTML for ease of use on websites.
+
+=cut
+
+sub attribution_xhtml {
+    my $self = shift;
+    return sprintf '<a href="%s"><img src="%s" style="height: %spx; width: %spx;" />',
+           $self->{data}{response}{attribution}{link_to_img},
+           $self->{data}{response}{attribution}{img_url},
+           $self->{data}{response}{attribution}{img_height},
+           $self->{data}{response}{attribution}{img_width};
 }
 
 =head2 results

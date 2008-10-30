@@ -3,10 +3,11 @@ use warnings;
 
 package WebService::Nestoria::Search;
 
-our $VERSION = '0.10';
+our $VERSION = '0.12';
 
 use Carp;
 use WebService::Nestoria::Search::Request;
+use WebService::Nestoria::Search::MetadataResponse;
 
 =head1 NAME
 
@@ -14,9 +15,11 @@ WebService::Nestoria::Search - Perl interface to the Nestoria Search public API.
 
 =head1 SYNOPSIS
 
-WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria a vertical search engine for property listings. Nestoria currently has listings for the UK and Spain, which can be accessed via the web at www.nestoria.co.uk and www.nestoria.es
+WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings. Nestoria currently has listings for the UK, Germany, Italy and Spain, which can be accessed via the web at www.nestoria.co.uk, www.nestoria.de, www.nestoria.co.it and www.nestoria.es.
 
-Functions and documentation are split over WebService::Nestoria::Search, WebService::Nestoria::Search::Request, WebService::Nestoria::Search::Responsee and WeebService::Nestoria::Search::Result. However you need only ever use WebService::Nestoria::Search, and the others will be used as necessary.
+WebService::Nestoria::Search is currently written to be used with v1.14 of the Nestoria API.
+
+Functions and documentation are split over WebService::Nestoria::Search, WebService::Nestoria::Search::Request, WebService::Nestoria::Search::Response and WeebService::Nestoria::Search::Result. However you need only ever use WebService::Nestoria::Search, and the others will be used as necessary.
 
 A Request object stores the parameters of the request, a Response object stores the data retrieved from the API (in JSON and Perl hashref formats), and a Result represents an individual listing.
 
@@ -24,7 +27,7 @@ A Request object stores the parameters of the request, a Response object stores 
 
 The possible parameters and their defaults are as follows:
 
-    country             (defualt: 'uk')
+    country             (default: 'uk')
     warnings            (default: 1)
     action              (default: 'search_listings')
     version
@@ -35,6 +38,7 @@ The possible parameters and their defaults are as follows:
     south_west
     north_east
     centre_point
+    radius
     listing_type
     property_type
     price_max
@@ -93,7 +97,15 @@ C<@listings> is an array of WebService::Nestoria::Search::Result objects.
     while (my $result = $response->next_result) {
         print $result->get_thumb_url, "\n";
     }
+    
+=head2 Using a bounding box
+   
+    my @bound_results = $ns->results('south_west' => '51.473685,-0.148315', 'north_east' => '50.473685,-0.248315');
 
+    foreach my $result  (@bound_results) {
+        print $result->get_title, "\n";
+    }
+    
 =cut
 
 ##
@@ -114,6 +126,7 @@ my %Config = (
         'south_west'          => undef,
         'north_east'          => undef,
         'centre_point'        => undef,
+        'radius'              => undef,
         'listing_type'        => undef,   # defaults to 'buy'
         'property_type'       => undef,   # defaults to 'all'
         'price_max'           => undef,   # defaults to 'max'
@@ -123,8 +136,9 @@ my %Config = (
         'size_max'            => undef,   # only for Spain
         'size_min'            => undef,   # only for Spain
         'sort'                => undef,   # defaults to 'nestoria_rank'
-        'keywords'            => undef,   # defualts to an empty list
+        'keywords'            => undef,   # defaults to an empty list
         'keywords_exclude'    => undef,   # defaults to an empty list
+        'callback'            => undef,
     },
     
     'Urls' => {
@@ -160,7 +174,7 @@ sub import {
 }
 
 ##
-## _carp_on_error helper function 'borrowed' from Yahoo::Search
+## _carp_on_error helper function borrowed from Yahoo::Search
 ##
 sub _carp_on_error {
     $@ = shift;
@@ -187,6 +201,15 @@ my $validate_lat_long = sub {
     my ($lat, $long) = split (/,/, $val);
 
     return _validate_lat($lat) && _validate_long($long);
+};
+
+my $validate_radius = sub {
+    my $val = shift || return 0;
+
+    my ($lat,$long,$radius) = split(/,/, $val);
+
+    return _validate_lat($lat) && _validate_long($long)
+        && $radius =~ m/^\d+(km|mi)$/;
 };
 
 ## latitude is a float between -180 and 180
@@ -222,7 +245,7 @@ my $validate_number_of_results = sub {
 my $validate_listing_type = sub {
     my $val = shift || return 0;
 
-    return grep { $val eq $_ } qw(let buy rent share);
+    return grep { $val eq $_ } qw(buy rent share);
 };
 
 my $validate_property_type = sub {
@@ -247,7 +270,8 @@ my $validate_sort = sub {
     my $val = shift || return 0;
 
     return grep { $val eq $_ } qw(bedroom_lowhigh bedroom_highlow
-                                  price_lowhigh price_highlow);
+                                  price_lowhigh price_highlow
+                                  newest oldest);
 }; 
 
 my $validate_version = sub {
@@ -259,7 +283,7 @@ my $validate_version = sub {
 my $validate_action = sub {
     my $val = shift || return 0;
 
-    return grep { $val eq $_ } qw(search_listings echo keywords);
+    return grep { $val eq $_ } qw(search_listings echo keywords metadata);
 };
 
 my $validate_encoding = sub {
@@ -280,6 +304,7 @@ my %ValidateRoutine = (
     'south_west'          => $validate_lat_long,
     'north_east'          => $validate_lat_long,
     'centre_point'        => $validate_lat_long,
+    'radius'              => $validate_radius,
     'number_of_results'   => $validate_number_of_results,
     'listing_type'        => $validate_listing_type,
     'property_type'       => $validate_property_type,
@@ -296,6 +321,8 @@ my %ValidateRoutine = (
     'action'              => $validate_action,
     'encoding'            => $validate_encoding,
     'pretty'              => $validate_pretty,
+    'has_photo'           => $validate_allow_all,
+    'guid'                => $validate_allow_all,
 ); 
 
 sub _validate {
@@ -440,7 +467,7 @@ Queries the API and returns a WebService::Nestoria::Search::Response object. On 
 
 This is a shortcut for
 
-    my $request = $NS->fequest(%args);
+    my $request = $NS->request(%args);
     my $response = $request->fetch;
 
 =cut
@@ -518,101 +545,9 @@ sub test_connection {
 
 =head2 keywords
 
-Uses the API feature 'action=keywords' to return a list of valid keywords.
+Uses the API feature 'action=keywords' to return a list of valid keywords. A current list of keywords can be found at the below URL, but do not hardcode the list of keywords in your code as it is occasionally subject to change.
 
     my @keywords = $NS->keywords;
-
-=head3 Spain
-
-    adosado
-    amueblado
-    apartamento
-    atico
-    balcon
-    buhardilla
-    bungalow
-    chimenea
-    doble_garaje
-    ex_vpo
-    garaje
-    garaje_particular
-    gimnasio
-    invernadero
-    jacuzzi
-    jardin
-    jardin_comunitario
-    loft
-    obra_nueva
-    piscina
-    piscina_comunitaria
-    piscina_individual
-    piso_compartido
-    pista_de_deportes
-    planta_baja
-    playa_cercana
-    plaza_de_aparcamiento
-    portero
-    sauna
-    semi_amueblado
-    sin_ambueblar
-    sin_ascensor
-    sotano
-    suelo_de_madera
-    terraza
-    villa
-
-=head3 UK
-
-    apartment
-    attic
-    auction
-    balcony
-    basement
-    bungalow
-    cellar
-    conservatory
-    conversion
-    cottage
-    detached
-    detached_garage
-    dishwasher
-    double_garage
-    excouncil
-    fireplace
-    flat
-    flatshare
-    freehold
-    furnished
-    garage
-    garden
-    grade_ii
-    gym
-    high_ceilings
-    hot_tub
-    leasehold
-    lift
-    loft
-    lower_ground_floor
-    maisonette
-    mews
-    new_build
-    off_street_parking
-    parking
-    patio
-    penthouse
-    porter
-    purpose_built
-    refurbished
-    sauna
-    sealed_bid
-    semi_detached
-    share_freehold
-    shared_garden
-    swimming_pool
-    terrace
-    unfurnished
-    victorian
-    wood_floor
 
 Taken from B<http://www.nestoria.co.uk/help/api-tech>.
 
@@ -630,6 +565,28 @@ sub keywords {
     return ( split(/,\s+/, $response->get_hashref->{'response'}{'keywords'}) );
 }
 
+=head2 metadata
+
+Uses the API feature 'action=metadata' to return metadata about the listings. Returns a WebService::Nestoria::Search::MetadataResponse object with average house, flat and property prices aggregated monthly and quarterly.
+
+    my $metadata_response = WebService::Nestoria::Search->metadata(%args);
+
+=cut
+
+sub metadata {
+    my $self = shift;
+
+    unless ( ref $self ) {
+        $self = new $self;
+    }
+
+    my %params = ( action => 'metadata' );
+
+    my $response = $self->query(%params, @_);
+
+    return new WebService::Nestoria::Search::MetadataResponse($response->get_hashref);
+}
+
 =head1 Warnings
 
 Warnings is true by default, and means that errors are output to STDERR as well as being returned via $@. This can be turned off either on the C<use> line
@@ -644,7 +601,7 @@ or when calling C<new>
 
 Country is an optional parameter which defaults to 'uk'. It affects the URL which is used for fetching results.
 
-Currently the available countries are 'uk', for the United Kingdom, and 'es', for Spain.
+Currently the available countries are 'uk' for the United Kingdom, 'es' for Spain, 'de' for Germany and 'it' for Italy.
 
 =head1 Non-OO
 
@@ -654,7 +611,7 @@ It is possible to run WebService::Nestoria::Search functions without creating an
 
 =head1 Copyright
 
-Copyright (C) 2006 Lokku Ltd.
+Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 

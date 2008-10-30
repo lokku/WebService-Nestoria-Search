@@ -37,6 +37,7 @@ as follows:
     get_lister_name
     get_lister_url
     get_price
+    get_price_type
     get_price_currency
     get_price_formatted
     get_title
@@ -89,6 +90,11 @@ sub get_price {
     return $self->{data}{listing}{price};
 }
 
+sub get_price_type {
+    my $self = shift;
+    return $self->{data}{listing}{price_type};
+}
+
 sub get_price_currency {
     my $self = shift;
     return $self->{data}{listing}{price_currency};
@@ -132,6 +138,11 @@ sub get_thumb_width {
 sub get_keywords {
     my $self = shift;
     return $self->{data}{listing}{keywords};
+}
+
+sub get_guid {
+    my $self = shift;
+    return $self->{data}{listing}{guid};
 }
 
 =head2 get_hashref

@@ -1,6 +1,17 @@
+--- 0.12 ---
+    * metadata method
+    * radius parameter
+    * new sorts: newest/oldest
+    * attribution field functions
+    * Housekeeping
+    
+--- 0.11 ---
+    * Only request required fields in nestoria.t
+    * Bug Fix: Added get_price_type
+
 --- 0.10 ---
     * Improved POD (full synopsis, full list of keywords, better formatting)
-    * Can 'use WebSerivce::Nestoria::Search Warnings => 0;'
+    * Can 'use WebService::Nestoria::Search Warnings => 0;'
     * All parameters now case insensitive (eg. country/Country, Place_Name/place_name)
     * Bug Fix: Changing versions
     * Bug Fix: Requesting XML

@@ -83,7 +83,7 @@ sub fetch {
     my $raw = $response->content;
 
     if ($self->{Params}{encoding} eq 'json') {
-        my $response_obj = jsonToObj($raw);
+        my $response_obj = from_json($raw);
 
         if ( ref $response_obj ) {
             return new WebService::Nestoria::Search::Response ($response_obj, $raw);
