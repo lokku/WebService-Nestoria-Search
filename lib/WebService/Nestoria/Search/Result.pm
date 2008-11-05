@@ -183,11 +183,12 @@ sub get_hashref {
 
 =head1 Copyright
 
-Copyright (C) 2006 Lokku Ltd.
+Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
 Alex Balhatchet (kaoru@slackwise.net)
+Yoav Felberbaum (perl@mrdini.com)
 
 =cut
 

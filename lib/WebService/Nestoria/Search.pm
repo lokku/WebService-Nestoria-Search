@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Nestoria::Search;
 
-our $VERSION = '0.12';
+our $VERSION = '1.14';
 
 use Carp;
 use WebService::Nestoria::Search::Request;
@@ -144,6 +144,9 @@ my %Config = (
     'Urls' => {
         'uk'                  => 'http://api.nestoria.co.uk/api',
         'es'                  => 'http://api.nestoria.es/api',
+        'de'                  => 'http://api.nestoria.de/api',
+        'it'                  => 'http://api.nestoria.it/api',
+
     },
 );
 
@@ -616,6 +619,7 @@ Copyright (C) 2008 Lokku Ltd.
 =head1 Author
 
 Alex Balhatchet (kaoru@slackwise.net)
+Yoav Felberbaum (perl@mrdini.com)
 
 =head1 Acknowledgements
 

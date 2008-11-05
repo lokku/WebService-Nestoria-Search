@@ -94,7 +94,7 @@ sub get_average_price {
     }
 
     my $metadata_name = $self->_get_metadata_name(%params);
-    my $metadata_date = $self->_get_metadata_date(%params);
+    my $metadata_date = $self->_get_metadata_date($metadata_name, %params);
     
     if (defined $metadata_name && defined $metadata_date) {
         return $self->{'metadata'}{$metadata_name}{'data'}{$metadata_date}{'avg_price'};
@@ -150,17 +150,24 @@ my %long_months = (
 
 sub _get_metadata_date {
     my $self = shift;
+    my $metadata_name = shift;
     my %params = @_;
-
-    ## 2007_m9
-    ## 2007_q3
-
-    ## NB. Months count from 0 with localtime() and 1 with metadata
-    ##     therefore the month returned by localtime() is the previous
-    ##     month, which just so happens to be what we want.
-    ##     Years count from 1900, so we add that.
-    $params{'year'} ||= (localtime)[5] + 1900;
-    $params{'month'} ||= (localtime)[4];
+    
+    ## If $year & $month are not specified, we assume the user wants the most recent month that 
+    ## we have metadata for...
+    if (!defined($params{'year'}) && !defined($params{'month'}))
+    {
+        my $ra_metadata = $self->{'metadata'}->{$metadata_name};
+    
+        my @a_found_months = ();
+        foreach my $item ($ra_metadata){
+            ## can be 2007_q4 or 2007_m10
+            my @a_dates_this_item = keys %{$item->{'data'}};        
+            push(@a_found_months, grep { m!\d_m\d! } @a_dates_this_item);
+        }
+        my ($date) = sort { _month_to_yyyymmdd($b) <=> _month_to_yyyymmdd($a) } @a_found_months;
+        return $date;
+    }
 
     my ($mm,$year, $quarter) = @params{'month', 'year', 'quarter'};
 
@@ -222,13 +229,22 @@ sub _specific_average_price_monthly_by_beds {
     return $self->{metadata}{$metadata_name}{data}{$metadata_date}{avg_price};
 }
 
+sub _month_to_yyyymmdd {
+	my $month = shift;
+	if ( $month =~ m/(\d\d\d\d)_m(\d+)/ ){
+		return sprintf('%04d%02d%02d', $1, $2, 1 );
+	}
+	return undef;
+}
+
 =head1 Copyright
 
-Copyright (C) 2006 Lokku Ltd.
+Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
 Alex Balhatchet (kaoru@slackwise.net)
+Yoav Felberbaum (perl@mrdini.com)
 
 =cut
 

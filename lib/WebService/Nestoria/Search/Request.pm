@@ -75,7 +75,7 @@ sub fetch {
     my $response = $UA->get($WebService::Nestoria::Search::RecentRequestUrl);
     sleep 2;
 
-    unless ( $response ) {
+    unless ( $response && $response->is_success ) {
         $@ = "couldn't make request";
         return;
     }
@@ -99,11 +99,12 @@ sub fetch {
 
 =head1 Copyright
 
-Copyright (C) 2006 Lokku Ltd.
+Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
 Alex Balhatchet (kaoru@slackwise.net)
+Yoav Felberbaum (perl@mrdini.com)
 
 =cut
 

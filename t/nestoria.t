@@ -3,7 +3,7 @@ use warnings;
 use Test::More;
 use URI;
 
-my $TESTS = 44;
+my $TESTS = 50;
 
 plan tests => $TESTS;
 
@@ -39,7 +39,7 @@ is_deeply (
 
 SKIP : {
 
-    skip ('no connection to the internet', ($TESTS-6))
+    skip ('no connection to the internet', ($TESTS-7))
         unless ( $ns->test_connection() );
 
     ## Check number_of_results
@@ -75,6 +75,7 @@ SKIP : {
     }
     
     ## Check for listings that HAS a photo - fix this to do a proper test
+    ## Possibly put in the list of the no_photo URLs & look for these in results?
     my @photo_check = $ns->results('place_name' => 'soho', 'has_photo' => '1');
     @photo_check = $ns->results('place_name' => 'soho', 'has_photo' => '0');
 
@@ -176,11 +177,26 @@ SKIP : {
     ## Test Spain
 
     $ns = new WebService::Nestoria::Search(country => 'es');
-    ok ($ns->test_connection, 'got echo from spanish API' );
+    ok ($ns->test_connection, 'got echo from Spanish API' );
 
     @listings = $ns->results('place_name' => 'madrid');
     ok (scalar @listings, 'got listings for madrid');
 
+    ## Test Germany
+
+    $ns = new WebService::Nestoria::Search(country => 'de');
+    ok ($ns->test_connection, 'got echo from German API' );
+
+    @listings = $ns->results('place_name' => 'berlin');
+    ok (scalar @listings, 'got listings for berlin');
+
+    ## Test Italy
+
+    $ns = new WebService::Nestoria::Search(country => 'it');
+    ok ($ns->test_connection, 'got echo from Italian API' );
+
+    @listings = $ns->results('place_name' => 'florence');
+    ok (scalar @listings, 'got listings for Florence');
     
     ## Test Keywords
 
@@ -188,11 +204,19 @@ SKIP : {
 
     $ns = new WebService::Nestoria::Search(country => 'uk');
     @keywords = $ns->keywords;
-    ok ((grep { $_ eq 'cottage' } @keywords), 'retreived list of uk keywords');
+    ok ((grep { $_ eq 'cottage' } @keywords), 'retrieved list of uk keywords');
     
     $ns = new WebService::Nestoria::Search(country => 'es');
     @keywords = $ns->keywords;
-    ok ((grep { $_ eq 'garaje' } @keywords), 'retreived list of es keywords');
+    ok ((grep { $_ eq 'garaje' } @keywords), 'retrieved list of es keywords');
+
+    $ns = new WebService::Nestoria::Search(country => 'de');
+    @keywords = $ns->keywords;
+    ok ((grep { $_ eq 'garten' } @keywords), 'retrieved list of de keywords');
+
+    $ns = new WebService::Nestoria::Search(country => 'it');
+    @keywords = $ns->keywords;
+    ok ((grep { $_ eq 'cantina' } @keywords), 'retrieved list of it keywords');
 
     ## Test Metadata
     
