@@ -4,12 +4,9 @@ use warnings;
 package WebService::Nestoria::Search;
 
 use Carp;
-use version;
+use version; our $VERSION = qv('1.14.1');
 use WebService::Nestoria::Search::Request;
 use WebService::Nestoria::Search::MetadataResponse;
-
-our $VERSION = qv('1.14.1');
-
 
 =head1 NAME
 
