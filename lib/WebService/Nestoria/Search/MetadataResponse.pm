@@ -31,7 +31,7 @@ sub new {
 
 =head2 get_hashref
 
-Returns a reference to a hash that contains exactly what the response from the Nestoria API gave, converted from JSON into a hashref with JSON::jsonToObj()
+Returns a reference to a hash that contains exactly what the response from the Nestoria API gave, converted from JSON into a hashref with JSON::from_json()
 
 =cut
 
@@ -72,7 +72,7 @@ Returns the average for properties which match the number of bedrooms, property 
     );
     my $average_price = $metadata->get_average_price_by_beds(%options);
 
-Rent prices are monthly. Prices for the UK are in GBP, prices for Spain are in Euros. The earliest date available is October 2007.
+Rent prices are monthly. Prices for the UK are in GBP. Prices for Spain, Italy and Germany are in Euros. The earliest date available is October 2007.
 
 If you leave out the year and month parameters it will take the most recent available.
 
@@ -243,8 +243,7 @@ Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
-Alex Balhatchet (kaoru@slackwise.net)
-Yoav Felberbaum (perl@mrdini.com)
+Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com)
 
 =cut
 

@@ -21,7 +21,7 @@ If you don't have Module::Build you can run the following commands:
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2006 Lokku Ltd.
+Copyright (C) 2008 Lokku Ltd.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

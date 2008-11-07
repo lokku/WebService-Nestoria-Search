@@ -77,7 +77,7 @@ sub status_code {
 
 =head2 get_hashref
 
-Returns a reference to a hash that contains exactly what the response from the Nestoria API gave, converted from JSON into a hashref with JSON::jsonToObj()
+Returns a reference to a hash that contains exactly what the response from the Nestoria API gave, converted from JSON into a hashref with JSON::from_json()
 
 =cut
 
@@ -189,8 +189,7 @@ Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
-Alex Balhatchet (kaoru@slackwise.net)
-Yoav Felberbaum (perl@mrdini.com)
+Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com)
 
 =cut
 

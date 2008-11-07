@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                WebService-Nestoria-Search
-version:             1.14
+version:             1.14.1
 abstract:            WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings. Nestoria currently has listings for the UK, Germany, Italy and Spain, which can be accessed via the web at www.nestoria.co.uk, www.nestoria.de, www.nestoria.co.it and www.nestoria.es.
 license:             This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself. See http://www.perlfoundation.org/artistic_license_2_0.
 generated_by:        ExtUtils::MakeMaker version 6.36
@@ -17,4 +17,4 @@ meta-spec:
     url:     http://module-build.sourceforge.net/META-spec-v1.2.html
     version: 1.2
 author:
-    - Alex Balhatchet (kaoru@slackwise.net), Yoav Felberbaum (perl@mrdini.com)
+    - Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com)

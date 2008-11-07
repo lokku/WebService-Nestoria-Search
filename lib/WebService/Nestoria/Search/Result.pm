@@ -47,6 +47,7 @@ as follows:
     get_thumb_height
     get_thumb_width
     get_keywords
+    get_guid
 
 =cut
 
@@ -187,8 +188,7 @@ Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
-Alex Balhatchet (kaoru@slackwise.net)
-Yoav Felberbaum (perl@mrdini.com)
+Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com)
 
 =cut
 

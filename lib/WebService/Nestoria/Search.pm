@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Nestoria::Search;
 
-our $VERSION = '1.14';
+our $VERSION = '1.14.1';
 
 use Carp;
 use WebService::Nestoria::Search::Request;
@@ -97,15 +97,15 @@ C<@listings> is an array of WebService::Nestoria::Search::Result objects.
     while (my $result = $response->next_result) {
         print $result->get_thumb_url, "\n";
     }
-    
+
 =head2 Using a bounding box
-   
+
     my @bound_results = $ns->results('south_west' => '51.473685,-0.148315', 'north_east' => '50.473685,-0.248315');
 
     foreach my $result  (@bound_results) {
         print $result->get_title, "\n";
     }
-    
+
 =cut
 
 ##
@@ -618,8 +618,7 @@ Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
-Alex Balhatchet (kaoru@slackwise.net)
-Yoav Felberbaum (perl@mrdini.com)
+Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com)
 
 =head1 Acknowledgements
 
