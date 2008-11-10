@@ -16,6 +16,7 @@ my $builder = Module::Build->new (
         'JSON'           => 2.0,
         'LWP::UserAgent' => 0,
         'URI'            => 0,
+        'version'        => 0,
     },
 
     build_requires => {

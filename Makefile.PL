@@ -14,7 +14,8 @@ WriteMakefile
                    'Module::Build' => 0,
                    'JSON' => 2.0,
                    'HTTP::Request' => 0,
-                   'Carp' => 0
+                   'Carp' => 0,
+                   'version' => 0,
                  },
     'LICENSE' => 'This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself. See http://www.perlfoundation.org/artistic_license_2_0.',
     'AUTHOR' => 'Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com)',
