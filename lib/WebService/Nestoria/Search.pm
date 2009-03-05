@@ -4,7 +4,7 @@ use warnings;
 package WebService::Nestoria::Search;
 
 use Carp;
-use version; our $VERSION = qv('1.14.2');
+use version; our $VERSION = qv('1.14.3');
 use WebService::Nestoria::Search::Request;
 use WebService::Nestoria::Search::MetadataResponse;
 
@@ -58,7 +58,7 @@ If parameters are passed to C<new> they are used as the defaults for all calls t
 
     my $NS = new WebService::Nestoria::Search(
         place_name          => 'soho',
-        listing_type        => 'let',
+        listing_type        => 'rent',
         property_type       => 'flat',
         price_max           => '500',
         number_of_results   => '10',
@@ -359,7 +359,7 @@ Creates a WebService::Nestoria::Search object.  On error sets C<$@> and returns 
 
 If given 'request' parameters (eg. place_name, listing_type) these become defaults for all calls to the API.
 
-    my %args = (warnings => 0, listing_type => 'let', place_name => 'soho');
+    my %args = (warnings => 0, listing_type => 'rent', place_name => 'soho');
     my $NS = WebService::Nestoria::Search->new(%args);
 
 =cut
