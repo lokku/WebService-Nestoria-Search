@@ -48,6 +48,7 @@ as follows:
     get_thumb_width
     get_keywords
     get_guid
+    get_updated_in_days
 
 =cut
 
@@ -146,12 +147,17 @@ sub get_guid {
     return $self->{data}{listing}{guid};
 }
 
+sub get_updated_in_days {
+    my $self = shift;
+    return $self->{data}{listing}{updated_in_days};
+}
+
 =head2 get_hashref
 
 Returns a hashref containing the details of the listing with keys exactly as the list above. For example:
 
     use Data::Dumper;
-    print Dumper($result->hashref);
+    print Dumper($result->get_hashref);
 
     $VAR1= {
         'price_currency' => 'GBP',

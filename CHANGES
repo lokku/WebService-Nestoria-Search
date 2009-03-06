@@ -1,3 +1,8 @@
+--- 1.14.4 (6/3/2009) ---
+    * added new parameters ("guid" and "page")
+    * added field "updated_in_days" for each listing
+    * small documentation fixes
+
 --- 1.14.3 (5/3/2009) ---
     * Documentation update ('let' is no longer an allowed listing_type)
 

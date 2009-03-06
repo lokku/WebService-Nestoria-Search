@@ -4,7 +4,7 @@ use warnings;
 package WebService::Nestoria::Search;
 
 use Carp;
-use version; our $VERSION = qv('1.14.3');
+use version; our $VERSION = qv('1.14.4');
 use WebService::Nestoria::Search::Request;
 use WebService::Nestoria::Search::MetadataResponse;
 
@@ -33,6 +33,7 @@ The possible parameters and their defaults are as follows:
     encoding            (default: 'json')
     pretty              (default: 0)
     number_of_results
+    page
     place_name
     south_west
     north_east
@@ -64,7 +65,7 @@ If parameters are passed to C<new> they are used as the defaults for all calls t
         number_of_results   => '10',
     );
 
-    my @results = WebService::Nestoria::Search->results(
+    my @results = $NS->results(
         keywords            => 'garden,hot_tub,mews',
         keywords_exclude    => 'cottage,wood_floor'
     );
@@ -121,6 +122,7 @@ my %Config = (
         'encoding'            => 'json',
         'pretty'              => '0',     # pretty JSON results not needed
         'number_of_results'   => undef,   # defaults to 20 their end
+        'page'                => undef,   # defautls to 1 on their end
         'place_name'          => undef,
         'south_west'          => undef,
         'north_east'          => undef,
@@ -238,7 +240,7 @@ sub _validate_long {
     }
 }
 
-my $validate_number_of_results = sub {
+my $validate_positive_integer = sub {
     my $val = shift || return 0;
 
     return ( $val =~ /^\d+$/ );
@@ -307,7 +309,8 @@ my %ValidateRoutine = (
     'north_east'          => $validate_lat_long,
     'centre_point'        => $validate_lat_long,
     'radius'              => $validate_radius,
-    'number_of_results'   => $validate_number_of_results,
+    'number_of_results'   => $validate_positive_integer,
+    'page'                => $validate_positive_integer,
     'listing_type'        => $validate_listing_type,
     'property_type'       => $validate_property_type,
     'price_max'           => $validate_max,

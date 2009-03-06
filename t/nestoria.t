@@ -3,7 +3,7 @@ use warnings;
 use Test::More;
 use URI;
 
-my $TESTS = 50;
+my $TESTS = 59;
 
 plan tests => $TESTS;
 
@@ -50,6 +50,15 @@ SKIP : {
     $count = scalar $ns->query(place_name => 'soho', number_of_results => '1')->count;
     ok ( $count <= 1, 'number_of_results works' );
 
+    ## Check page parameter
+    my $page1 = $ns->query(place_name => 'soho')->get_hashref;
+    my $page2 = $ns->query(place_name => 'soho', 'page' => 2)->get_hashref;
+    my $page3 = $ns->query(place_name => 'soho', 'page' => 3)->get_hashref;
+
+    is $page1->{'request'}{'offset'}, 0, 'got 0 offset for page 1';
+    is $page2->{'request'}{'offset'}, 20, 'got 20 offset for page 2';
+    is $page3->{'request'}{'offset'}, 40, 'got 40 offset for page 3';
+
     ## Check get_* functions
 
     @listings = $ns->results(
@@ -61,11 +70,10 @@ SKIP : {
     my $listing = $listings[0];
 
     my @listing_fields_required = qw(
-        datasource_name keywords   latitude
-        lister_name     lister_url listing_type
-        longitude       price      price_currency 
-        price_formatted price_type property_type
-        summary         title
+        latitude longitude listing_type property_type datasource_name
+        lister_name lister_url price price_type price_currency price_formatted
+        title summary bedroom_number thumb_url thumb_height thumb_width
+        keywords guid updated_in_days
     );
 
     foreach my $field (@listing_fields_required) {
