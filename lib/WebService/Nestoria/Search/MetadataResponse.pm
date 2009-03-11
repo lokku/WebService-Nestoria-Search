@@ -243,7 +243,7 @@ Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
-Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com)
+Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com), Alistair Francis (cpan at alizta dot com)
 
 =cut
 

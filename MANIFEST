@@ -1,13 +1,16 @@
 Build.PL
+CHANGES
 lib/WebService/Nestoria/Search.pm
+lib/WebService/Nestoria/Search/MetadataResponse.pm
 lib/WebService/Nestoria/Search/Request.pm
 lib/WebService/Nestoria/Search/Response.pm
-lib/WebService/Nestoria/Search/MetadataResponse.pm
 lib/WebService/Nestoria/Search/Result.pm
-Makefile.PL
-MANIFEST			This list of files
 LICENSE
+Makefile.PL
+MANIFEST
+META.yml
 README
-CHANGES
-t/nestoria.t
-META.yml                                 Module meta-data (added by MakeMaker)
+t/kwalitee.t
+t/nestoria_json.t
+t/nestoria_xml.t
+t/pod.t

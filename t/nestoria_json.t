@@ -3,7 +3,7 @@ use warnings;
 use Test::More;
 use URI;
 
-my $TESTS = 59;
+my $TESTS = 50;
 
 plan tests => $TESTS;
 
@@ -18,7 +18,7 @@ use_ok 'WebService::Nestoria::Search::Result';
 use_ok 'WebService::Nestoria::Search::MetadataResponse';
 
 ## Create WebService::Nestoria::Search object
-my $ns = new WebService::Nestoria::Search(Country => 'uk');
+my $ns = new WebService::Nestoria::Search(Country => 'uk', encoding => 'json');
 ok ( ref $ns, 'object created successfully' );
 
 ## Check URL
@@ -50,15 +50,6 @@ SKIP : {
     $count = scalar $ns->query(place_name => 'soho', number_of_results => '1')->count;
     ok ( $count <= 1, 'number_of_results works' );
 
-    ## Check page parameter
-    my $page1 = $ns->query(place_name => 'soho')->get_hashref;
-    my $page2 = $ns->query(place_name => 'soho', 'page' => 2)->get_hashref;
-    my $page3 = $ns->query(place_name => 'soho', 'page' => 3)->get_hashref;
-
-    is $page1->{'request'}{'offset'}, 0, 'got 0 offset for page 1';
-    is $page2->{'request'}{'offset'}, 20, 'got 20 offset for page 2';
-    is $page3->{'request'}{'offset'}, 40, 'got 40 offset for page 3';
-
     ## Check get_* functions
 
     @listings = $ns->results(
@@ -70,10 +61,11 @@ SKIP : {
     my $listing = $listings[0];
 
     my @listing_fields_required = qw(
-        latitude longitude listing_type property_type datasource_name
-        lister_name lister_url price price_type price_currency price_formatted
-        title summary bedroom_number thumb_url thumb_height thumb_width
-        keywords guid updated_in_days
+        datasource_name keywords   latitude
+        lister_name     lister_url listing_type
+        longitude       price      price_currency 
+        price_formatted price_type property_type
+        summary         title
     );
 
     foreach my $field (@listing_fields_required) {
@@ -184,7 +176,7 @@ SKIP : {
 
     ## Test Spain
 
-    $ns = new WebService::Nestoria::Search(country => 'es');
+    $ns = new WebService::Nestoria::Search(country => 'es', encoding => 'json');
     ok ($ns->test_connection, 'got echo from Spanish API' );
 
     @listings = $ns->results('place_name' => 'madrid');
@@ -192,7 +184,7 @@ SKIP : {
 
     ## Test Germany
 
-    $ns = new WebService::Nestoria::Search(country => 'de');
+    $ns = new WebService::Nestoria::Search(country => 'de', encoding => 'json');
     ok ($ns->test_connection, 'got echo from German API' );
 
     @listings = $ns->results('place_name' => 'berlin');
@@ -200,7 +192,7 @@ SKIP : {
 
     ## Test Italy
 
-    $ns = new WebService::Nestoria::Search(country => 'it');
+    $ns = new WebService::Nestoria::Search(country => 'it', encoding => 'json');
     ok ($ns->test_connection, 'got echo from Italian API' );
 
     @listings = $ns->results('place_name' => 'florence');
@@ -210,25 +202,25 @@ SKIP : {
 
     my @keywords = ();
 
-    $ns = new WebService::Nestoria::Search(country => 'uk');
+    $ns = new WebService::Nestoria::Search(country => 'uk', encoding => 'json');
     @keywords = $ns->keywords;
     ok ((grep { $_ eq 'cottage' } @keywords), 'retrieved list of uk keywords');
     
-    $ns = new WebService::Nestoria::Search(country => 'es');
+    $ns = new WebService::Nestoria::Search(country => 'es', encoding => 'json');
     @keywords = $ns->keywords;
     ok ((grep { $_ eq 'garaje' } @keywords), 'retrieved list of es keywords');
 
-    $ns = new WebService::Nestoria::Search(country => 'de');
+    $ns = new WebService::Nestoria::Search(country => 'de', encoding => 'json');
     @keywords = $ns->keywords;
     ok ((grep { $_ eq 'garten' } @keywords), 'retrieved list of de keywords');
 
-    $ns = new WebService::Nestoria::Search(country => 'it');
+    $ns = new WebService::Nestoria::Search(country => 'it', encoding => 'json');
     @keywords = $ns->keywords;
     ok ((grep { $_ eq 'cantina' } @keywords), 'retrieved list of it keywords');
 
     ## Test Metadata
     
-    $ns = new WebService::Nestoria::Search(country => 'uk');
+    $ns = new WebService::Nestoria::Search(country => 'uk', encoding => 'json');
 
     my $metadata_response = $ns->metadata(place_name => 'soho');
 
@@ -247,6 +239,6 @@ SKIP : {
 
     ## Test Case Insensitive Parameters
 
-    $ns = new WebService::Nestoria::Search(country => 'uk', PLACE_NAME => 'soho', AcTiOn => 'search_listings', NUMBER_of_RESULTS => '3');
+    $ns = new WebService::Nestoria::Search(country => 'uk', PLACE_NAME => 'soho', AcTiOn => 'search_listings', NUMBER_of_RESULTS => '3', Encoding => 'json');
     is (scalar ($ns->results), 3, 'queried with parameters using weird cases');
 }

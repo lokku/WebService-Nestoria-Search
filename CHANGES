@@ -1,3 +1,10 @@
+--- 1.14.5 (11/3/2009) ---
+    * Added Alistair Francis to author list. The below were from a patch he submitted.
+    * Added functionality to incorporate xml encoded responses
+    * Made XML::Simple a requirement
+    * Fixed bug in get_raw method, returned undef in all cases because 'json' key value was never defined (correct key is 'raw')
+    * Removed 'LICENSE' from Makefile.pl (not a valid parameter)
+
 --- 1.14.4 (6/3/2009) ---
     * added new parameters ("guid" and "page")
     * added field "updated_in_days" for each listing

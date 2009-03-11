@@ -4,7 +4,7 @@ use warnings;
 package WebService::Nestoria::Search;
 
 use Carp;
-use version; our $VERSION = qv('1.14.4');
+use version; our $VERSION = qv('1.14.5');
 use WebService::Nestoria::Search::Request;
 use WebService::Nestoria::Search::MetadataResponse;
 
@@ -620,7 +620,7 @@ Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
-Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com)
+Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com), Alistair Francis (cpan at alizta dot com).
 
 =head1 Acknowledgements
 

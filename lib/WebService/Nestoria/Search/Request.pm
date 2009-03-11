@@ -5,6 +5,7 @@ package WebService::Nestoria::Search::Request;
 
 use WebService::Nestoria::Search::Response;
 use JSON;
+use XML::Simple;
 use LWP::UserAgent;
 use HTTP::Request;
 use URI;
@@ -92,6 +93,22 @@ sub fetch {
             return;
         }
     }
+    elsif ($self->{Params}{encoding} eq 'xml') {
+        my $response_obj = XMLin($raw);
+     
+        # Returning a listings result in XML will create a hash ref
+        # so it must be forced into an array.
+        if(ref($response_obj->{response}{listings}) eq 'HASH') {
+            $response_obj->{response}{listings} = [ $response_obj->{response}{listings} ];
+        }
+     
+        if (ref($response_obj)) {
+            return new WebService::Nestoria::Search::Response ($response_obj, $raw);
+        }
+        else {
+            return;
+        }
+    }
     else {
         return new WebService::Nestoria::Search::Response ({}, $raw);
     }
@@ -103,7 +120,7 @@ Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
-Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com)
+Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com), Alistair Francis (cpan at alizta dot com)
 
 =cut
 

@@ -43,13 +43,11 @@ sub new {
 
 Returns the raw data returned by the Nestoria API. By default this will be JSON (JavaScript Object Notation.) C<get_json> and C<get_xml> are aliases to C<get_raw>.
 
-Functions other than C<get_raw> only work if encoding was set to 'json'. If encoding is set to anything else ('xml' for example) then C<results> will return an empty array, C<get_hashref> a reference to an empty hash, etc.
-
 =cut
 
 sub get_raw {
     my $self = shift;
-    return $self->{json};
+    return $self->{raw};
 }
 
 sub get_json {
@@ -189,7 +187,7 @@ Copyright (C) 2008 Lokku Ltd.
 
 =head1 Author
 
-Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com)
+Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com), Alistair Francis (cpan at alizta dot com).
 
 =cut
 
