@@ -230,11 +230,11 @@ sub _specific_average_price_monthly_by_beds {
 }
 
 sub _month_to_yyyymmdd {
-	my $month = shift;
-	if ( $month =~ m/(\d\d\d\d)_m(\d+)/ ){
-		return sprintf('%04d%02d%02d', $1, $2, 1 );
-	}
-	return undef;
+    my $month = shift;
+    if ( $month =~ m/(\d\d\d\d)_m(\d+)/ ){
+        return sprintf('%04d%02d%02d', $1, $2, 1 );
+    }
+    return undef;
 }
 
 =head1 Copyright

@@ -14,3 +14,4 @@ t/kwalitee.t
 t/nestoria_json.t
 t/nestoria_xml.t
 t/pod.t
+t/pod_coverage.t

@@ -1,3 +1,6 @@
+--- 1.14.6 (12/3/2009) ---
+    * t/pod_coverage.t to make t/kwalitee.t happy
+
 --- 1.14.5 (11/3/2009) ---
     * Added Alistair Francis to author list. The below were from a patch he submitted.
     * Added functionality to incorporate xml encoded responses
