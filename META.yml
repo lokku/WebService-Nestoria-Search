@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                WebService-Nestoria-Search
-version:             1.14.6
+version:             1.14.7
 abstract:            WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings. Nestoria currently has listings for the UK, Germany, Italy and Spain, which can be accessed via the web at www.nestoria.co.uk, www.nestoria.de, www.nestoria.co.it and www.nestoria.es.
 license:             ~
 generated_by:        ExtUtils::MakeMaker version 6.36

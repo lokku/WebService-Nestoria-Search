@@ -1,3 +1,6 @@
+--- 1.14.7 (13/3/2009) ---
+    * fixed the nestoria_*.t tests to reflect a change in the API's behaviour
+
 --- 1.14.6 (12/3/2009) ---
     * t/pod_coverage.t to make t/kwalitee.t happy
 

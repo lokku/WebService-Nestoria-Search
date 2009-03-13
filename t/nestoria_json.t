@@ -179,24 +179,24 @@ SKIP : {
     $ns = new WebService::Nestoria::Search(country => 'es', encoding => 'json');
     ok ($ns->test_connection, 'got echo from Spanish API' );
 
-    @listings = $ns->results('place_name' => 'madrid');
-    ok (scalar @listings, 'got listings for madrid');
+    @listings = $ns->results('place_name' => 'Madrid');
+    ok (scalar @listings, 'got listings for Madrid');
 
     ## Test Germany
 
     $ns = new WebService::Nestoria::Search(country => 'de', encoding => 'json');
     ok ($ns->test_connection, 'got echo from German API' );
 
-    @listings = $ns->results('place_name' => 'berlin');
-    ok (scalar @listings, 'got listings for berlin');
+    @listings = $ns->results('place_name' => 'Berlin');
+    ok (scalar @listings, 'got listings for Berlin');
 
     ## Test Italy
 
     $ns = new WebService::Nestoria::Search(country => 'it', encoding => 'json');
     ok ($ns->test_connection, 'got echo from Italian API' );
 
-    @listings = $ns->results('place_name' => 'florence');
-    ok (scalar @listings, 'got listings for Florence');
+    @listings = $ns->results('place_name' => 'Firenze');
+    ok (scalar @listings, 'got listings for Firenze');
     
     ## Test Keywords
 
