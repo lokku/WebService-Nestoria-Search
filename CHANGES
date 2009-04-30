@@ -1,3 +1,7 @@
+--- 1.14.8 (30/4/2009) ---
+    * fixed the nestoria_*.t tests so finding a listing with no keywords 
+      doesn't make the test fail
+
 --- 1.14.7 (13/3/2009) ---
     * fixed the nestoria_*.t tests to reflect a change in the API's behaviour
 
@@ -5,10 +9,12 @@
     * t/pod_coverage.t to make t/kwalitee.t happy
 
 --- 1.14.5 (11/3/2009) ---
-    * Added Alistair Francis to author list. The below were from a patch he submitted.
+    * Added Alistair Francis to author list. The below were from a patch he 
+      submitted.
     * Added functionality to incorporate xml encoded responses
     * Made XML::Simple a requirement
-    * Fixed bug in get_raw method, returned undef in all cases because 'json' key value was never defined (correct key is 'raw')
+    * Fixed bug in get_raw method, returned undef in all cases because 'json' 
+      key value was never defined (correct key is 'raw')
     * Removed 'LICENSE' from Makefile.pl (not a valid parameter)
 
 --- 1.14.4 (6/3/2009) ---
@@ -33,7 +39,8 @@
     * Made JSON 2.x a requirement
     
 --- 0.13 - 1.13 ---
-    * Skipped in the interests of syncing up CPAN version with Nestoria API version
+    * Skipped in the interests of syncing up CPAN version with Nestoria 
+    API version
 
 --- 0.12 (31/10/2008) ---
     * metadata method
@@ -49,7 +56,8 @@
 --- 0.10 ---
     * Improved POD (full synopsis, full list of keywords, better formatting)
     * Can 'use WebService::Nestoria::Search Warnings => 0;'
-    * All parameters now case insensitive (eg. country/Country, Place_Name/place_name)
+    * All parameters now case insensitive (eg. country/Country, 
+      Place_Name/place_name)
     * Bug Fix: Changing versions
     * Bug Fix: Requesting XML
 

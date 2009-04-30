@@ -116,7 +116,7 @@ sub fetch {
 
 =head1 Copyright
 
-Copyright (C) 2008 Lokku Ltd.
+Copyright (C) 2009 Lokku Ltd.
 
 =head1 Author
 

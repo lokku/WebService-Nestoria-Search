@@ -71,7 +71,7 @@ SKIP : {
     foreach my $field (@listing_fields_required) {
         no strict "refs";
         my $func = "get_$field";
-        ok($listing->$func, "got $field");
+        ok(defined($listing->$func), "got $field");
     }
     
     ## Check for listings that HAS a photo - fix this to do a proper test
