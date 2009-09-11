@@ -1,6 +1,7 @@
-  # in a separate test file
-  use Test::More;
+use strict;
+use warnings;
 
-  eval { require Test::Kwalitee; Test::Kwalitee->import() };
+use Test::More;
 
-  plan( skip_all => 'Test::Kwalitee not installed; skipping' ) if $@;
+eval { require Test::Kwalitee; Test::Kwalitee->import() };
+plan( skip_all => 'Test::Kwalitee not installed; skipping' ) if $@;

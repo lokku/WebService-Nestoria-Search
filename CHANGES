@@ -1,6 +1,10 @@
+--- 1.15.0 (12/9/2009) ---
+    * added support for the larger image format now available through the API
+      http://blog.nestoria.co.uk/2009/09/11/nestoria-api-version-115-live-bigger-pics/
+
 --- 1.14.8 (30/4/2009) ---
     * fixed the nestoria_*.t tests so finding a listing with no keywords 
-      doesn't make the test fail
+      doesn't make the test fail.
 
 --- 1.14.7 (13/3/2009) ---
     * fixed the nestoria_*.t tests to reflect a change in the API's behaviour

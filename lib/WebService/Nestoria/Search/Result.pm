@@ -46,6 +46,9 @@ as follows:
     get_thumb_url
     get_thumb_height
     get_thumb_width
+    get_img_url
+    get_img_height
+    get_img_width
     get_keywords
     get_guid
     get_updated_in_days
@@ -135,6 +138,21 @@ sub get_thumb_height {
 sub get_thumb_width {
     my $self = shift;
     return $self->{data}{listing}{thumb_width};
+}
+
+sub get_img_url {
+    my $self = shift;
+    return $self->{data}{listing}{img_url};
+}
+
+sub get_img_height {
+    my $self = shift;
+    return $self->{data}{listing}{img_height};
+}
+
+sub get_img_width {
+    my $self = shift;
+    return $self->{data}{listing}{img_width};
 }
 
 sub get_keywords {

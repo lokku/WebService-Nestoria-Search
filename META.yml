@@ -1,30 +1,36 @@
---- #YAML:1.0
-name:               WebService-Nestoria-Search
-version:            1.14.8
-abstract:           WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings. Nestoria currently has listings for the UK, Germany, Italy and Spain, which can be accessed via the web at www.nestoria.co.uk, www.nestoria.de, www.nestoria.co.it and www.nestoria.es.
+---
+name: WebService-Nestoria-Search
+version: 1.15.0
 author:
-    - Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com), Alistair Francis (cpan at alizta dot com)
-license:            unknown
-distribution_type:  module
-configure_requires:
-    ExtUtils::MakeMaker:  0
-build_requires:
-    ExtUtils::MakeMaker:  0
+  - 'Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com), Alistair Francis (cpan at alizta dot com)'
+abstract: 'WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings. Nestoria currently has listings for the UK, Germany, Italy and Spain, which can be accessed via the web at www.nestoria.co.uk, www.nestoria.de, www.nestoria.co.it and www.nestoria.es.'
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
 requires:
-    Carp:            0
-    HTTP::Request:   0
-    JSON:            2
-    LWP::UserAgent:  0
-    Module::Build:   0
-    Test::More:      0
-    URI:             0
-    version:         0
-    XML::Simple:     0
-no_index:
-    directory:
-        - t
-        - inc
-generated_by:       ExtUtils::MakeMaker version 6.50
+  Carp: 0
+  HTTP::Request: 0
+  JSON: 2
+  LWP::UserAgent: 0
+  URI: 0
+  XML::Simple: 0
+  version: 0
+build_requires:
+  Module::Build: 0
+  Test::More: 0
+provides:
+  WebService::Nestoria::Search:
+    file: lib/WebService/Nestoria/Search.pm
+    version: 1.15.0
+  WebService::Nestoria::Search::MetadataResponse:
+    file: lib/WebService/Nestoria/Search/MetadataResponse.pm
+  WebService::Nestoria::Search::Request:
+    file: lib/WebService/Nestoria/Search/Request.pm
+  WebService::Nestoria::Search::Response:
+    file: lib/WebService/Nestoria/Search/Response.pm
+  WebService::Nestoria::Search::Result:
+    file: lib/WebService/Nestoria/Search/Result.pm
+generated_by: Module::Build version 0.3
 meta-spec:
-    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
-    version:  1.4
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

@@ -89,7 +89,7 @@ sub get_average_price {
     foreach my $required ( qw(listing_type range) ) {
         if ( ! exists $params{$required} ) {
             warn "required paramter $required not given\n";
-            return undef;
+            return;
         }
     }
 
@@ -100,7 +100,7 @@ sub get_average_price {
         return $self->{'metadata'}{$metadata_name}{'data'}{$metadata_date}{'avg_price'};
     }
     else {
-        return undef;
+        return;
     }
 }
 
@@ -225,7 +225,7 @@ sub _specific_average_price_monthly_by_beds {
     my $metadata_name = "avg_${beds}bed_${pt}_${lt}_monthly";
     my $metadata_date = "$yyyy\_m$month";
 
-    return undef unless defined $metadata_name && defined $metadata_date;
+    return unless defined $metadata_name && defined $metadata_date;
     return $self->{metadata}{$metadata_name}{data}{$metadata_date}{avg_price};
 }
 
@@ -234,7 +234,7 @@ sub _month_to_yyyymmdd {
     if ( $month =~ m/(\d\d\d\d)_m(\d+)/ ){
         return sprintf('%04d%02d%02d', $1, $2, 1 );
     }
-    return undef;
+    return;
 }
 
 =head1 Copyright
