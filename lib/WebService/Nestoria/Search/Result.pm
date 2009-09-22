@@ -43,6 +43,10 @@ as follows:
     get_title
     get_summary
     get_bedroom_number
+    get_bathroom_number
+    get_room_number
+    get_size
+    get_size_unit
     get_thumb_url
     get_thumb_height
     get_thumb_width
@@ -51,124 +55,43 @@ as follows:
     get_img_width
     get_keywords
     get_guid
+    get_commission
+    get_construction_year
     get_updated_in_days
+    get_updated_in_days_formatted
 
 =cut
 
-sub get_latitude {
-    my $self = shift;
-    return $self->{data}{listing}{latitude};
-}
-
-sub get_longitude {
-    my $self = shift;
-    return $self->{data}{listing}{longitude};
-}
-
-sub get_listing_type {
-    my $self = shift;
-    return $self->{data}{listing}{listing_type};
-}
-
-sub get_property_type {
-    my $self = shift;
-    return $self->{data}{listing}{property_type};
-}
-
-sub get_datasource_name {
-    my $self = shift;
-    return $self->{data}{listing}{datasource_name};
-}
-
-sub get_lister_name {
-    my $self = shift;
-    return $self->{data}{listing}{lister_name};
-}
-
-sub get_lister_url {
-    my $self = shift;
-    return $self->{data}{listing}{lister_url};
-}
-
-sub get_price {
-    my $self = shift;
-    return $self->{data}{listing}{price};
-}
-
-sub get_price_type {
-    my $self = shift;
-    return $self->{data}{listing}{price_type};
-}
-
-sub get_price_currency {
-    my $self = shift;
-    return $self->{data}{listing}{price_currency};
-}
-
-sub get_price_formatted {
-    my $self = shift;
-    return $self->{data}{listing}{price_formatted};
-}
-
-sub get_title {
-    my $self = shift;
-    return $self->{data}{listing}{title};
-}
-
-sub get_summary {
-    my $self = shift;
-    return $self->{data}{listing}{summary};
-}
-
-sub get_bedroom_number {
-    my $self = shift;
-    return $self->{data}{listing}{bedroom_number};
-}
-
-sub get_thumb_url {
-    my $self = shift;
-    return $self->{data}{listing}{thumb_url};
-}
-
-sub get_thumb_height {
-    my $self = shift;
-    return $self->{data}{listing}{thumb_height};
-}
-
-sub get_thumb_width {
-    my $self = shift;
-    return $self->{data}{listing}{thumb_width};
-}
-
-sub get_img_url {
-    my $self = shift;
-    return $self->{data}{listing}{img_url};
-}
-
-sub get_img_height {
-    my $self = shift;
-    return $self->{data}{listing}{img_height};
-}
-
-sub get_img_width {
-    my $self = shift;
-    return $self->{data}{listing}{img_width};
-}
-
-sub get_keywords {
-    my $self = shift;
-    return $self->{data}{listing}{keywords};
-}
-
-sub get_guid {
-    my $self = shift;
-    return $self->{data}{listing}{guid};
-}
-
-sub get_updated_in_days {
-    my $self = shift;
-    return $self->{data}{listing}{updated_in_days};
-}
+sub get_latitude                  { shift->{data}{listing}{latitude}                      }
+sub get_longitude                 { shift->{data}{listing}{longitude}                     }
+sub get_listing_type              { shift->{data}{listing}{listing_type}                  }
+sub get_property_type             { shift->{data}{listing}{property_type}                 }
+sub get_datasource_name           { shift->{data}{listing}{datasource_name}               }
+sub get_lister_name               { shift->{data}{listing}{lister_name}                   }
+sub get_lister_url                { shift->{data}{listing}{lister_url}                    }
+sub get_price                     { shift->{data}{listing}{price}                         }
+sub get_price_type                { shift->{data}{listing}{price_type}                    }
+sub get_price_currency            { shift->{data}{listing}{price_currency}                }
+sub get_price_formatted           { shift->{data}{listing}{price_formatted};              }
+sub get_title                     { shift->{data}{listing}{title}                         }
+sub get_summary                   { shift->{data}{listing}{summary}                       }
+sub get_bedroom_number            { shift->{data}{listing}{bedroom_number}                }
+sub get_bathroom_number           { shift->{data}{listing}{bathroom_number}               }
+sub get_room_number               { shift->{data}{listing}{room_number}                   }
+sub get_size                      { shift->{data}{listing}{size}                          }
+sub get_size_unit                 { shift->{data}{listing}{size_unit}                     }
+sub get_thumb_url                 { shift->{data}{listing}{thumb_url}                     }
+sub get_thumb_height              { shift->{data}{listing}{thumb_height}                  }
+sub get_thumb_width               { shift->{data}{listing}{thumb_width}                   }
+sub get_img_url                   { shift->{data}{listing}{img_url}                       }
+sub get_img_height                { shift->{data}{listing}{img_height}                    }
+sub get_img_width                 { shift->{data}{listing}{img_width}                     }
+sub get_keywords                  { shift->{data}{listing}{keywords}                      }
+sub get_guid                      { shift->{data}{listing}{guid}                          }
+sub get_updated_in_days           { shift->{data}{listing}{updated_in_days}               }
+sub get_updated_in_days_formatted { shift->{data}{listing}{get_updated_in_days_formatted} }
+sub get_construction_year         { shift->{data}{listing}{get_construction_year}         }
+sub get_commission                { shift->{data}{listing}{get_commission}                }
 
 =head2 get_hashref
 

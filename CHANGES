@@ -1,3 +1,8 @@
+--- 1.16.0 (22/9/2009) ---
+    * added support for bathrooms_max, bathrooms_min, rooms_max and rooms_min
+    * rewrote the entire test suite to increase coverage and decrease false 
+      failures. 100% subroutine code coverage!
+
 --- 1.15.0 (12/9/2009) ---
     * added support for the larger image format now available through the API
       http://blog.nestoria.co.uk/2009/09/11/nestoria-api-version-115-live-bigger-pics/

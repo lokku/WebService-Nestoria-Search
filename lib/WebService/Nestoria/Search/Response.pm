@@ -164,7 +164,6 @@ sub next_result {
         return $self->{results}[$self->{next_iterator}++];
     }
     else {
-        $self->{next_iterator} = 0;
         return;
     }
 }
@@ -177,7 +176,6 @@ Resets the counter used for next_result.
 
 sub reset {
     my $self = shift;
-
     $self->{next_iterator} = 0;
 }
 

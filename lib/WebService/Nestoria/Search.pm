@@ -4,7 +4,7 @@ use warnings;
 package WebService::Nestoria::Search;
 
 use Carp;
-use version; our $VERSION = qv('1.15.0');
+use version; our $VERSION = qv('1.16.0');
 use WebService::Nestoria::Search::Request;
 use WebService::Nestoria::Search::MetadataResponse;
 
@@ -45,6 +45,10 @@ The possible parameters and their defaults are as follows:
     price_min
     bedroom_max
     bedroom_min
+    bathroom_max
+    bathroom_min
+    room_max
+    room_min
     size_max
     size_min
     sort
@@ -134,6 +138,10 @@ my %Config = (
         'price_min'           => undef,   # defaults to 'min'
         'bedroom_max'         => undef,   # defaults to 'max'
         'bedroom_min'         => undef,   # defaults to 'min'
+        'bathroom_max'        => undef,   # defaults to 'max'
+        'bathroom_min'        => undef,   # defaults to 'min'
+        'room_max'            => undef,   # defaults to 'max'
+        'room_min'            => undef,   # defaults to 'min'
         'size_max'            => undef,   # only for Spain
         'size_min'            => undef,   # only for Spain
         'sort'                => undef,   # defaults to 'nestoria_rank'
@@ -195,115 +203,104 @@ sub _carp_on_error {
 
 my $validate_allow_all = sub {
     ## allow any defined input
-    
     return defined shift;
 };
 
 my $validate_lat_long = sub {
-    my $val = shift || return 0;
-
+    my $val = shift;
     my ($lat, $long) = split (/,/, $val);
-
     return _validate_lat($lat) && _validate_long($long);
 };
 
 my $validate_radius = sub {
-    my $val = shift || return 0;
-
+    my $val = shift;
     my ($lat,$long,$radius) = split(/,/, $val);
-
-    return _validate_lat($lat) && _validate_long($long)
-        && $radius =~ m/^\d+(km|mi)$/;
+    return _validate_lat($lat) && _validate_long($long) &&
+           ($radius =~ m/^\d+(km|mi)$/);
 };
 
 ## latitude is a float between -180 and 180
 sub _validate_lat {
-    my $val = shift || return 0;
-
+    my $val = shift;
     if ( defined($val) && $val =~ /^[\+\-]?\d+\.?\d*$/ ) {
         return -180 <= $val && $val <= 180;
     }
     else {
-        return 0;
+        return;
     }
 }
 
 ## longitude is a float between -90 and 90
 sub _validate_long {
-    my $val = shift || return 0;
-
+    my $val = shift;
     if ( defined($val) && $val =~ /^[\+\-]?\d+\.?\d*$/ ) {
         return -90 <= $val && $val <= 90;
     }
     else {
-        return 0;
+        return;
     }
 }
 
 my $validate_positive_integer = sub {
-    my $val = shift || return 0;
-
-    return ( $val =~ /^\d+$/ );
+    my $val = shift;
+    return ( $val =~ /^\d+$/ && $val > 0 );
 };
 
 my $validate_listing_type = sub {
-    my $val = shift || return 0;
-
+    my $val = shift;
     return grep { $val eq $_ } qw(buy rent share);
 };
 
 my $validate_property_type = sub {
-    my $val = shift || return 0;
-
+    my $val = shift;
     return grep { $val eq $_ } qw(all house flat);
 };
 
 my $validate_max = sub {
-    my $val = shift || return 0;
-
+    my $val = shift;
     return $val eq 'max' || $val =~ /^\d+$/;
 };
 
 my $validate_min = sub {
-    my $val = shift || return 0;
-
+    my $val = shift;
     return $val eq 'min' || $val =~ /^\d+$/;
 };
 
 my $validate_sort = sub {
-    my $val = shift || return 0;
-
+    my $val = shift;
     return grep { $val eq $_ } qw(bedroom_lowhigh bedroom_highlow
                                   price_lowhigh price_highlow
                                   newest oldest);
 }; 
 
 my $validate_version = sub {
-    my $val = shift || return 0;
-
-    return $val =~ m/[\d.]+/;
+    my $val = shift;
+    return $val =~ m/^[\d.]+$/;
 };
 
 my $validate_action = sub {
-    my $val = shift || return 0;
-
+    my $val = shift;
     return grep { $val eq $_ } qw(search_listings echo keywords metadata);
 };
 
 my $validate_encoding = sub {
-    my $val = shift || return 0;
-
+    my $val = shift;
     return grep { $val eq $_ } qw(json xml);
 };
 
 my $validate_pretty = sub {
     my $val = shift;
+    return $val == 0 || $val == 1;
+};
 
-    return defined $val && ($val == 0 || $val == 1);
+my $validate_country = sub {
+    my $val = shift;
+    return $Config{'Urls'}{$val};
 };
 
 ## Mapping from arg name to validation sub
 my %ValidateRoutine = (
+    'country'             => $validate_country,
     'place_name'          => $validate_allow_all,
     'south_west'          => $validate_lat_long,
     'north_east'          => $validate_lat_long,
@@ -317,6 +314,10 @@ my %ValidateRoutine = (
     'price_min'           => $validate_min,
     'bedroom_max'         => $validate_max,
     'bedroom_min'         => $validate_min,
+    'bathroom_max'        => $validate_max,
+    'bathroom_min'        => $validate_min,
+    'room_max'            => $validate_max,
+    'room_min'            => $validate_min,
     'size_max'            => $validate_max,
     'size_min'            => $validate_min,
     'sort'                => $validate_sort,
@@ -434,6 +435,10 @@ sub request {
         $self = new $self;
     }
 
+    foreach my $key ( keys %GlobalDefaults ) {
+        $args{$key} ||= $GlobalDefaults{$key};
+    }
+
     foreach my $key ( keys %{ $self->{Defaults} } ) {
         next if grep { $key eq $_ } keys %GlobalDefaults;
         $args{$key} ||= $self->{Defaults}{$key};
@@ -453,7 +458,7 @@ sub request {
     }
 
     my %params;
-    $params{ActionUrl} = $Config{Urls}->{$GlobalDefaults{country}};
+    $params{ActionUrl} = $Config{Urls}->{$args{country}};
     $params{AppId}     = $Config{AppId};
     $params{Params}    = \%args;
 

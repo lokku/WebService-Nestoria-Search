@@ -23,6 +23,7 @@ my $builder = Module::Build->new (
     build_requires => {
         'Module::Build'  => 0,
         'Test::More'     => 0,
+        'Test::Warn'     => 0,
     },
 
     create_makefile_pl => 'traditional',

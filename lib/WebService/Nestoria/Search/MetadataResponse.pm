@@ -24,7 +24,6 @@ sub new {
     }
 
     return bless $self, $class;
-
 }
 
 =head1 Functions
@@ -58,16 +57,14 @@ Returns the average for properties which match the number of bedrooms, property 
     my %options = (
         # required
         listing_type => 'rent',
-        range => 'monthly',             # 'monthly' or 'quarterly'
+        range => 'monthly',             # 'monthly' ('quarterly' is deprecated, and has no data.)
         
         # optional depending on 'range'
         year => 2007,                   # 4 digit date
         month => 'January',             # eg. '1', 'Jan' or 'January'
-        quarter => '1'                  # eg. '1', 'q1', 'quarter1'
 
         # optional
         num_beds => 3                   # integer
-        property_type => 'flat',        # 'flat' or 'house'
         per_sqm => 1,                   # price returned per square metre
     );
     my $average_price = $metadata->get_average_price_by_beds(%options);
@@ -95,7 +92,7 @@ sub get_average_price {
 
     my $metadata_name = $self->_get_metadata_name(%params);
     my $metadata_date = $self->_get_metadata_date($metadata_name, %params);
-    
+
     if (defined $metadata_name && defined $metadata_date) {
         return $self->{'metadata'}{$metadata_name}{'data'}{$metadata_date}{'avg_price'};
     }
@@ -108,8 +105,6 @@ sub _get_metadata_name {
     my $self = shift;
     my %params = @_;
 
-    ## avg_4bed_house_buy_quarterly
-    ## avg_house_buy_quarterly
     ## avg_5bed_property_buy_monthly_per_sqm
 
     my $name = "avg_";
@@ -118,12 +113,7 @@ sub _get_metadata_name {
         $name .= $params{'num_beds'} . "bed_";
     }
 
-    if ($params{'property_type'}) {
-        $name .= $params{'property_type'} . "_";
-    }
-    else {
-        $name .= "property_";
-    }
+    $name .= "property_";
 
     $name .= $params{'listing_type'} . "_";
 
@@ -152,11 +142,12 @@ sub _get_metadata_date {
     my $self = shift;
     my $metadata_name = shift;
     my %params = @_;
+
+    my ($mm, $year) = @params{'month', 'year'};
     
     ## If $year & $month are not specified, we assume the user wants the most recent month that 
     ## we have metadata for...
-    if (!defined($params{'year'}) && !defined($params{'month'}))
-    {
+    if (!defined $year && !defined $mm) {
         my $ra_metadata = $self->{'metadata'}->{$metadata_name};
     
         my @a_found_months = ();
@@ -168,65 +159,22 @@ sub _get_metadata_date {
         my ($date) = sort { _month_to_yyyymmdd($b) <=> _month_to_yyyymmdd($a) } @a_found_months;
         return $date;
     }
+    elsif ($params{'range'} eq 'monthly') {
+        my $month = exists $short_months{$mm}
+                         ? $short_months{$mm}
+                         : exists $long_months{$mm}
+                                ? $long_months{$mm}
+                                : $mm;
+    
+        if ($month == 0) {
+            $month = 12;
+            $year--;
+        }
 
-    my ($mm,$year, $quarter) = @params{'month', 'year', 'quarter'};
-
-    my $month = exists $short_months{$mm}
-                     ? $short_months{$mm}
-                     : exists $long_months{$mm}
-                            ? $long_months{$mm}
-                            : $mm;
-
-    if ($month == 0) {
-        $month = 12;
-        $year--;
+        return sprintf '%d_m%d', $year, $month;
     }
 
-    if (defined $quarter && $quarter =~ m/^q?\w*(\d+)$/) {
-        $quarter = $1;
-    }
-
-    my $date;
-    if ($params{'range'} eq 'monthly') {
-        $date = sprintf '%d_m%d', $year, $month;
-    }
-    elsif ($params{'range'} eq 'quarterly') {
-        $date = sprintf '%d_q%d', $year, $quarter;
-    }
-
-    return $date;
-}
-
-sub _latest_average_price_monthly_by_beds {
-    my $self = shift;
-    my ($beds,$pt,$lt) = @_;
-
-    my ($mm,$yyyy) = (localtime)[4,5];
-    ## NB. Months count from 0 with localtime() and 1 with metadata
-    ##     therefore the month returned by localtime() is the previous
-    ##     month, which just so happens to be what we want.
-    ##     Years count from 1900, so we add that.
-    $yyyy += 1900;
-
-
-    return $self->_specific_average_price_monthly_by_beds($beds,$pt,$lt,$yyyy,$mm);
-}
-
-sub _specific_average_price_monthly_by_beds {
-    my $self = shift;
-    my ($beds,$pt,$lt,$yyyy,$mm) = @_;
-
-    my $month = exists $short_months{$mm}
-                     ? $short_months{$mm}
-                     : exists $long_months{$mm}
-                            ? $long_months{$mm}
-                            : $mm;
-
-    my $metadata_name = "avg_${beds}bed_${pt}_${lt}_monthly";
-    my $metadata_date = "$yyyy\_m$month";
-
-    return unless defined $metadata_name && defined $metadata_date;
-    return $self->{metadata}{$metadata_name}{data}{$metadata_date}{avg_price};
+    return;
 }
 
 sub _month_to_yyyymmdd {
