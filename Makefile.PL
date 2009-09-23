@@ -9,6 +9,7 @@ WriteMakefile
                            'HTTP::Request' => '0',
                            'JSON' => '2',
                            'LWP::UserAgent' => '0',
+                           'List::MoreUtils' => '0',
                            'Module::Build' => '0',
                            'Test::More' => '0',
                            'Test::Warn' => '0',

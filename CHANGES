@@ -1,3 +1,7 @@
+--- 1.16.1 (23/9/2009) ---
+    * added List::MoreUtils to the dependencies list (I thought it was core!)
+    * only Perl::Critic if PERLCRITIC is not set - avoid custom .perlcriticrc
+
 --- 1.16.0 (22/9/2009) ---
     * added support for bathrooms_max, bathrooms_min, rooms_max and rooms_min
     * rewrote the entire test suite to increase coverage and decrease false 
