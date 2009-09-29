@@ -1,3 +1,7 @@
+--- 1.16.2 (29/9/2009) ---
+    * further changes to t/xx-perl_critic.t to stop erroneous failures
+    * renamed CHANGES to Changes to match other CPAN modules
+
 --- 1.16.1 (23/9/2009) ---
     * added List::MoreUtils to the dependencies list (I thought it was core!)
     * only Perl::Critic if PERLCRITIC is not set - avoid custom .perlcriticrc

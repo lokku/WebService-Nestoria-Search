@@ -1,6 +1,6 @@
 ---
 name: WebService-Nestoria-Search
-version: 1.16.1
+version: 1.16.2
 author:
   - 'Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com), Alistair Francis (cpan at alizta dot com)'
 abstract: 'WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings. Nestoria currently has listings for the UK, Germany, Italy and Spain, which can be accessed via the web at www.nestoria.co.uk, www.nestoria.de, www.nestoria.co.it and www.nestoria.es.'
@@ -23,7 +23,7 @@ build_requires:
 provides:
   WebService::Nestoria::Search:
     file: lib/WebService/Nestoria/Search.pm
-    version: 1.16.1
+    version: 1.16.2
   WebService::Nestoria::Search::MetadataResponse:
     file: lib/WebService/Nestoria/Search/MetadataResponse.pm
   WebService::Nestoria::Search::Request:
@@ -32,7 +32,7 @@ provides:
     file: lib/WebService/Nestoria/Search/Response.pm
   WebService::Nestoria::Search::Result:
     file: lib/WebService/Nestoria/Search/Result.pm
-generated_by: Module::Build version 0.2808
+generated_by: Module::Build version 0.3
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2

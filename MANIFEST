@@ -1,5 +1,5 @@
 Build.PL
-CHANGES
+Changes
 lib/WebService/Nestoria/Search.pm
 lib/WebService/Nestoria/Search/MetadataResponse.pm
 lib/WebService/Nestoria/Search/Request.pm
@@ -7,7 +7,7 @@ lib/WebService/Nestoria/Search/Response.pm
 lib/WebService/Nestoria/Search/Result.pm
 LICENSE
 Makefile.PL
-MANIFEST
+MANIFEST			This list of files
 META.yml
 README
 t/00-compile.t
