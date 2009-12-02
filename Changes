@@ -1,3 +1,9 @@
+--- 1.17.0 (2/12/2009) ---
+    * updated to match version 1.17 of the API
+        * added price_high and price_low as fields in the Result object
+        * added auction_date as a field in the Result object
+        * added land_size and land_size unit as fields in the Result object
+
 --- 1.16.2 (29/9/2009) ---
     * further changes to t/xx-perl_critic.t to stop erroneous failures
     * renamed CHANGES to Changes to match other CPAN modules

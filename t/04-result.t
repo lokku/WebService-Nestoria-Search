@@ -17,7 +17,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 34;
+plan tests => 39;
 my ($ns, $result);
 
 ##########################################################################
@@ -63,6 +63,8 @@ my @fields = qw(
     price_type
     price_currency
     price_formatted
+    price_high
+    price_low
     title
     summary
     bedroom_number
@@ -70,6 +72,8 @@ my @fields = qw(
     room_number
     size
     size_unit
+    land_size
+    land_size_unit
     thumb_url
     thumb_height
     thumb_width
@@ -80,12 +84,24 @@ my @fields = qw(
     guid
     commission
     construction_year
+    auction_date
     updated_in_days
     updated_in_days_formatted
 );
 
 foreach my $field (@fields) {
     my $func = "get_$field";
-    eval { $result->$func() };
+    my $rv;
+
+    eval { $rv = $result->$func() };
+
     ok !$@, "called $func";
+    
+    if ($@) {
+        print "error: $@\n";
+    }
+    else {
+        $rv = defined($rv) ? $rv : 'undef'; # stringify 'undef' for output
+        print "result: $rv\n";
+    }
 }

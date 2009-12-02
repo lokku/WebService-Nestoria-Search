@@ -40,6 +40,8 @@ as follows:
     get_price_type
     get_price_currency
     get_price_formatted
+    get_price_high
+    get_price_low
     get_title
     get_summary
     get_bedroom_number
@@ -47,6 +49,8 @@ as follows:
     get_room_number
     get_size
     get_size_unit
+    get_land_size
+    get_land_size_unit
     get_thumb_url
     get_thumb_height
     get_thumb_width
@@ -57,6 +61,7 @@ as follows:
     get_guid
     get_commission
     get_construction_year
+    get_auction_date
     get_updated_in_days
     get_updated_in_days_formatted
 
@@ -73,6 +78,8 @@ sub get_price                     { shift->{data}{listing}{price}               
 sub get_price_type                { shift->{data}{listing}{price_type}                    }
 sub get_price_currency            { shift->{data}{listing}{price_currency}                }
 sub get_price_formatted           { shift->{data}{listing}{price_formatted};              }
+sub get_price_high                { shift->{data}{listing}{price_high};                   }
+sub get_price_low                 { shift->{data}{listing}{price_low};                    }
 sub get_title                     { shift->{data}{listing}{title}                         }
 sub get_summary                   { shift->{data}{listing}{summary}                       }
 sub get_bedroom_number            { shift->{data}{listing}{bedroom_number}                }
@@ -80,6 +87,8 @@ sub get_bathroom_number           { shift->{data}{listing}{bathroom_number}     
 sub get_room_number               { shift->{data}{listing}{room_number}                   }
 sub get_size                      { shift->{data}{listing}{size}                          }
 sub get_size_unit                 { shift->{data}{listing}{size_unit}                     }
+sub get_land_size                 { shift->{data}{listing}{land_size}                     }
+sub get_land_size_unit            { shift->{data}{listing}{land_size_unit}                }
 sub get_thumb_url                 { shift->{data}{listing}{thumb_url}                     }
 sub get_thumb_height              { shift->{data}{listing}{thumb_height}                  }
 sub get_thumb_width               { shift->{data}{listing}{thumb_width}                   }
@@ -92,6 +101,7 @@ sub get_updated_in_days           { shift->{data}{listing}{updated_in_days}     
 sub get_updated_in_days_formatted { shift->{data}{listing}{get_updated_in_days_formatted} }
 sub get_construction_year         { shift->{data}{listing}{get_construction_year}         }
 sub get_commission                { shift->{data}{listing}{get_commission}                }
+sub get_auction_date              { shift->{data}{listing}{get_auction_date}              }
 
 =head2 get_hashref
 
