@@ -1,3 +1,24 @@
+--- 1.17.4 (20/4/2010) ---
+    * added Australia support
+    * added "land" property type support
+    * fixed small POD issues
+    * added countries test
+    * separated out validations test
+
+--- 1.17.3 (19/4/2010) ---
+    * changed soho to richmond in 01-search.t
+      - no gardens in soho caused the test to fail
+
+--- 1.17.2 (28/1/2010) ---
+    * fixed typo in $WebService::Nestoria::Search
+         our $RecentRequsetUrl
+      => our $RecentRequestUrl
+    * Added documentation for $WebService::Nestoria::Search::RecentRequestUrl
+
+--- 1.17.1 (7/12/2009) ---
+    * failing test in 1.17.0 caused by external data. fixed test.
+    * skip perl-critic test, it fails on too many foreign/CPANTS machines
+
 --- 1.17.0 (2/12/2009) ---
     * updated to match version 1.17 of the API
         * added price_high and price_low as fields in the Result object
