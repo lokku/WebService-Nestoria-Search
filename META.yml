@@ -1,7 +1,7 @@
 ---
 abstract: 'Perl interface to the Nestoria Search public API'
 author:
-  - 'Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com), Alistair Francis (cpan at alizta dot com)'
+  - 'Alex Balhatchet (alex@lokku.com)'
 build_requires:
   List::MoreUtils: 0
   Module::Build: 0
