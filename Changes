@@ -1,3 +1,6 @@
+--- 1.17.5 (4/7/2010) ---
+    * fixed POD issues
+
 --- 1.17.4 (20/4/2010) ---
     * added Australia support
     * added "land" property type support

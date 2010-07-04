@@ -4,7 +4,7 @@ use warnings;
 package WebService::Nestoria::Search;
 
 use Carp;
-use version; our $VERSION = qv('1.17.0');
+use version; our $VERSION = qv('1.17.5');
 use WebService::Nestoria::Search::Request;
 use WebService::Nestoria::Search::MetadataResponse;
 
@@ -56,6 +56,8 @@ The possible parameters and their defaults are as follows:
     keywords_exclude
 
 If parameters are passed to C<new> they are used as the defaults for all calls to the API. Otherwise they can be passed to the querying functions (eg. C<query>) as per-search parameters.
+
+You should never have to set the 'action' parameter yourself, it is implied by the method you choose to use to run the query.
 
 =head2 Simple Example
 
@@ -142,8 +144,8 @@ my %Config = (
         'bathroom_min'        => undef,   # defaults to 'min'
         'room_max'            => undef,   # defaults to 'max'
         'room_min'            => undef,   # defaults to 'min'
-        'size_max'            => undef,   # only for Spain
-        'size_min'            => undef,   # only for Spain
+        'size_max'            => undef,   # defaults to 'max'
+        'size_min'            => undef,   # defaults to 'min'
         'sort'                => undef,   # defaults to 'nestoria_rank'
         'keywords'            => undef,   # defaults to an empty list
         'keywords_exclude'    => undef,   # defaults to an empty list
@@ -155,7 +157,7 @@ my %Config = (
         'es'                  => 'http://api.nestoria.es/api',
         'de'                  => 'http://api.nestoria.de/api',
         'it'                  => 'http://api.nestoria.it/api',
-
+        'au'                  => 'http://api.nestoria.com.au/api',
     },
 );
 
@@ -611,7 +613,21 @@ or when calling C<new>
 
 Country is an optional parameter which defaults to 'uk'. It affects the URL which is used for fetching results.
 
-Currently the available countries are 'uk' for the United Kingdom, 'es' for Spain, 'de' for Germany and 'it' for Italy.
+Currently the available countries are:
+
+=over 4
+
+=item * uk - United Kingdom
+
+=item * es - Spain
+
+=item * it - Italy
+
+=item * de - Germany
+
+=item * au - Australia
+
+=back
 
 =head1 Non-OO
 
@@ -625,7 +641,9 @@ Copyright (C) 2009 Lokku Ltd.
 
 =head1 Author
 
-Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com), Alistair Francis (cpan at alizta dot com).
+Alex Balhatchet (alex@lokku.com)
+
+Patches supplied by Yoav Felberbaum and Alistair Francis.
 
 =head1 Acknowledgements
 

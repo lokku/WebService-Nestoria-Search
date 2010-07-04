@@ -120,7 +120,9 @@ Copyright (C) 2009 Lokku Ltd.
 
 =head1 Author
 
-Alex Balhatchet (kaoru at slackwise dot net), Yoav Felberbaum (perl at mrdini dot com), Alistair Francis (cpan at alizta dot com)
+Alex Balhatchet (alex@lokku.com)
+
+Patches supplied by Yoav Felberbaum and Alistair Francis.
 
 =cut
 
