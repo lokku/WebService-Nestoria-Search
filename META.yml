@@ -1,5 +1,5 @@
 ---
-abstract: 'WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings. Nestoria currently has listings for the UK, Spain, Italy, Germany and Australia'
+abstract: 'WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings.'
 author:
   - 'Alex Balhatchet (alex@lokku.com)'
 build_requires:

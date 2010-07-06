@@ -8,7 +8,7 @@ my $builder = Module::Build->new (
     license           => 'perl',
     dist_author       => 'Alex Balhatchet (alex@lokku.com)',
     dist_version_from => 'lib/WebService/Nestoria/Search.pm',
-    dist_abstract => 'WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings. Nestoria currently has listings for the UK, Spain, Italy, Germany and Australia',
+    dist_abstract => 'WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings.',
 
     requires => {
         'Carp'            => 0,
