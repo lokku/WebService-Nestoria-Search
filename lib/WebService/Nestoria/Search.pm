@@ -4,7 +4,7 @@ use warnings;
 package WebService::Nestoria::Search;
 
 use Carp;
-use version; our $VERSION = qv('1.17.5');
+use version; our $VERSION = qv('1.17.6');
 use WebService::Nestoria::Search::Request;
 use WebService::Nestoria::Search::MetadataResponse;
 
@@ -14,9 +14,9 @@ WebService::Nestoria::Search - Perl interface to the Nestoria Search public API.
 
 =head1 SYNOPSIS
 
-WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings. Nestoria currently has listings for the UK, Germany, Italy and Spain, which can be accessed via the web at www.nestoria.co.uk, www.nestoria.de, www.nestoria.co.it and www.nestoria.es.
+WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings.
 
-WebService::Nestoria::Search is currently written to be used with v1.15 of the Nestoria API.
+WebService::Nestoria::Search is currently written to be used with v1.17 of the Nestoria API.
 
 Functions and documentation are split over WebService::Nestoria::Search, WebService::Nestoria::Search::Request, WebService::Nestoria::Search::Response and WeebService::Nestoria::Search::Result. However you need only ever use WebService::Nestoria::Search, and the others will be used as necessary.
 

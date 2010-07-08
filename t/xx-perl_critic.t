@@ -1,8 +1,9 @@
 use strict;
 use warnings;
 
-use Test::More;
 use English qw(-no_match_vars);
+use Test::More;
+plan skip_all => "Set WNS_AUTHOR_TESTS to run WebService::Nestoria::Search author tests" if !$ENV{'WNS_AUTHOR_TESTS'};
 
 my $msg;
 
