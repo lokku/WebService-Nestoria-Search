@@ -16,6 +16,8 @@ t/02-request.t
 t/03-response.t
 t/04-result.t
 t/05-metadata.t
+t/06-countries.t
+t/07-parameter-validation.t
 t/xx-kwalitee.t
 t/xx-perl_critic.t
 t/xx-pod.t
