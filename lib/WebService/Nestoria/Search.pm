@@ -255,7 +255,7 @@ my $validate_listing_type = sub {
 
 my $validate_property_type = sub {
     my $val = shift;
-    return grep { $val eq $_ } qw(all house flat);
+    return grep { $val eq $_ } qw(all house flat land);
 };
 
 my $validate_max = sub {
