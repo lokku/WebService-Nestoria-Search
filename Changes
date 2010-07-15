@@ -1,3 +1,6 @@
+--- 1.17.7 (15/7/2010) ---
+    * added support for France
+
 --- 1.17.6 (8/7/2010) ---
     * separated out validations test (somehow this change got lost...)
     * disabled author tests without specific environment variable

@@ -8,7 +8,7 @@ use WebService::Nestoria::Search Warnings => 1;
 ##########################################################################
 ## plan
 ##
-plan tests => 93;
+plan tests => 94;
 my $ns;
 
 ##########################################################################
@@ -23,7 +23,7 @@ $ns = WebService::Nestoria::Search->new(
 my %validation_tests = (
     'country'             => {
         'bad'  => [ 'fake' ],
-        'good' => [ 'uk', 'es', 'de', 'it', 'au' ],
+        'good' => [ 'uk', 'es', 'de', 'it', 'au', 'fr' ],
     },
     'place_name'          => {
         'bad'  => [ undef ],

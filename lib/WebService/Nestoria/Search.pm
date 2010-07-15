@@ -4,7 +4,7 @@ use warnings;
 package WebService::Nestoria::Search;
 
 use Carp;
-use version; our $VERSION = qv('1.17.6');
+use version; our $VERSION = qv('1.17.7');
 use WebService::Nestoria::Search::Request;
 use WebService::Nestoria::Search::MetadataResponse;
 
@@ -158,6 +158,7 @@ my %Config = (
         'de'                  => 'http://api.nestoria.de/api',
         'it'                  => 'http://api.nestoria.it/api',
         'au'                  => 'http://api.nestoria.com.au/api',
+        'fr'                  => 'http://api.nestoria.fr/api',
     },
 );
 
@@ -624,6 +625,8 @@ Currently the available countries are:
 =item * it - Italy
 
 =item * de - Germany
+
+=item * fr - France
 
 =item * au - Australia
 

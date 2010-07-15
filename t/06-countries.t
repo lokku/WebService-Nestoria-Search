@@ -21,6 +21,7 @@ my %countries = (
     'it' => 'firenze',
     'de' => 'koeln',
     'au' => 'newcastle',
+    'fr' => 'lyon',
 );
 
 plan tests => scalar keys %countries;
