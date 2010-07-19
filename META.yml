@@ -18,7 +18,7 @@ name: WebService-Nestoria-Search
 provides:
   WebService::Nestoria::Search:
     file: lib/WebService/Nestoria/Search.pm
-    version: v1.17.7
+    version: v1.17.8
   WebService::Nestoria::Search::MetadataResponse:
     file: lib/WebService/Nestoria/Search/MetadataResponse.pm
   WebService::Nestoria::Search::Request:
@@ -37,4 +37,4 @@ requires:
   version: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: v1.17.7
+version: v1.17.8
