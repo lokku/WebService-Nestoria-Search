@@ -4,7 +4,6 @@ use warnings;
 package WebService::Nestoria::Search;
 
 use Carp;
-use version; our $VERSION = qv('1.17.8');
 use WebService::Nestoria::Search::Request;
 use WebService::Nestoria::Search::MetadataResponse;
 
@@ -118,7 +117,7 @@ C<@listings> is an array of WebService::Nestoria::Search::Result objects.
 ## Configuration details for searching the Nestoria listings database
 ##
 my %Config = (
-    'AppId'                   => "WebService::Nestoria::Search $VERSION",
+    'AppId'                   => "WebService::Nestoria::Search $WebService::Nestoria::Search::VERSION",
     'MaxResults'              => '1000',
 
     ## keys indicate the universe of allowable arguments
