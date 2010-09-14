@@ -1,6 +1,9 @@
+--- 1.17.10 (14/9/2010) ---
+    * added test prerequesites to Dist::Zilla dist.ini
+
 --- 1.17.9 (13/9/2010) ---
-    * Started using Dist::Zilla for builds
-    * Minor changes
+    * started using Dist::Zilla for builds
+    * minor changes
 
 --- 1.17.8 (19/7/2010) ---
     * fixed t/01-search.t test for price_max
