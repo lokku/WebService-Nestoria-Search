@@ -1,3 +1,7 @@
+--- 1.18.1 (5/10/2010) ---
+    * updated to support new status responses
+      see http://www.nestoria.co.uk/help/api-changelog
+
 --- 1.17.10 (14/9/2010) ---
     * added test prerequesites to Dist::Zilla dist.ini
 

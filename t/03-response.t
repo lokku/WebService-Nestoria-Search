@@ -17,7 +17,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 36;
+plan tests => 39;
 my ($ns, $response);
 
 ##########################################################################
@@ -48,6 +48,29 @@ foreach my $f (qw(get_raw get_json get_xml)) {
 ## status_code
 ##
 is($response->status_code, 200, 'got 200 status code');
+
+##########################################################################
+## application_response_code
+##
+is(
+    $response->application_response_code,
+    100,
+    'got 100 application_response_code'
+);
+
+##########################################################################
+## application_response_text
+##
+is(
+    $response->application_response_text,
+    'one unambiguous location',
+    'got "one unambiguous location" application_response_text'
+);
+
+##########################################################################
+## is_success
+##
+ok($response->is_success, 'got is_success() == true');
 
 ##########################################################################
 ## get_hashref
