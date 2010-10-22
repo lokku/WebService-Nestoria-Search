@@ -17,7 +17,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 41;
+plan tests => 45;
 my $ns;
 
 ##########################################################################
@@ -42,9 +42,9 @@ is(scalar(@results), 10, 'got 10 results for basic search');
 ## search parameters
 ##
 
-my @parameters_uk_soho = (
+my @parameters_uk_richmond = (
     # default = uk is fine
-    apply { $_->{'country'} = 'uk'; $_->{'place_name'} = 'soho' } (
+    apply { $_->{'country'} = 'uk'; $_->{'place_name'} = 'richmond' } (
         { 'number_of_results' => 1,                         },
         { 'page'              => 2                          },
         { 'listing_type'      => 'buy'                      },
@@ -67,6 +67,14 @@ my @parameters_es_eixample = (
     ),
 );
 
+my @parameters_de_wiesbaden = (
+    ## rooms are used instead of bedrooms in Germany, so we use DE here
+    apply { $_->{'country'} = 'de'; $_->{'place_name'} = 'wiesbaden'; } (
+        { 'room_max'          => '1000'                     },
+        { 'room_min'          => '10'                       },
+    ),
+);
+
 my @parameters_uk_coordinates = (
     ## no placename set for these queries
     apply { $_->{'country'} = 'uk' } (
@@ -79,14 +87,18 @@ my @parameters_uk_coordinates = (
     ),
 );
 
-my @parameters = 
-    (@parameters_uk_soho, @parameters_es_eixample, @parameters_uk_coordinates);
+my @parameters = (
+    @parameters_uk_richmond,
+    @parameters_es_eixample,
+    @parameters_de_wiesbaden,
+    @parameters_uk_coordinates
+);
 
 foreach my $parameters (@parameters) {
     my $request  = $ns->request(%$parameters);
     my $response = $request->fetch;
 
-# uncomment for debugging:
+#   uncomment for debugging:
 #   print $request->url, "\n";
 
     my $query_string = join(

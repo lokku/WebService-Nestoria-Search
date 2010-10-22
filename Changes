@@ -1,3 +1,9 @@
+--- 1.18.2 (22/10/2010) ---
+    * changed soho to richmond in 01-search.t
+      - no gardens in soho caused the test to fail
+      - I did this in 1.17.3 too, somehow it got lost :-(
+    * added tests for room_min and room_max
+
 --- 1.18.1 (5/10/2010) ---
     * updated to support new status responses
       see http://www.nestoria.co.uk/help/api-changelog
