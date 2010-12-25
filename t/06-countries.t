@@ -23,6 +23,7 @@ my %countries = (
     'au' => 'newcastle',
     'fr' => 'lyon',
     'br' => 'sao-paulo',
+    'in' => 'mumbai',
 );
 
 plan tests => scalar keys %countries;

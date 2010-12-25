@@ -159,6 +159,7 @@ my %Config = (
         'au'                  => 'http://api.nestoria.com.au/api',
         'fr'                  => 'http://api.nestoria.fr/api',
         'br'                  => 'http://api.nestoria.com.br/api',
+        'in'                  => 'http://api.nestoria.in/api',
     },
 );
 
@@ -631,6 +632,8 @@ Currently the available countries are:
 =item * au - Australia
 
 =item * br - Brazil
+
+=item * in - India
 
 =back
 
