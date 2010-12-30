@@ -17,7 +17,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 39;
+plan tests => 40;
 my ($ns, $result);
 
 ##########################################################################
@@ -87,6 +87,7 @@ my @fields = qw(
     auction_date
     updated_in_days
     updated_in_days_formatted
+    location_accuracy
 );
 
 foreach my $field (@fields) {

@@ -64,6 +64,7 @@ as follows:
     get_auction_date
     get_updated_in_days
     get_updated_in_days_formatted
+    get_location_accuracy
 
 =cut
 
@@ -98,10 +99,11 @@ sub get_img_width                 { shift->{data}{listing}{img_width}           
 sub get_keywords                  { shift->{data}{listing}{keywords}                      }
 sub get_guid                      { shift->{data}{listing}{guid}                          }
 sub get_updated_in_days           { shift->{data}{listing}{updated_in_days}               }
-sub get_updated_in_days_formatted { shift->{data}{listing}{get_updated_in_days_formatted} }
-sub get_construction_year         { shift->{data}{listing}{get_construction_year}         }
-sub get_commission                { shift->{data}{listing}{get_commission}                }
-sub get_auction_date              { shift->{data}{listing}{get_auction_date}              }
+sub get_updated_in_days_formatted { shift->{data}{listing}{updated_in_days_formatted}     }
+sub get_construction_year         { shift->{data}{listing}{construction_year}             }
+sub get_commission                { shift->{data}{listing}{commission}                    }
+sub get_auction_date              { shift->{data}{listing}{auction_date}                  }
+sub get_location_accuracy         { shift->{data}{listing}{location_accuracy}             }
 
 =head2 get_hashref
 
