@@ -42,6 +42,7 @@ as follows:
     get_price_formatted
     get_price_high
     get_price_low
+    get_price_coldrent
     get_title
     get_summary
     get_bedroom_number
@@ -81,6 +82,7 @@ sub get_price_currency            { shift->{data}{listing}{price_currency}      
 sub get_price_formatted           { shift->{data}{listing}{price_formatted};              }
 sub get_price_high                { shift->{data}{listing}{price_high};                   }
 sub get_price_low                 { shift->{data}{listing}{price_low};                    }
+sub get_price_coldrent            { shift->{data}{listing}{price_coldrent};               }
 sub get_title                     { shift->{data}{listing}{title}                         }
 sub get_summary                   { shift->{data}{listing}{summary}                       }
 sub get_bedroom_number            { shift->{data}{listing}{bedroom_number}                }

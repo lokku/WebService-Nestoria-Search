@@ -17,7 +17,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 40;
+plan tests => 41;
 my ($ns, $result);
 
 ##########################################################################
@@ -65,6 +65,7 @@ my @fields = qw(
     price_formatted
     price_high
     price_low
+    price_coldrent
     title
     summary
     bedroom_number
