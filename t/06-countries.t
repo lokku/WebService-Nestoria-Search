@@ -20,7 +20,6 @@ my %countries = (
     'es' => 'eixample',
     'it' => 'firenze',
     'de' => 'koeln',
-    'au' => 'newcastle',
     'fr' => 'lyon',
     'br' => 'sao-paulo',
     'in' => 'mumbai',
@@ -41,5 +40,6 @@ foreach my $country (sort keys %countries) {
 
     my $place_name = $countries{$country};
     my @results = $ns->results('place_name' => $place_name);
+
     is @results, 10, "got 10 results for $country / $place_name";
 }
