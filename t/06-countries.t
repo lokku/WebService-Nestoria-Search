@@ -17,7 +17,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##
 my %countries = (
     'uk' => 'oxford',
-    'es' => 'eixample',
+    'es' => 'bilbao',
     'it' => 'firenze',
     'de' => 'koeln',
     'fr' => 'lyon',

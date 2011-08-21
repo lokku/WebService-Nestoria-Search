@@ -1,3 +1,12 @@
+--- 1.20.2 (21/8/2011) ---
+    * fixed some test issues related to the live data
+        * www.nestoria.es/eixample/casa/comprar
+          now redirects to
+          http://www.nestoria.es/eixample_barcelona/casa/comprar
+        * Spanish metadata is being reprocessed... switching to French
+          metadata for the test for now
+    * avoiding uninitialized value warning in metadata test when it fails
+
 --- 1.20.1 (12/4/2011) ---
     * removed Australia support
       - http://blog.nestoria.com.au/au-revoir-australian-api

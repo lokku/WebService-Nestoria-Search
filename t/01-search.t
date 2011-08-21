@@ -59,9 +59,9 @@ my @parameters_uk_richmond = (
     )
 );
 
-my @parameters_es_eixample = (
+my @parameters_es_bilbao = (
     ## size is rarely set in the UK, so we use ES here
-    apply { $_->{'country'} = 'es'; $_->{'place_name'} = 'eixample'; } (
+    apply { $_->{'country'} = 'es'; $_->{'place_name'} = 'bilbao'; } (
         { 'size_max'          => '1000'                     },
         { 'size_min'          => '10'                       },
     ),
@@ -89,7 +89,7 @@ my @parameters_uk_coordinates = (
 
 my @parameters = (
     @parameters_uk_richmond,
-    @parameters_es_eixample,
+    @parameters_es_bilbao,
     @parameters_de_wiesbaden,
     @parameters_uk_coordinates
 );

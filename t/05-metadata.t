@@ -24,13 +24,13 @@ my ($ns, $metadata);
 ## create WebService::Nestoria::Search::MetadataResponse object
 ##
 $ns = WebService::Nestoria::Search->new(
-    'country'           => 'es',
+    'country'           => 'fr',
     'encoding'          => 'json',
     'number_of_results' => 10,
 );
 ok($ns && ref($ns), 'created WebService::Nestoria::Search object');
 
-$metadata = $ns->metadata('place_name' => 'eixample');
+$metadata = $ns->metadata('place_name' => 'lyon');
 ok(
     $metadata && ref($metadata),
     'created WebService::Nestoria::Search::MetadataResponse object'
@@ -51,7 +51,7 @@ my $average_price = $metadata->get_average_price('listing_type' => 'rent', 'rang
 ok($average_price, "no paramters - average price - $average_price");
 
 # try with parameters
-my @parameters = apply { $_->{listing_type} = 'rent'; $_->{year} = '2008' } (
+my @parameters = apply { $_->{listing_type} = 'rent'; $_->{year} = '2011' } (
     ## monthly
     { 'range' => 'monthly', 'month' => '1',                 },
     { 'range' => 'monthly', 'month' => 'Feb',               },
@@ -75,5 +75,5 @@ foreach my $parameters (@parameters) {
         )
     );
 
-    ok($average_price, "$query_string - average price - $average_price");
+    ok($average_price, "$query_string - average price - " . ($average_price // 'fail'));
 }
