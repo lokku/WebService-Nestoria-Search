@@ -99,15 +99,13 @@ foreach my $parameters (@parameters) {
     my $response = $request->fetch;
 
 #   uncomment for debugging:
-#   print $request->url, "\n";
+#   note($request->url);
 
     my $query_string = join(
         ", ", 
         (
-            apply { $_ = "$_: $parameters->{$_}"          }
-            sort 
-            grep  { $_ ne 'country' && $_ ne 'place_name' }
-            keys %$parameters
+            apply { $_ = "$_: $parameters->{$_}" }
+            sort keys %$parameters
         )
     );
 
@@ -117,7 +115,7 @@ foreach my $parameters (@parameters) {
     );
     ok(
         $response->count >= 1,
-        "$query_string - result"
+        "$query_string - results"
     );
 };
 

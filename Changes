@@ -1,3 +1,8 @@
+--- 1.20.3 (23/8/2011) ---
+    * removed accidental use of "//" in 05-metadata.t
+      - want to support 5.8.8 still :-)
+    * made test output of 01-search.t more verbose
+
 --- 1.20.2 (21/8/2011) ---
     * fixed some test issues related to the live data
         * www.nestoria.es/eixample/casa/comprar

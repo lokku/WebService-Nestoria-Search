@@ -75,5 +75,9 @@ foreach my $parameters (@parameters) {
         )
     );
 
-    ok($average_price, "$query_string - average price - " . ($average_price // 'fail'));
+    ok(
+        $average_price,
+        "$query_string - average price - "
+          . ( defined($average_price) ? $average_price : 'fail' )
+    );
 }
