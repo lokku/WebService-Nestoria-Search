@@ -79,8 +79,9 @@ my @parameters_uk_coordinates = (
     ## no placename set for these queries
     apply { $_->{'country'} = 'uk' } (
         {
-            'south_west'      => '51.47,-0.14',
-            'north_east'      => '50.47,-0.24',
+            # 51.186654,0.738345,50.492894,-0.931577
+            'south_west'      => '51.19,0.74',
+            'north_east'      => '50.43,-0.93',
         },
         { 'centre_point'      => '51.47,-0.14',     },
         { 'radius'            => '51.47,-0.14,1km', },
