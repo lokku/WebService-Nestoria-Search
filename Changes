@@ -1,3 +1,11 @@
+--- 1.21.0 (23/10/2011) ---
+    * added two new methods to the Response object
+        * nestoria_site_uri()
+        * nestoria_site_url()
+    * added nestoria Australia back so that people can use it for metadata
+    * fixed coordinates-based test
+    * removed all "indirect" method calls
+
 --- 1.20.3 (23/8/2011) ---
     * removed accidental use of "//" in 05-metadata.t
       - want to support 5.8.8 still :-)
