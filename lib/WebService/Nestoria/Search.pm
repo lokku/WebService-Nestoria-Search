@@ -150,13 +150,14 @@ my %Config = (
         'keywords_exclude'    => undef,   # defaults to an empty list
         'callback'            => undef,
     },
-    
+
     'Urls' => {
         'uk'                  => 'http://api.nestoria.co.uk/api',
         'es'                  => 'http://api.nestoria.es/api',
         'de'                  => 'http://api.nestoria.de/api',
         'it'                  => 'http://api.nestoria.it/api',
         'fr'                  => 'http://api.nestoria.fr/api',
+        'au'                  => 'http://api.nestoria.com.au/api',
         'br'                  => 'http://api.nestoria.com.br/api',
         'in'                  => 'http://api.nestoria.in/api',
     },
@@ -274,7 +275,7 @@ my $validate_sort = sub {
     return grep { $val eq $_ } qw(bedroom_lowhigh bedroom_highlow
                                   price_lowhigh price_highlow
                                   newest oldest);
-}; 
+};
 
 my $validate_version = sub {
     my $val = shift;
@@ -332,7 +333,7 @@ my %ValidateRoutine = (
     'pretty'              => $validate_pretty,
     'has_photo'           => $validate_allow_all,
     'guid'                => $validate_allow_all,
-); 
+);
 
 sub _validate {
     my $key = shift;

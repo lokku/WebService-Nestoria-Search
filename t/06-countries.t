@@ -15,31 +15,70 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-my %countries = (
-    'uk' => 'oxford',
-    'es' => 'bilbao',
-    'it' => 'firenze',
-    'de' => 'koeln',
-    'fr' => 'lyon',
-    'br' => 'sao-paulo',
-    'in' => 'mumbai',
-);
-
-plan tests => scalar keys %countries;
+plan tests => 15;
 
 ##########################################################################
-## tests
+## search_listings
 ##
-
-foreach my $country (sort keys %countries) {
-    my $ns = WebService::Nestoria::Search->new(
-        'country'           => $country,
-        'encoding'          => 'json',
-        'number_of_results' => 10,
+{
+    my %countries = (
+        'uk' => 'oxford',
+        'es' => 'bilbao',
+        'it' => 'firenze',
+        'de' => 'koeln',
+        'fr' => 'lyon',
+        'br' => 'sao-paulo',
+        'in' => 'mumbai',
     );
 
-    my $place_name = $countries{$country};
-    my @results = $ns->results('place_name' => $place_name);
+    foreach my $country (sort keys %countries) {
+        my $ns = WebService::Nestoria::Search->new(
+            'country'           => $country,
+            'encoding'          => 'json',
+            'number_of_results' => 10,
+        );
 
-    is @results, 10, "got 10 results for $country / $place_name";
+        my $place_name = $countries{$country};
+        my @results = $ns->results('place_name' => $place_name);
+
+        is @results, 10, "search_listings - got 10 results for $place_name, $country";
+    }
+}
+
+##########################################################################
+## metadata
+##
+{
+    my %countries = (
+        'uk' => 'oxford',
+        'es' => 'bilbao',
+        'it' => 'firenze',
+        'de' => 'koeln',
+        'fr' => 'lyon',
+        'au' => 'newcastle',
+        'br' => 'sao-paulo',
+        'in' => 'mumbai',
+    );
+
+    foreach my $country (sort keys %countries) {
+        my $ns = WebService::Nestoria::Search->new(
+            'country'           => $country,
+            'encoding'          => 'json',
+        );
+
+        my $place_name = $countries{$country};
+        my $metadata = $ns->metadata(
+            'place_name' => $place_name,
+        );
+
+        ok(
+            $metadata->get_average_price(
+                'range'        => 'monthly',
+                'year'         => 2011,
+                'month'        => 9,
+                'listing_type' => 'buy',
+            ),
+            "metadata - got average price for $place_name, $country"
+        );
+    }
 }
