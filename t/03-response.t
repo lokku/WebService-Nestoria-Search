@@ -17,7 +17,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 39;
+plan tests => 42;
 my ($ns, $response);
 
 ##########################################################################
@@ -102,7 +102,26 @@ like(
 );
 
 ##########################################################################
-## attribution
+## nestoria_site_uri and nestoria_site_url
+##
+isa_ok(
+    $response->nestoria_site_uri,
+    'URI',
+    'got a URI object back for nestoria_site_uri'
+);
+like(
+    "".$response->nestoria_site_uri,
+    qr{nestoria[.]co[.]uk/soho/},
+    'nestoria_site_uri URI object matches nestoria.co.uk/soho/'
+);
+like(
+    $response->nestoria_site_url,
+    qr{nestoria[.]co[.]uk/soho/},
+    'nestoria_site_url string matches nestoria.co.uk/soho/'
+);
+
+##########################################################################
+## results
 ##
 my @results = $response->results;
 is(scalar(@results), 10, 'got 10 results');
