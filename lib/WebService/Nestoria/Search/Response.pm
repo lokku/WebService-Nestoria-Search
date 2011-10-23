@@ -30,7 +30,8 @@ sub new {
         $result->{ordinal} = $i;
         $result->{response} = $self->{data};
 
-        $self->{results}[$i] = new WebService::Nestoria::Search::Result ($result);
+        $self->{results}[$i]
+            = WebService::Nestoria::Search::Result->new($result);
     }
 
     return bless $self, $class;
