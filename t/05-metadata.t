@@ -51,15 +51,15 @@ my $average_price = $metadata->get_average_price('listing_type' => 'rent', 'rang
 ok($average_price, "no paramters - average price - $average_price");
 
 # try with parameters
-my @parameters = apply { $_->{listing_type} = 'rent'; $_->{year} = '2011' } (
+my @parameters = apply { $_->{listing_type} = 'buy'; $_->{year} = '2012' } (
     ## monthly
-    { 'range' => 'monthly', 'month' => '1',                 },
+    { 'range' => 'monthly', 'month' => '8',                 },
     { 'range' => 'monthly', 'month' => 'Feb',               },
     { 'range' => 'monthly', 'month' => 'March',             },
 
     ## other parmaters
-    { 'range' => 'monthly', 'month' => 1, 'num_beds' => 3,  },
-    { 'range' => 'monthly', 'month' => 1, 'per_sqm' => 1    },
+    { 'range' => 'monthly', 'month' => 8, 'num_beds' => 3,  },
+    { 'range' => 'monthly', 'month' => 8, 'per_sqm' => 1    },
 );
 
 foreach my $parameters (@parameters) {
