@@ -4,6 +4,7 @@ use warnings;
 package WebService::Nestoria::Search;
 
 use Carp;
+use URI;
 use WebService::Nestoria::Search::Request;
 use WebService::Nestoria::Search::MetadataResponse;
 
@@ -164,7 +165,7 @@ my %Config = (
 );
 
 ## filled in Search/Request.pm
-our $RecentRequsetUrl;
+our $RecentRequestUrl;
 
 my %GlobalDefaults = (
     'warnings'                => '1',
@@ -599,6 +600,27 @@ sub metadata {
     my $response = $self->query(%params, @_);
 
     return WebService::Nestoria::Search::MetadataResponse->new($response->get_hashref);
+}
+
+=head2 last_request_uri
+
+Returns a URI object representing the URL that was last fetched by
+WebService::Nestoria::Search::Request.
+
+=cut
+
+sub last_request_uri {
+    return URI->new($RecentRequestUrl);
+}
+
+=head2 last_request_url
+
+Returns the URL that was last fetched by WebService::Nestoria::Search::Request.
+
+=cut
+
+sub last_request_url {
+    return $RecentRequestUrl;
 }
 
 =head1 Warnings
