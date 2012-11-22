@@ -17,7 +17,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 12;
+plan tests => 14;
 my ($ns, $req, $response);
 
 ##########################################################################
@@ -58,17 +58,39 @@ like($response->get_xml, qr/<response/, 'got xml back');
 ##########################################################################
 ## last_request_uri/last_request_url
 ##
+my $expected_last_uri = URI->new('http://api.nestoria.co.uk/api?warnings=1&country=uk&pretty=0&action=search_listings&place_name=soho&encoding=xml');
+
 my $last_request_uri = $ns->last_request_uri;
 isa_ok($last_request_uri, 'URI');
+
 is(
-    $last_request_uri,
-    'http://api.nestoria.co.uk/api?warnings=1&country=uk&pretty=0&action=search_listings&place_name=soho&encoding=xml',
-    'got correct uri for last request'
+    $last_request_uri->host,
+    $expected_last_uri->host,
+    'got correct uri for last request - host'
+);
+
+## using is_deeply() here because comparing with URI::as_string() or URI::eq()
+## is susceptible to differences in hash key order which changes the order of
+## the query form parameters in the URL.
+is_deeply(
+    { $last_request_uri->query_form  },
+    { $expected_last_uri->query_form },
+    'got correct uri for last request - query form'
 );
 
 my $last_request_url = $ns->last_request_url;
+
 is(
-    $last_request_url,
-    'http://api.nestoria.co.uk/api?warnings=1&country=uk&pretty=0&action=search_listings&place_name=soho&encoding=xml',
+    URI->new($last_request_url)->host,
+    $expected_last_uri->host,
+    'got correct url for last request - host'
+);
+
+## using is_deeply() here because comparing with URI::as_string() or URI::eq()
+## is susceptible to differences in hash key order which changes the order of
+## the query form parameters in the URL.
+is_deeply(
+    { URI->new($last_request_url)->query_form },
+    { $expected_last_uri->query_form          },
     'got correct url for last request'
 );
