@@ -1,3 +1,9 @@
+--- 1.21.1 (22/11/2012) ---
+    * Updated metadata test to match live data
+    * Changed Italy location for t/06-countries.t
+    * Added last_request_url and last_request_uri methods
+    * Fixed t/02-request.t (hash key ordering bug)
+
 --- 1.21.0 (23/10/2011) ---
     * added two new methods to the Response object
         * nestoria_site_uri()
