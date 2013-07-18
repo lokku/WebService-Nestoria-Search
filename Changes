@@ -1,5 +1,9 @@
 Revision history for perl module WebService::Nestoria::Search
 
+1.21.3 2013-07-18
+    * Updated Changes to conform to CPAN::Changes::Spec
+    * Added a release test via Dist::Zilla::Plugin::Test::CPAN::Changes
+
 1.21.2 2013-05-21
     * Updated repository metadata to point to the new
       "lokku" Github organisation account
