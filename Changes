@@ -164,7 +164,7 @@ Revision history for perl module WebService::Nestoria::Search
     * Updated copyrights
     * Made JSON 2.x a requirement
     
-0.13 - 1.13
+0.13 - 2008-10-31
     * Skipped in the interests of syncing up CPAN version with Nestoria 
     API version
 
