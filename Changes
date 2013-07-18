@@ -1,14 +1,16 @@
---- 1.21.2 (21/5/2013) ---
+Revision history for perl module WebService::Nestoria::Search
+
+1.21.2 2013-05-21
     * Updated repository metadata to point to the new
       "lokku" Github organisation account
 
---- 1.21.1 (22/11/2012) ---
+1.21.1 2012-11-22
     * Updated metadata test to match live data
     * Changed Italy location for t/06-countries.t
     * Added last_request_url and last_request_uri methods
     * Fixed t/02-request.t (hash key ordering bug)
 
---- 1.21.0 (23/10/2011) ---
+1.21.0 2011-10-23
     * added two new methods to the Response object
         * nestoria_site_uri()
         * nestoria_site_url()
@@ -16,12 +18,12 @@
     * fixed coordinates-based test
     * removed all "indirect" method calls
 
---- 1.20.3 (23/8/2011) ---
+1.20.3 2011-08-23
     * removed accidental use of "//" in 05-metadata.t
       - want to support 5.8.8 still :-)
     * made test output of 01-search.t more verbose
 
---- 1.20.2 (21/8/2011) ---
+1.20.2 2011-08-21
     * fixed some test issues related to the live data
         * www.nestoria.es/eixample/casa/comprar
           now redirects to
@@ -30,109 +32,109 @@
           metadata for the test for now
     * avoiding uninitialized value warning in metadata test when it fails
 
---- 1.20.1 (12/4/2011) ---
+1.20.1 2011-04-12
     * removed Australia support
       - http://blog.nestoria.com.au/au-revoir-australian-api
 
---- 1.20.0 (26/1/2011) ---
+1.20.0 2011-01-26
     * new listing field used in Germany - "price_coldrent"
 
---- 1.19.1 (30/12/2010) ---
+1.19.1 2010-12-30
     * new listing field "location_accuracy"
 
---- 1.18.4 (25/12/2010) ---
+1.18.4 2010-12-25
     * added support for India
 
---- 1.18.3 (26/10/2010) ---
+1.18.3 2010-10-26
     * added support for Brazil
 
---- 1.18.2 (22/10/2010) ---
+1.18.2 2010-10-22
     * changed soho to richmond in 01-search.t
       - no gardens in soho caused the test to fail
       - I did this in 1.17.3 too, somehow it got lost :-(
     * added tests for room_min and room_max
 
---- 1.18.1 (5/10/2010) ---
+1.18.1 2010-10-5
     * updated to support new status responses
       see http://www.nestoria.co.uk/help/api-changelog
 
---- 1.17.10 (14/9/2010) ---
+1.17.10 2010-09-14
     * added test prerequesites to Dist::Zilla dist.ini
 
---- 1.17.9 (13/9/2010) ---
+1.17.9 2010-09-13
     * started using Dist::Zilla for builds
     * minor changes
 
---- 1.17.8 (19/7/2010) ---
+1.17.8 2010-07-19
     * fixed t/01-search.t test for price_max
 
---- 1.17.7 (15/7/2010) ---
+1.17.7 2010-07-15
     * added support for France
 
---- 1.17.6 (8/7/2010) ---
+1.17.6 2010-07-8
     * separated out validations test (somehow this change got lost...)
     * disabled author tests without specific environment variable
     * small POD issues
 
---- 1.17.5 (4/7/2010) ---
+1.17.5 2010-07-4
     * fixed POD issues
     * updated abstract
 
---- 1.17.4 (20/4/2010) ---
+1.17.4 2010-04-20
     * added Australia support
     * added "land" property type support
     * fixed small POD issues
     * added countries test
     * separated out validations test
 
---- 1.17.3 (19/4/2010) ---
+1.17.3 2010-04-19
     * changed soho to richmond in 01-search.t
       - no gardens in soho caused the test to fail
 
---- 1.17.2 (28/1/2010) ---
+1.17.2 2010-01-28
     * fixed typo in $WebService::Nestoria::Search
          our $RecentRequsetUrl
       => our $RecentRequestUrl
     * Added documentation for $WebService::Nestoria::Search::RecentRequestUrl
 
---- 1.17.1 (7/12/2009) ---
+1.17.1 2009-12-7
     * failing test in 1.17.0 caused by external data. fixed test.
     * skip perl-critic test, it fails on too many foreign/CPANTS machines
 
---- 1.17.0 (2/12/2009) ---
+1.17.0 2009-12-2
     * updated to match version 1.17 of the API
         * added price_high and price_low as fields in the Result object
         * added auction_date as a field in the Result object
         * added land_size and land_size unit as fields in the Result object
 
---- 1.16.2 (29/9/2009) ---
+1.16.2 2009-09-29
     * further changes to t/xx-perl_critic.t to stop erroneous failures
     * renamed CHANGES to Changes to match other CPAN modules
 
---- 1.16.1 (23/9/2009) ---
+1.16.1 2009-09-23
     * added List::MoreUtils to the dependencies list (I thought it was core!)
     * only Perl::Critic if PERLCRITIC is not set - avoid custom .perlcriticrc
 
---- 1.16.0 (22/9/2009) ---
+1.16.0 2009-09-22
     * added support for bathrooms_max, bathrooms_min, rooms_max and rooms_min
     * rewrote the entire test suite to increase coverage and decrease false 
       failures. 100% subroutine code coverage!
 
---- 1.15.0 (12/9/2009) ---
+1.15.0 2009-09-12
     * added support for the larger image format now available through the API
       http://blog.nestoria.co.uk/2009/09/11/nestoria-api-version-115-live-bigger-pics/
 
---- 1.14.8 (30/4/2009) ---
+1.14.8 2009-04-30
     * fixed the nestoria_*.t tests so finding a listing with no keywords 
       doesn't make the test fail.
 
---- 1.14.7 (13/3/2009) ---
+1.14.7 2009-03-13
     * fixed the nestoria_*.t tests to reflect a change in the API's behaviour
 
---- 1.14.6 (12/3/2009) ---
+1.14.6 2009-03-12
     * t/pod_coverage.t to make t/kwalitee.t happy
 
---- 1.14.5 (11/3/2009) ---
+1.14.5 2009-03-11
     * Added Alistair Francis to author list. The below were from a patch he 
       submitted.
     * Added functionality to incorporate xml encoded responses
@@ -141,43 +143,43 @@
       key value was never defined (correct key is 'raw')
     * Removed 'LICENSE' from Makefile.pl (not a valid parameter)
 
---- 1.14.4 (6/3/2009) ---
+1.14.4 2009-03-6
     * added new parameters ("guid" and "page")
     * added field "updated_in_days" for each listing
     * small documentation fixes
 
---- 1.14.3 (5/3/2009) ---
+1.14.3 2009-03-5
     * Documentation update ('let' is no longer an allowed listing_type)
 
---- 1.14.2 (7/11/2008) ---
+1.14.2 2008-11-7
     * Added "version" as a requirement
 
---- 1.14.1 (7/11/2008) ---
+1.14.1 2008-11-7
     * Documentation update
     
---- 1.14 (5/11/2008) ---
+1.14 2008-11-5
     * Added Germany & Italy API URLs
     * Fixed a bug, where metadata would not be returned early in a month.    
     * More robust check for lack of internet connectivity
     * Updated copyrights
     * Made JSON 2.x a requirement
     
---- 0.13 - 1.13 ---
+0.13 - 1.13
     * Skipped in the interests of syncing up CPAN version with Nestoria 
     API version
 
---- 0.12 (31/10/2008) ---
+0.12 2008-10-31
     * metadata method
     * radius parameter
     * new sorts: newest/oldest
     * attribution field functions
     * Housekeeping
     
---- 0.11 ---
+0.11 2007-08-08
     * Only request required fields in nestoria.t
     * Bug Fix: Added get_price_type
 
---- 0.10 ---
+0.10 2007-08-07
     * Improved POD (full synopsis, full list of keywords, better formatting)
     * Can 'use WebService::Nestoria::Search Warnings => 0;'
     * All parameters now case insensitive (eg. country/Country, 
@@ -185,28 +187,28 @@
     * Bug Fix: Changing versions
     * Bug Fix: Requesting XML
 
---- 0.09 ---
+0.09 2007-06-11
     * Bug Fix: Can use 'buy', 'let', 'share' and 'rent' listing types
 
---- 0.08 ---
+0.08 2007-05-29
     * Fixed a bug in the test file
     * Added the 'keywords' method (API version 1.08)
 
---- 0.07 ---
+0.07 2007-05-19
     * Fixed a bug in the url test
     * Added the sort parameter (API version 1.05)
     * Added the keywords and keywords_exclude parameters (API version 1.06)
     * Added support for size_min and size_max for nestoria.es (API version 1.07)
     * Added Spanish keywords (API version 1.07)
 
---- 0.04 ---
+0.04 2007-04-02
 
 Updated to work with Nestoria API version 1.04:
     * Listings now return 'keywords', a comma separated list of attributes
     * Listings now return a 'datasource_name', eg. 'HotProperty'
     * Module now requests that JSON be sent without pretty formatting
 
---- 0.01 ---
+0.01 2006-10-13
 
 Initial module designed to request data from the Nestoria API version 1.00.
 
