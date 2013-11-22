@@ -1,5 +1,8 @@
 Revision history for perl module WebService::Nestoria::Search
 
+1.21.4 2013-11-22
+    * Updated some tests to reflect changes in the API responses
+
 1.21.3 2013-07-18
     * Updated Changes to conform to CPAN::Changes::Spec
     * Added a release test via Dist::Zilla::Plugin::Test::CPAN::Changes
