@@ -33,7 +33,7 @@ ok($ns && ref($ns), 'created WebService::Nestoria::Search object');
 ## simplest search
 ##
 my @results = $ns->results(
-    'place_name'        => 'soho',
+    'place_name'        => 'oxford',
     'number_of_results' => 10,
 );
 is(scalar(@results), 10, 'got 10 results for basic search');
