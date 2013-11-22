@@ -30,7 +30,7 @@ $ns = WebService::Nestoria::Search->new(
 );
 ok($ns && ref($ns), 'created WebService::Nestoria::Search object');
 
-$response = $ns->query('place_name' => 'oxford');
+$response = $ns->query('place_name' => 'kingsbridge');
 ok(
     $response && ref($response),
     'created WebService::Nestoria::Search::Response object'
@@ -111,13 +111,13 @@ isa_ok(
 );
 like(
     "".$response->nestoria_site_uri,
-    qr{nestoria[.]co[.]uk/oxford/},
-    'nestoria_site_uri URI object matches nestoria.co.uk/oxford/'
+    qr{nestoria[.]co[.]uk/kingsbridge/},
+    'nestoria_site_uri URI object matches nestoria.co.uk/kingsbridge/'
 );
 like(
     $response->nestoria_site_url,
-    qr{nestoria[.]co[.]uk/oxford/},
-    'nestoria_site_url string matches nestoria.co.uk/oxford/'
+    qr{nestoria[.]co[.]uk/kingsbridge/},
+    'nestoria_site_url string matches nestoria.co.uk/kingsbridge/'
 );
 
 ##########################################################################
