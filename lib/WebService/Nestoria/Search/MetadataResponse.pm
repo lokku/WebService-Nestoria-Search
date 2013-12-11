@@ -110,7 +110,7 @@ sub _get_info{
     my $metadata_date = $self->_get_metadata_date($metadata_name, %params);
 
     if (defined $metadata_name && defined $metadata_date) {
-        return $self->{'metadata'}{$metadata_name}{'data'}{$metadata_date}{$type};
+        return $self->{'metadata'}{$metadata_name}{'data'}{$metadata_date}{$id};
     }
     return;
 }
