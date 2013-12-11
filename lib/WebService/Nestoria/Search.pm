@@ -23,7 +23,7 @@ version 1.021004
 
 WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings.
 
-WebService::Nestoria::Search is currently written to be used with v1.18 of the Nestoria API.
+WebService::Nestoria::Search is currently written to be used with v1.21 of the Nestoria API.
 
 Functions and documentation are split over WebService::Nestoria::Search, WebService::Nestoria::Search::Request, WebService::Nestoria::Search::Response and WeebService::Nestoria::Search::Result. However you need only ever use WebService::Nestoria::Search, and the others will be used as necessary.
 
