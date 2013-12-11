@@ -96,9 +96,7 @@ sub get_average_price {
     if (defined $metadata_name && defined $metadata_date) {
         return $self->{'metadata'}{$metadata_name}{'data'}{$metadata_date}{'avg_price'};
     }
-    else {
-        return;
-    }
+    return;
 }
 
 sub _get_metadata_name {
@@ -114,9 +112,7 @@ sub _get_metadata_name {
     }
 
     $name .= "property_";
-
     $name .= $params{'listing_type'} . "_";
-
     $name .= $params{'range'};
 
     if ($params{'per_sqm'}) {
@@ -127,15 +123,34 @@ sub _get_metadata_name {
 }
 
 my %short_months = (
-    Jan => 1, Feb => 2, Mar => 3, Apr => 4,
-    May => 5, Jun => 6, Jul => 7, Aug => 8,
-    Sep => 9, Oct => 10, Nov => 11, Dec => 12
+    Jan => 1, 
+    Feb => 2, 
+    Mar => 3, 
+    Apr => 4,
+    May => 5, 
+    Jun => 6, 
+    Jul => 7, 
+    Aug => 8,
+    Sep => 9, 
+    Sept => 9, 
+    Oct => 10, 
+    Nov => 11, 
+    Dec => 12
 );
 
 my %long_months = (
-    January => 1, February => 2, March => 3, April => 4,
-    May => 5, June => 6, July => 7, August => 8,
-    September => 9, October => 10, November => 11, December => 12
+    January   => 1, 
+    February  => 2, 
+    March     => 3, 
+    April     => 4,
+    May       => 5, 
+    June      => 6, 
+    July      => 7, 
+    August    => 8,
+    September => 9, 
+    October   => 10, 
+    November  => 11, 
+    December  => 12
 );
 
 sub _get_metadata_date {
