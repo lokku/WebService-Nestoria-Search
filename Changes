@@ -1,5 +1,10 @@
 Revision history for perl module WebService::Nestoria::Search
 
+1.21.5 2013-12-11
+    * Updated POD for Search - API version 1.21 is supported (and has been for a while!)
+    * Updated POD for MetadataResponse
+    * Added MetadataResponse::get_num_datapoints() method
+
 1.21.4 2013-11-22
     * Updated some tests to reflect changes in the API responses
 
