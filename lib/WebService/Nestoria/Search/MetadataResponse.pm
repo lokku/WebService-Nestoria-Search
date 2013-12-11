@@ -22,7 +22,6 @@ sub new {
         my $name = $stat->{metadata_name};
         $self->{metadata}{$name} = $stat;
     }
-
     return bless $self, $class;
 }
 
@@ -69,20 +68,37 @@ Returns the average for properties which match the number of bedrooms, property 
     );
     my $average_price = $metadata->get_average_price(%options);
 
-Rent prices are monthly. Prices for the UK are in GBP. Prices for Spain, Italy and Germany are in Euros. The earliest date available is October 2007.
+Rent prices are monthly. Prices are in local currency (EUR, GBP, INR, etc) 
+See http://www.nestoria.co.uk/help/api-metadata to see from when data is available for each country
 
-If you leave out the year and month parameters it will take the most recent available.
+If year and month are not supplied data for the most recent month available will be returned.
 
 =cut
 
 sub get_average_price {
     my $self = shift;
+    return $self->_get_info('avg_price', @_);
+}
+
+=head2 get_num_datapoints
+
+Called the same way as get_average_price, but instead returns the number of datapoints used to calculate the average.
+
+=cut
+
+sub get_num_datapoints {
+    my $self = shift;
+    return $self->_get_info('datapoints', @_);
+}
+
+sub _get_info{
+    my $self = shift;
+    my $id = shift;
 
     if ( @_ % 2 != 0 ) {
         warn "wrong arg count to get_average_price";
     }
     my %params = @_;
-
     foreach my $required ( qw(listing_type range) ) {
         if ( ! exists $params{$required} ) {
             warn "required paramter $required not given\n";
@@ -94,10 +110,11 @@ sub get_average_price {
     my $metadata_date = $self->_get_metadata_date($metadata_name, %params);
 
     if (defined $metadata_name && defined $metadata_date) {
-        return $self->{'metadata'}{$metadata_name}{'data'}{$metadata_date}{'avg_price'};
+        return $self->{'metadata'}{$metadata_name}{'data'}{$metadata_date}{$type};
     }
     return;
 }
+
 
 sub _get_metadata_name {
     my $self = shift;
