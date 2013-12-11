@@ -26,4 +26,4 @@ requires:
 resources:
   homepage: http://www.nestoria.co.uk/help/api
   repository: git://github.com/lokku/WebService-Nestoria-Search.git
-version: 1.021004
+version: 1.021005

@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Nestoria::Search::MetadataResponse;
 {
-  $WebService::Nestoria::Search::MetadataResponse::VERSION = '1.021004';
+  $WebService::Nestoria::Search::MetadataResponse::VERSION = '1.021005';
 }
 
 =head1 NAME
@@ -12,7 +12,7 @@ WebService::Nestoria::Search::MetadataResponse - Container object for the result
 
 =head1 VERSION
 
-version 1.021004
+version 1.021005
 
 This package is used by WebService::Nestoria::Search and a WebService::Nestoria::Search::MetadataResponse object should never need to be explicitly created by the user.
 
