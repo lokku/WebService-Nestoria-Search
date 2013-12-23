@@ -71,6 +71,7 @@ my @fields = qw(
     bedroom_number
     bathroom_number
     room_number
+    floor
     size
     size_unit
     land_size
