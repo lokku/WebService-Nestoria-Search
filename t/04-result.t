@@ -17,7 +17,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 41;
+plan tests => 42;
 my ($ns, $result);
 
 ##########################################################################
@@ -71,6 +71,7 @@ my @fields = qw(
     bedroom_number
     bathroom_number
     room_number
+    floor
     size
     size_unit
     land_size

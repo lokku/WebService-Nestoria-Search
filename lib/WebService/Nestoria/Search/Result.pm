@@ -48,6 +48,7 @@ as follows:
     get_bedroom_number
     get_bathroom_number
     get_room_number
+    get_floor
     get_size
     get_size_unit
     get_land_size
@@ -88,6 +89,7 @@ sub get_summary                   { shift->{data}{listing}{summary}             
 sub get_bedroom_number            { shift->{data}{listing}{bedroom_number}                }
 sub get_bathroom_number           { shift->{data}{listing}{bathroom_number}               }
 sub get_room_number               { shift->{data}{listing}{room_number}                   }
+sub get_floor                     { shift->{data}{listing}{floor}                         }
 sub get_size                      { shift->{data}{listing}{size}                          }
 sub get_size_unit                 { shift->{data}{listing}{size_unit}                     }
 sub get_land_size                 { shift->{data}{listing}{land_size}                     }
@@ -134,6 +136,7 @@ Returns a hashref containing the details of the listing with keys exactly as the
         'bedroom_number' => '4',
         'thumb_height' => '60',
         'datasource_name' => 'PropertyFinder'
+        'floor' => '2',
     };
 
 =cut
