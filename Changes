@@ -1,5 +1,9 @@
 Revision history for perl module WebService::Nestoria::Search
 
+1.22.1 2014-04-08
+    * Added support for num_rooms in MetadataResponse
+    * Small POD fixes
+
 1.22.0 2013-12-23
     * Updated POD for Search - API version 1.22 is suported
     * Added Search::Result::get_floor()
