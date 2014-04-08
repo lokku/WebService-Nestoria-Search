@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Nestoria::Search::MetadataResponse;
 {
-  $WebService::Nestoria::Search::MetadataResponse::VERSION = '1.022000';
+  $WebService::Nestoria::Search::MetadataResponse::VERSION = '1.022001';
 }
 
 =head1 NAME
@@ -12,7 +12,7 @@ WebService::Nestoria::Search::MetadataResponse - Container object for the result
 
 =head1 VERSION
 
-version 1.022000
+version 1.022001
 
 This package is used by WebService::Nestoria::Search and a WebService::Nestoria::Search::MetadataResponse object should never need to be explicitly created by the user.
 
@@ -58,7 +58,7 @@ sub get_metadata {
 
 =head2 get_average_price
 
-Returns the average for properties which match the number of bedrooms, property type and listing type, for the given month.
+Returns the average for properties which match the number of rooms or bedrooms (come countries use rooms, some countries bedrooms), property type and listing type, for the given month.
 
     my %options = (
         # required
@@ -70,8 +70,9 @@ Returns the average for properties which match the number of bedrooms, property 
         month => 'January',             # eg. '1', 'Jan' or 'January'
 
         # optional
-        num_beds => 3                   # integer
-        per_sqm => 1,                   # price returned per square metre
+        num_beds  => 3,                 # integer
+        num_rooms => 2,                 # integer 
+        per_sqm   => 1,                 # price returned per square metre
     );
     my $average_price = $metadata->get_average_price(%options);
 
@@ -133,6 +134,9 @@ sub _get_metadata_name {
 
     if ($params{'num_beds'}) {
         $name .= $params{'num_beds'} . "bed_";
+    }
+    elsif ($params{'num_rooms'}) {
+        $name .= $params{'num_rooms'} . "room_";
     }
 
     $name .= "property_";
@@ -226,13 +230,13 @@ sub _month_to_yyyymmdd {
 
 =head1 Copyright
 
-Copyright (C) 2009 Lokku Ltd.
+Copyright (C) 2014 Lokku Ltd.
 
 =head1 Author
 
 Alex Balhatchet (alex@lokku.com)
 
-Patches supplied by Yoav Felberbaum and Alistair Francis.
+Patches supplied by Yoav Felberbaum, Alistair Francis, Ed Freyfogle.
 
 =cut
 

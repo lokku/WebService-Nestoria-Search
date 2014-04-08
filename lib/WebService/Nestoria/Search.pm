@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Nestoria::Search;
 {
-  $WebService::Nestoria::Search::VERSION = '1.022000';
+  $WebService::Nestoria::Search::VERSION = '1.022001';
 }
 
 use Carp;
@@ -17,7 +17,7 @@ WebService::Nestoria::Search - Perl interface to the Nestoria Search public API.
 
 =head1 VERSION
 
-version 1.022000
+version 1.022001
 
 =head1 SYNOPSIS
 
@@ -648,21 +648,23 @@ Currently the available countries are:
 
 =over 4
 
-=item * uk - United Kingdom
-
-=item * es - Spain
-
-=item * it - Italy
+=item * br - Brazil
 
 =item * de - Germany
 
-=item * fr - France
+=item * es - Spain
 
-=item * br - Brazil
+=item * fr - France
 
 =item * in - India
 
+=item * it - Italy
+
+=item * uk - United Kingdom
+
 =back
+
+Australia (au) supports the metadata requests but not listings requests
 
 =head1 Non-OO
 
@@ -672,13 +674,13 @@ It is possible to run WebService::Nestoria::Search functions without creating an
 
 =head1 Copyright
 
-Copyright (C) 2009 Lokku Ltd.
+Copyright (C) 2014 Lokku Ltd.
 
 =head1 Author
 
 Alex Balhatchet (alex@lokku.com)
 
-Patches supplied by Yoav Felberbaum and Alistair Francis.
+Patches supplied by Yoav Felberbaum, Alistair Francis, Ed Freyfogle
 
 =head1 Acknowledgements
 
