@@ -74,7 +74,7 @@ plan tests => 15;
         ok(
             $metadata->get_average_price(
                 'range'        => 'monthly',
-                'year'         => 2011,
+                'year'         => 2013,
                 'month'        => 9,
                 'listing_type' => 'buy',
             ),
