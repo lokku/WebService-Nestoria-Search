@@ -71,14 +71,33 @@ plan tests => 15;
             'place_name' => $place_name,
         );
 
+        my ($prev_month, $prev_months_year) = do {
+            my (undef, undef, undef, $day, $month, $year, undef, undef, undef) = localtime();
+            $month += 1;
+            $year += 1900;
+
+            my $months_back = 1;
+            if ($day < 7) {
+                $months_back = 2;
+            }
+
+            my $prev_month = $month - $months_back;
+            my $prev_months_year = $year;
+            if ($prev_month < 1) {
+                $prev_month = 13 - $months_back;
+                $prev_months_year = $prev_months_year - 1;
+            }
+
+            ($prev_month, $prev_months_year);
+        };
         ok(
             $metadata->get_average_price(
                 'range'        => 'monthly',
-                'year'         => 2011,
-                'month'        => 9,
+                'year'         => $prev_months_year,
+                'month'        => $prev_month,
                 'listing_type' => 'buy',
             ),
-            "metadata - got average price for $place_name, $country"
+            "metadata - got average price for $place_name, $country, $prev_months_year-$prev_month"
         );
     }
 }

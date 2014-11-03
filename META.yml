@@ -3,27 +3,27 @@ abstract: 'WebService::Nestoria::Search provides a Perl interface to the public 
 author:
   - 'Alex Balhatchet (alex@lokku.com)'
 build_requires:
-  List::MoreUtils: 0
-  Test::More: 0
-  Test::Warn: 0
+  List::MoreUtils: '0'
+  Test::More: '0'
+  Test::Warn: '0'
 configure_requires:
-  ExtUtils::MakeMaker: 6.30
+  ExtUtils::MakeMaker: '0'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142690'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: WebService-Nestoria-Search
 requires:
-  Carp: 0
-  HTTP::Request: 0
-  JSON: 2.0
-  LWP::UserAgent: 0
-  URI: 0
-  XML::Simple: 0
-  version: 0
+  Carp: '0'
+  HTTP::Request: '0'
+  JSON: '2.0'
+  LWP::UserAgent: '0'
+  URI: '0'
+  XML::Simple: '0'
+  version: '0'
 resources:
   homepage: http://www.nestoria.co.uk/help/api
   repository: git://github.com/lokku/WebService-Nestoria-Search.git
-version: 1.022001
+version: '1.022004'

@@ -2,17 +2,14 @@ use strict;
 use warnings;
 
 package WebService::Nestoria::Search::Result;
-{
-  $WebService::Nestoria::Search::Result::VERSION = '1.022001';
-}
-
+$WebService::Nestoria::Search::Result::VERSION = '1.022004';
 =head1 NAME
 
 WebService::Nestoria::Search::Result - Container object for a WebService::Nestoria::Search result.
 
 =head1 VERSION
 
-version 1.022001
+version 1.022004
 
 Contains all the information received about a single property listing and many functions for outputting the information.
 
