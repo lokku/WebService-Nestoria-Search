@@ -1,5 +1,8 @@
 Revision history for perl module WebService::Nestoria::Search
 
+1.22.4 2014-11-03
+    * Yet another metadata test bug fix
+
 1.22.3 2014-10-06
     * Better metadata test bug fix ;-)
 
