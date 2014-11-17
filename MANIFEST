@@ -7,6 +7,7 @@ META.json
 META.yml
 Makefile.PL
 README
+WebService-Nestoria-Search-1.022005/.travis.yml
 dist.ini
 lib/WebService/Nestoria/Search.pm
 lib/WebService/Nestoria/Search/MetadataResponse.pm
