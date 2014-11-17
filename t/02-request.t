@@ -48,7 +48,7 @@ like($url, qr{^http://api[.]nestoria[.]co[.]uk/api[?]}, 'got correct url');
 $req = $ns->request('place_name' => 'soho', 'encoding' => 'json');
 $response = $req->fetch;
 isa_ok($response, 'WebService::Nestoria::Search::Response');
-like($response->get_json, qr/"response":{/, 'got json back');
+like($response->get_json, qr/"response":\{/, 'got json back');
 
 $req = $ns->request('place_name' => 'soho', 'encoding' => 'xml');
 $response = $req->fetch;

@@ -41,7 +41,7 @@ ok(
 ##
 foreach my $f (qw(get_raw get_json get_xml)) {
     my $raw = $response->$f;
-    like($raw, qr/"response":{/, 'got expected raw data');
+    like($raw, qr/"response":\{/, 'got expected raw data');
 }
 
 ##########################################################################

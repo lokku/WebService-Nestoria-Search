@@ -1,5 +1,11 @@
 Revision history for perl module WebService::Nestoria::Search
 
+1.22.5 2014-11-17
+    * Marked metadata tests in 06-countries.t as TODO
+      Because BR metadata for October is broken
+    * Fixed deprecated syntax bug for Perl 5.21.1
+      Thanks Slaven Rezic for the heads up
+
 1.22.4 2014-11-03
     * Yet another metadata test bug fix
 
