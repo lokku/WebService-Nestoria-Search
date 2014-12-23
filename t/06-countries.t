@@ -15,7 +15,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 15;
+plan tests => 16;
 
 ##########################################################################
 ## search_listings
@@ -29,6 +29,7 @@ plan tests => 15;
         'fr' => 'lyon',
         'br' => 'sao-paulo',
         'in' => 'mumbai',
+        'mx' => 'santa-maria-atzompa',
     );
 
     foreach my $country (sort keys %countries) {
@@ -91,17 +92,14 @@ plan tests => 15;
             ($prev_month, $prev_months_year);
         };
 
-        TODO: {
-            local $TODO = "BR metadata for October didn't get generated property :-(";
-            ok(
-                $metadata->get_average_price(
-                    'range'        => 'monthly',
-                    'year'         => $prev_months_year,
-                    'month'        => $prev_month,
-                    'listing_type' => 'buy',
-                ),
-                "metadata - got average price for $place_name, $country, $prev_months_year-$prev_month"
-            );
-        };
+        ok(
+            $metadata->get_average_price(
+                'range'        => 'monthly',
+                'year'         => $prev_months_year,
+                'month'        => $prev_month,
+                'listing_type' => 'buy',
+            ),
+            "metadata - got average price for $place_name, $country, $prev_months_year-$prev_month"
+        );
     }
 }
