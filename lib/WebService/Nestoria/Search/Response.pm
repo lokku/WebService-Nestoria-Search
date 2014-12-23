@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package WebService::Nestoria::Search::Response;
-$WebService::Nestoria::Search::Response::VERSION = '1.022005';
+$WebService::Nestoria::Search::Response::VERSION = '1.022006';
 use WebService::Nestoria::Search::Result;
 use Carp;
 use URI;
@@ -13,7 +13,7 @@ WebService::Nestoria::Search::Response - Container object for the result set of 
 
 =head1 VERSION
 
-version 1.022005
+version 1.022006
 
 This package is used by WebService::Nestoria::Search and a WebService::Nestoria::Search::Response object should never need to be explicitly created by the user.
 
