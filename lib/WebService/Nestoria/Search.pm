@@ -654,6 +654,8 @@ Currently the available countries are:
 
 =item * it - Italy
 
+=item * mx - Mexico
+
 =item * uk - United Kingdom
 
 =back
