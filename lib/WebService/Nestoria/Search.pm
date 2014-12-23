@@ -153,14 +153,15 @@ my %Config = (
     },
 
     'Urls' => {
-        'uk'                  => 'http://api.nestoria.co.uk/api',
-        'es'                  => 'http://api.nestoria.es/api',
-        'de'                  => 'http://api.nestoria.de/api',
-        'it'                  => 'http://api.nestoria.it/api',
-        'fr'                  => 'http://api.nestoria.fr/api',
         'au'                  => 'http://api.nestoria.com.au/api',
         'br'                  => 'http://api.nestoria.com.br/api',
+        'de'                  => 'http://api.nestoria.de/api',
+        'es'                  => 'http://api.nestoria.es/api',
+        'fr'                  => 'http://api.nestoria.fr/api',
         'in'                  => 'http://api.nestoria.in/api',
+        'it'                  => 'http://api.nestoria.it/api',
+        'mx'                  => 'http://api.nestoria.mx/api',
+        'uk'                  => 'http://api.nestoria.co.uk/api',
     },
 );
 
