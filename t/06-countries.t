@@ -15,7 +15,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 15;
+plan tests => 16;
 
 ##########################################################################
 ## search_listings
@@ -29,6 +29,7 @@ plan tests => 15;
         'fr' => 'lyon',
         'br' => 'sao-paulo',
         'in' => 'mumbai',
+        'mx' => 'santa-maria-atzompa',
     );
 
     foreach my $country (sort keys %countries) {
