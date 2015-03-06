@@ -54,12 +54,12 @@ ok($average_price, "no paramters - average price - $average_price");
 my @parameters = apply { $_->{listing_type} = 'buy'; $_->{year} = '2014' } (
     ## monthly
     { 'range' => 'monthly', 'month' => '4',                 },
-    { 'range' => 'monthly', 'month' => 'Feb',               },
-    { 'range' => 'monthly', 'month' => 'March',             },
+    { 'range' => 'monthly', 'month' => 'Sep',               },
+    { 'range' => 'monthly', 'month' => 'Nov',               },
 
     ## other parmaters
-    { 'range' => 'monthly', 'month' => 4, 'num_beds' => 3,  },
-    { 'range' => 'monthly', 'month' => 4, 'per_sqm' => 1    },
+    { 'range' => 'monthly', 'month' => 11, 'num_beds' => 3,  },
+    { 'range' => 'monthly', 'month' =>  8, 'per_sqm'  => 1   },
 );
 
 foreach my $parameters (@parameters) {

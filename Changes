@@ -1,5 +1,8 @@
 Revision history for perl module WebService::Nestoria::Search
 
+1.22.7 2015-03-06
+    * Metadata test fixes
+
 1.22.6 2014-12-23
     * Add support for Mexico search listings API
       Mexico metadata will come in 2015
