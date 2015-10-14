@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package WebService::Nestoria::Search::Request;
-$WebService::Nestoria::Search::Request::VERSION = '1.022007';
+$WebService::Nestoria::Search::Request::VERSION = '1.022008';
 use WebService::Nestoria::Search::Response;
 use JSON;
 use XML::Simple;
@@ -16,7 +16,7 @@ WebService::Nestoria::Search::Request - Container object for a WebService::Nesto
 
 =head1 VERSION
 
-version 1.022007
+version 1.022008
 
 This package is used by WebService::Nestoria::Search and a C<Request> object should never need to be explicitly created by the user.
 

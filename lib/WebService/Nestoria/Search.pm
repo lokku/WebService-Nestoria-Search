@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package WebService::Nestoria::Search;
-$WebService::Nestoria::Search::VERSION = '1.022007';
+$WebService::Nestoria::Search::VERSION = '1.022008';
 use Carp;
 use URI;
 use WebService::Nestoria::Search::Request;
@@ -14,7 +14,7 @@ WebService::Nestoria::Search - Perl interface to the Nestoria Search public API.
 
 =head1 VERSION
 
-version 1.022007
+version 1.022008
 
 =head1 SYNOPSIS
 
