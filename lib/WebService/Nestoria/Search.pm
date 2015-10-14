@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use version;
 
 package WebService::Nestoria::Search;
 $WebService::Nestoria::Search::VERSION = '1.022008';
@@ -122,7 +123,12 @@ C<@listings> is an array of WebService::Nestoria::Search::Result objects.
 ## Configuration details for searching the Nestoria listings database
 ##
 my %Config = (
-    'AppId'                   => "WebService::Nestoria::Search $WebService::Nestoria::Search::VERSION",
+    'AppId'                   => sprintf("%s %s",
+        __PACKAGE__,
+        $WebService::Nestoria::Search::VERSION
+            ? version->parse($WebService::Nestoria::Search::VERSION)->normal
+            : ""
+    ),
     'MaxResults'              => '1000',
 
     ## keys indicate the universe of allowable arguments
