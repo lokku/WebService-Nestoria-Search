@@ -39,7 +39,7 @@
       "test" : {
          "requires" : {
             "List::MoreUtils" : "0",
-            "Test::More" : "0",
+            "Test::More" : "0.92",
             "Test::Warn" : "0"
          }
       }
@@ -53,6 +53,6 @@
          "web" : "http://github.com/lokku/WebService-Nestoria-Search"
       }
    },
-   "version" : "1.022009"
+   "version" : "1.022010"
 }
 

@@ -14,16 +14,10 @@ if (! WebService::Nestoria::Search->test_connection) {
 }
 
 ##########################################################################
-## plan
-##
-plan tests => 11;
-my $ns;
-
-##########################################################################
 ## validation
 ##
 
-$ns = WebService::Nestoria::Search->new(
+my $ns = WebService::Nestoria::Search->new(
     'country'  => 'uk',
     'warnings' => 1,
 );
@@ -55,6 +49,8 @@ foreach my $code (sort { $a <=> $b } keys %response_code_tests) {
         "got code $code for request - " . sr($query)
     );
 }
+
+done_testing;
 
 sub sr {
     my $q = shift;

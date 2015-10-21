@@ -1,5 +1,9 @@
 Revision history for perl module WebService::Nestoria::Search
 
+1.22.10 2015-10-21
+    * Remove support for IT API
+    * Use Test::More 0.92 done_testing in test files
+
 1.22.9 2015-10-14
     * Prettier version printing in AppId / User-Agent
     * Remove support for MX API

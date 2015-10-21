@@ -15,14 +15,9 @@ if (! WebService::Nestoria::Search->test_connection) {
 }
 
 ##########################################################################
-## plan
-##
-plan tests => 42;
-my ($ns, $response);
-
-##########################################################################
 ## create WebService::Nestoria::Search::Response object
 ##
+my ($ns, $response);
 $ns = WebService::Nestoria::Search->new(
     'country'           => 'uk',
     'encoding'          => 'json',
@@ -146,3 +141,5 @@ isa_ok(
     'WebService::Nestoria::Search::Result',
     'got next result'
 );
+
+done_testing;

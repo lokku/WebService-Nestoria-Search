@@ -15,15 +15,9 @@ if (! WebService::Nestoria::Search->test_connection) {
 }
 
 ##########################################################################
-## plan
-##
-plan tests => 45;
-my $ns;
-
-##########################################################################
 ## create WebService::Nestoria::Search object
 ##
-$ns = WebService::Nestoria::Search->new(
+my $ns = WebService::Nestoria::Search->new(
     'country'           => 'uk',
     'encoding'          => 'json',
 );
@@ -147,3 +141,5 @@ $ns = WebService::Nestoria::Search->new(
 my @keywords = $ns->keywords;
 ok(@keywords, 'got keywords list');
 ok(scalar(grep {$_ eq 'garden'} @keywords), "found 'garden' keyword");
+
+done_testing;

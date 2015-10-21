@@ -3,7 +3,7 @@ use warnings;
 use version;
 
 package WebService::Nestoria::Search;
-$WebService::Nestoria::Search::VERSION = '1.022009';
+$WebService::Nestoria::Search::VERSION = '1.022010';
 use Carp;
 use URI;
 use WebService::Nestoria::Search::Request;
@@ -15,7 +15,7 @@ WebService::Nestoria::Search - Perl interface to the Nestoria Search public API.
 
 =head1 VERSION
 
-version 1.022009
+version 1.022010
 
 =head1 SYNOPSIS
 
@@ -169,7 +169,6 @@ my %Config = (
         'es'                  => 'http://api.nestoria.es/api',
         'fr'                  => 'http://api.nestoria.fr/api',
         'in'                  => 'http://api.nestoria.in/api',
-        'it'                  => 'http://api.nestoria.it/api',
         'uk'                  => 'http://api.nestoria.co.uk/api',
     },
 );
@@ -661,15 +660,13 @@ Currently the available countries are:
 
 =item * in - India
 
-=item * it - Italy
-
 =item * uk - United Kingdom
 
 =back
 
 Australia (au) supports the metadata requests but not listings requests
 
-Mexico (mx) currently has no API support.
+Mexico (mx) and Italy (it) currently have no API support.
 
 =head1 Non-OO
 

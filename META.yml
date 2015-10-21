@@ -4,7 +4,7 @@ author:
   - 'Alex Balhatchet (alex@lokku.com)'
 build_requires:
   List::MoreUtils: '0'
-  Test::More: '0'
+  Test::More: '0.92'
   Test::Warn: '0'
 configure_requires:
   ExtUtils::MakeMaker: '0'
@@ -26,4 +26,4 @@ requires:
 resources:
   homepage: http://www.nestoria.co.uk/help/api
   repository: git://github.com/lokku/WebService-Nestoria-Search.git
-version: '1.022009'
+version: '1.022010'

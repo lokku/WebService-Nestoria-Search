@@ -6,16 +6,10 @@ use Test::Warn;
 use WebService::Nestoria::Search Warnings => 1;
 
 ##########################################################################
-## plan
-##
-plan tests => 95;
-my $ns;
-
-##########################################################################
 ## validation
 ##
 
-$ns = WebService::Nestoria::Search->new(
+my $ns = WebService::Nestoria::Search->new(
     'country'  => 'uk',
     'warnings' => 1,
 );
@@ -23,7 +17,7 @@ $ns = WebService::Nestoria::Search->new(
 my %validation_tests = (
     'country'             => {
         'bad'  => [ 'fake' ],
-        'good' => [ qw(uk es it de fr br in) ],
+        'good' => [ qw(uk es de fr br in) ],
     },
     'place_name'          => {
         'bad'  => [ undef ],
@@ -116,3 +110,5 @@ foreach my $arg (sort keys %validation_tests) {
         }
     }
 }
+
+done_testing;
