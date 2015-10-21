@@ -15,14 +15,9 @@ if (! WebService::Nestoria::Search->test_connection) {
 }
 
 ##########################################################################
-## plan
-##
-plan tests => 42;
-my ($ns, $result);
-
-##########################################################################
 ## create WebService::Nestoria::Search::Result object
 ##
+my ($ns, $result);
 $ns = WebService::Nestoria::Search->new(
     'country'           => 'de',
     'encoding'          => 'json',
@@ -108,3 +103,5 @@ foreach my $field (@fields) {
         print "result: $rv\n";
     }
 }
+
+done_testing;

@@ -15,14 +15,9 @@ if (! WebService::Nestoria::Search->test_connection) {
 }
 
 ##########################################################################
-## plan
-##
-plan tests => 10;
-my ($ns, $metadata);
-
-##########################################################################
 ## create WebService::Nestoria::Search::MetadataResponse object
 ##
+my ($ns, $metadata);
 $ns = WebService::Nestoria::Search->new(
     'country'           => 'fr',
     'encoding'          => 'json',
@@ -81,3 +76,5 @@ foreach my $parameters (@parameters) {
           . ( defined($average_price) ? $average_price : 'fail' )
     );
 }
+
+done_testing;

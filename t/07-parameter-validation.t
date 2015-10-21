@@ -6,16 +6,10 @@ use Test::Warn;
 use WebService::Nestoria::Search Warnings => 1;
 
 ##########################################################################
-## plan
-##
-plan tests => 94;
-my $ns;
-
-##########################################################################
 ## validation
 ##
 
-$ns = WebService::Nestoria::Search->new(
+my $ns = WebService::Nestoria::Search->new(
     'country'  => 'uk',
     'warnings' => 1,
 );
@@ -116,3 +110,5 @@ foreach my $arg (sort keys %validation_tests) {
         }
     }
 }
+
+done_testing;

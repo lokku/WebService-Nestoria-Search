@@ -15,14 +15,10 @@ if (! WebService::Nestoria::Search->test_connection) {
 }
 
 ##########################################################################
-## plan
-##
-plan tests => 14;
-my ($ns, $req, $response);
-
-##########################################################################
 ## create WebService::Nestoria::Search::Request object
 ##
+my ($ns, $req, $response);
+
 $ns = WebService::Nestoria::Search->new(
     'country'           => 'uk',
     'encoding'          => 'json',
@@ -94,3 +90,5 @@ is_deeply(
     { $expected_last_uri->query_form          },
     'got correct url for last request'
 );
+
+done_testing;
