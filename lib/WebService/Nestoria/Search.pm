@@ -165,7 +165,6 @@ my %Config = (
         'es'                  => 'http://api.nestoria.es/api',
         'fr'                  => 'http://api.nestoria.fr/api',
         'in'                  => 'http://api.nestoria.in/api',
-        'it'                  => 'http://api.nestoria.it/api',
         'uk'                  => 'http://api.nestoria.co.uk/api',
     },
 );
@@ -657,15 +656,13 @@ Currently the available countries are:
 
 =item * in - India
 
-=item * it - Italy
-
 =item * uk - United Kingdom
 
 =back
 
 Australia (au) supports the metadata requests but not listings requests
 
-Mexico (mx) currently has no API support.
+Mexico (mx) and Italy (it) currently have no API support.
 
 =head1 Non-OO
 

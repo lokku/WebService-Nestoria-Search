@@ -15,7 +15,7 @@ if (! WebService::Nestoria::Search->test_connection) {
 ##########################################################################
 ## plan
 ##
-plan tests => 15;
+plan tests => 13;
 
 ##########################################################################
 ## search_listings
@@ -24,7 +24,6 @@ plan tests => 15;
     my %countries = (
         'uk' => 'oxford',
         'es' => 'bilbao',
-        'it' => 'roma',
         'de' => 'koeln',
         'fr' => 'lyon',
         'br' => 'sao-paulo',
@@ -52,7 +51,6 @@ plan tests => 15;
     my %countries = (
         'uk' => 'oxford',
         'es' => 'bilbao',
-        'it' => 'roma',
         'de' => 'koeln',
         'fr' => 'lyon',
         'au' => 'newcastle',
