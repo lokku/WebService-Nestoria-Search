@@ -74,7 +74,7 @@ sub fetch {
     $UA ||= LWP::UserAgent->new(agent => $self->{AppId});
 
     my $response = $UA->get($WebService::Nestoria::Search::RecentRequestUrl);
-    sleep 2;
+    sleep $WebService::Nestoria::Search::SleepTime;
 
     unless ( $response && $response->is_success ) {
         $@ = "couldn't make request";

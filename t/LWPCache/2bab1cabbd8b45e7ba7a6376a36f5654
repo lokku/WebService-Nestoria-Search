@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Connection: close
+Date: Fri, 04 Dec 2015 17:39:41 GMT
+Server: Apache
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+Client-Response-Num: 1
+Client-Transfer-Encoding: chunked
+Set-Cookie: x=MDg1VWxON1VpUUJjRDAxNDQ5MjUwNzgxcoA; domain=.nestoria.co.uk; path=/; expires=Mon, 01-Dec-2025 17:39:41 GMT
+
+{"request":{"country":"uk","language":"en","location":"newport","num_res":"20","offset":0,"output":"json_xs","page":1,"pretty":"0","product_type":"realestate","property_type":"property","size_type":"gross","size_unit":"m2","sort":"nestoria_rank","warnings":"1"},"response":{"application_response_code":"200","application_response_text":"ambiguous location","attribution":{"img_height":22,"img_url":"http://s.uk.nestoria.nestimg.com/i/realestate/all/all/pbr.png","img_width":183,"link_to_img":"http://www.nestoria.com"},"created_http":"Fri, 04 Dec 2015 17:39:41 GMT","created_unix":1449250781,"locations":[{"center_lat":51.613857,"center_long":-3.027464,"long_title":"Newport, NP","place_name":"newport_np","title":"Newport"},{"center_lat":50.697757,"center_long":-1.287981,"long_title":"Newport, PO","place_name":"newport_po","title":"Newport"},{"center_lat":52.019688,"center_long":-4.850229,"long_title":"Newport, SA","place_name":"newport_sa","title":"Newport"},{"center_lat":52.765836,"center_long":-2.402322,"long_title":"Newport, TF","place_name":"newport_tf","title":"Newport"},{"center_lat":51.677925,"center_long":-2.433971,"long_title":"Newport, Berkeley","place_name":"newport_berkeley","title":"Newport"},{"center_lat":53.753108,"center_long":-0.653983,"long_title":"Newport, Brough","place_name":"newport_brough","title":"Newport"},{"center_lat":51.98407,"center_long":0.21462,"long_title":"Newport, Saffron Walden","place_name":"newport_saffron-walden","title":"Newport"},{"center_lat":51.980029,"center_long":0.214723,"long_title":"Newport Railway Station, Essex","place_name":"newport-railway-station_essex","title":"Newport Railway Station"},{"center_lat":51.583407,"center_long":-3.005928,"long_title":"Newport Railway Station, South Wales","place_name":"newport-railway-station_south-wales","title":"Newport Railway Station"}],"sort":"nestoria_rank","status_code":"200","status_text":"OK","thanks":"For using the Nestoria API.","we_are_hiring":"http://lokku.com/#jobs"}}

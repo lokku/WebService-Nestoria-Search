@@ -171,6 +171,7 @@ my %Config = (
 
 ## filled in Search/Request.pm
 our $RecentRequestUrl;
+our $SleepTime = 2;
 
 my %GlobalDefaults = (
     'warnings'                => '1',
@@ -649,10 +650,38 @@ sub override_user_agent {
         $UA = $class;
     }
 
-    WebService::Nestoria::Search::Request::UA = $UA;
+    $WebService::Nestoria::Search::Request::UA = $UA;
 
     return;
 }
+
+=head2 override_sleep_time
+
+Takes a time in seconds to sleep between each request. The default is two
+(2) seconds.
+
+Note that the T&Cs of the Nestoria API explicitly request 1 second between
+requests. To live this requirement contact Nestoria.
+
+    WebService::Nestoria::Search->override_sleep_time(1);
+
+=cut
+
+sub override_sleep_time {
+    my $class = shift;
+    my $sleep_time = shift;
+
+    # allow getting called as ::override_user_agent() instead of
+    # ->override_user_agent() - we're nice like that :-)
+    if (!defined($sleep_time) && !ref($class) && $class =~ m/^\d+$/) {
+        $sleep_time = $class;
+    }
+
+    $WebService::Nestoria::Search::SleepTime = $sleep_time;
+
+    return;
+}
+
 
 =head1 Warnings
 
