@@ -4,7 +4,7 @@ author:
   - 'Alex Balhatchet (alex@lokku.com)'
 build_requires:
   List::MoreUtils: '0'
-  Test::LWP::Recorder: '0.1'
+  Test::LWP::Recorder: '0'
   Test::More: '0.92'
   Test::Warn: '0'
 configure_requires:

@@ -27,7 +27,7 @@ my %WriteMakefileArgs = (
   },
   "TEST_REQUIRES" => {
     "List::MoreUtils" => 0,
-    "Test::LWP::Recorder" => "0.1",
+    "Test::LWP::Recorder" => 0,
     "Test::More" => "0.92",
     "Test::Warn" => 0
   },
@@ -45,7 +45,7 @@ my %FallbackPrereqs = (
   "JSON" => "2.0",
   "LWP::UserAgent" => 0,
   "List::MoreUtils" => 0,
-  "Test::LWP::Recorder" => "0.1",
+  "Test::LWP::Recorder" => 0,
   "Test::More" => "0.92",
   "Test::Warn" => 0,
   "URI" => 0,
