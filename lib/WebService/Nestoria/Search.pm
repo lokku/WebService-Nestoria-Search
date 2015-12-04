@@ -628,6 +628,32 @@ sub last_request_url {
     return $RecentRequestUrl;
 }
 
+=head2 override_user_agent
+
+Takes an LWP::UserAgent-ish object and uses that object for all requests.
+
+Note this is a class method so will affect all instances being used in your
+process.
+
+    WebService::Nestoria::Search->override_user_agent($UA);
+
+=cut
+
+sub override_user_agent {
+    my $class = shift;
+    my $UA = shift;
+
+    # allow getting called as ::override_user_agent() instead of
+    # ->override_user_agent() - we're nice like that :-)
+    if (!$UA && $class->can("get")) {
+        $UA = $class;
+    }
+
+    WebService::Nestoria::Search::Request::UA = $UA;
+
+    return;
+}
+
 =head1 Warnings
 
 Warnings is true by default, and means that errors are output to STDERR as well as being returned via $@. This can be turned off either on the C<use> line

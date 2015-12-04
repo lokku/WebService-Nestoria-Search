@@ -65,7 +65,7 @@ If the encoding is not 'json', the object returned will contain no WebService::N
 
 =cut
 
-my $UA;
+our $UA;
 sub fetch {
     my $self = shift;
 
