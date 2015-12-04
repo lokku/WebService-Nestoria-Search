@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Connection: close
+Date: Fri, 04 Dec 2015 17:12:21 GMT
+Server: Apache
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+Client-Response-Num: 1
+Client-Transfer-Encoding: chunked
+Set-Cookie: x=MDc3OWxLREhCaFN6SjAxNDQ5MjQ5MTQxyDA; domain=.nestoria.co.uk; path=/; expires=Mon, 01-Dec-2025 17:12:21 GMT
+
+{"request":{"country":"uk","language":"en","location":"soho","num_res":"20","offset":980,"output":"json_xs","page":"50","pretty":"0","product_type":"realestate","property_type":"property","size_type":"gross","size_unit":"m2","sort":"nestoria_rank","warnings":"1"},"response":{"application_response_code":"901","application_response_text":"pagination out of range","attribution":{"img_height":22,"img_url":"http://s.uk.nestoria.nestimg.com/i/realestate/all/all/pbr.png","img_width":183,"link_to_img":"http://www.nestoria.com"},"created_http":"Fri, 04 Dec 2015 17:12:21 GMT","created_unix":1449249141,"locations":[{"center_lat":51.512588,"center_long":-0.132946,"long_title":"Soho","place_name":"soho","title":"Soho"}],"sort":"nestoria_rank","status_code":"200","status_text":"OK","thanks":"For using the Nestoria API.","we_are_hiring":"http://lokku.com/#jobs"}}

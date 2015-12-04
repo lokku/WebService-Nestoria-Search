@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package WebService::Nestoria::Search::Request;
-$WebService::Nestoria::Search::Request::VERSION = '1.022010';
+$WebService::Nestoria::Search::Request::VERSION = '1.022011';
 use WebService::Nestoria::Search::Response;
 use JSON;
 use XML::Simple;
@@ -16,7 +16,7 @@ WebService::Nestoria::Search::Request - Container object for a WebService::Nesto
 
 =head1 VERSION
 
-version 1.022010
+version 1.022011
 
 This package is used by WebService::Nestoria::Search and a C<Request> object should never need to be explicitly created by the user.
 
@@ -69,7 +69,7 @@ If the encoding is not 'json', the object returned will contain no WebService::N
 
 =cut
 
-my $UA;
+our $UA;
 sub fetch {
     my $self = shift;
 
@@ -78,7 +78,7 @@ sub fetch {
     $UA ||= LWP::UserAgent->new(agent => $self->{AppId});
 
     my $response = $UA->get($WebService::Nestoria::Search::RecentRequestUrl);
-    sleep 2;
+    sleep $WebService::Nestoria::Search::SleepTime;
 
     unless ( $response && $response->is_success ) {
         $@ = "couldn't make request";

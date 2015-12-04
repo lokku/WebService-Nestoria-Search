@@ -4,13 +4,7 @@ use warnings;
 use Test::More;
 use WebService::Nestoria::Search Warnings => 1;
 
-##########################################################################
-## require internet connection
-##
-if (! WebService::Nestoria::Search->test_connection) {
-    plan 'skip_all' => 'test requires internet connection';
-    exit 0;
-}
+require 't/lib/test-lwp-recorder.pl';
 
 ##########################################################################
 ## search_listings

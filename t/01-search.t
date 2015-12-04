@@ -6,13 +6,7 @@ use Test::Warn;
 use List::MoreUtils qw(apply);
 use WebService::Nestoria::Search Warnings => 1;
 
-##########################################################################
-## require internet connection
-##
-if (! WebService::Nestoria::Search->test_connection) {
-    plan 'skip_all' => 'test requires internet connection';
-    exit 0;
-}
+require 't/lib/test-lwp-recorder.pl';
 
 ##########################################################################
 ## create WebService::Nestoria::Search object
@@ -121,12 +115,13 @@ foreach my $parameters (@parameters) {
 $ns = WebService::Nestoria::Search->new(
     'country'           => 'uk',
     'encoding'          => 'json',
-    'place_name'        => 'soho',
+    'place_name'        => 'clerkenwell',
 );
 
 isa_ok($ns,                 'WebService::Nestoria::Search'                  );
 isa_ok($ns->request,        'WebService::Nestoria::Search::Request'         );
 isa_ok($ns->query,          'WebService::Nestoria::Search::Response'        );
+isa_ok(($ns->results)[0],   'WebService::Nestoria::Search::Result'          );
 isa_ok(($ns->results)[0],   'WebService::Nestoria::Search::Result'          );
 isa_ok($ns->metadata,       'WebService::Nestoria::Search::MetadataResponse');
 
