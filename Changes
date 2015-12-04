@@ -1,5 +1,10 @@
 Revision history for perl module WebService::Nestoria::Search
 
+1.22.11 2015-12-04
+    * Add override_user_agent() method
+    * Add override_sleep_time() method
+    * Use Test::LWP::Recorder for tests
+
 1.22.10 2015-10-21
     * Remove support for IT API
     * Use Test::More 0.92 done_testing in test files
