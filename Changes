@@ -1,5 +1,8 @@
 Revision history for perl module WebService::Nestoria::Search
 
+1.22.12 2015-12-07
+    * Fix 06-countries.t metadata test
+
 1.22.11 2015-12-04
     * Add override_user_agent() method
     * Add override_sleep_time() method
