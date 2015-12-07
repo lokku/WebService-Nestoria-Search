@@ -14,7 +14,6 @@ lib/WebService/Nestoria/Search/MetadataResponse.pm
 lib/WebService/Nestoria/Search/Request.pm
 lib/WebService/Nestoria/Search/Response.pm
 lib/WebService/Nestoria/Search/Result.pm
-t/.08-response-codes.t.swp
 t/00-compile.t
 t/01-search.t
 t/02-request.t
