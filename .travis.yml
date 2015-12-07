@@ -14,7 +14,8 @@ branches:
 
 before_install:
    # Prevent "Please tell me who you are" errors for certain DZIL configs
-   - git config --global user.name "kaoru"
+   - git config --global user.name "Alex Balhatchet"
+   - git config --global user.email "alex@lokku.com"
 
 # Use new container-based infrastructure by declaring that we don't need sudo
 sudo: false
