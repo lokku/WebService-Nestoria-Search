@@ -1,7 +1,7 @@
 
 
 This archive contains the distribution WebService-Nestoria-Search,
-version 1.022012:
+version 1.022013:
 
   WebService::Nestoria::Search provides a Perl interface to the public API of Nestoria, a vertical search engine for property listings.
 
