@@ -14,7 +14,6 @@ require 't/lib/test-lwp-recorder.pl';
         'uk' => 'oxford',
         'es' => 'bilbao',
         'de' => 'koeln',
-        'fr' => 'lyon',
         'br' => 'sao-paulo',
         'in' => 'mumbai',
     );
@@ -41,7 +40,6 @@ require 't/lib/test-lwp-recorder.pl';
         'uk' => 'oxford',
         'es' => 'bilbao',
         'de' => 'koeln',
-        'fr' => 'lyon',
         'au' => 'newcastle',
         'br' => 'sao-paulo',
         'in' => 'mumbai',

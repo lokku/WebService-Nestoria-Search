@@ -707,8 +707,6 @@ Currently the available countries are:
 
 =item * es - Spain
 
-=item * fr - France
-
 =item * in - India
 
 =item * uk - United Kingdom
@@ -717,7 +715,7 @@ Currently the available countries are:
 
 Australia (au) supports the metadata requests but not listings requests
 
-Mexico (mx) and Italy (it) currently have no API support.
+Mexico (mx), Italy (it) and France (fr) currently have no API support.
 
 =head1 Non-OO
 
