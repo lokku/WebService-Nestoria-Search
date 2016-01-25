@@ -17,7 +17,7 @@ my $ns = WebService::Nestoria::Search->new(
 my %validation_tests = (
     'country'             => {
         'bad'  => [ 'fake' ],
-        'good' => [ qw(uk es de fr br in) ],
+        'good' => [ qw(uk es de br in) ],
     },
     'place_name'          => {
         'bad'  => [ undef ],

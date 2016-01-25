@@ -13,13 +13,13 @@ require 't/lib/test-lwp-recorder.pl';
 ##
 my ($ns, $metadata);
 $ns = WebService::Nestoria::Search->new(
-    'country'           => 'fr',
+    'country'           => 'de',
     'encoding'          => 'json',
     'number_of_results' => 10,
 );
 ok($ns && ref($ns), 'created WebService::Nestoria::Search object');
 
-$metadata = $ns->metadata('place_name' => 'lyon');
+$metadata = $ns->metadata('place_name' => 'berlin');
 ok(
     $metadata && ref($metadata),
     'created WebService::Nestoria::Search::MetadataResponse object'
